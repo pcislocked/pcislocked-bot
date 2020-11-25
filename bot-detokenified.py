@@ -229,5 +229,8 @@ async def on_message(message):
         else:
             await message.add_reaction('<:tore:739979995094712504>')
             
+    if message.content.lower() == 'pu' or message.content.lower() == 'pü':
+        await message.channel.send('https://media.giphy.com/media/3o6Mb6n1senEQtbgdy/giphy.gif')
+        
 client.run(TOKEN)
 client.run(TOKEN)
