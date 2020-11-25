@@ -21,6 +21,8 @@ async def on_ready():
         f'{client.user} is connected to the following guild:\n'
         f'{guild.name}(id: {guild.id})'
     )
+    general = client.get_channel(629749813440675872)
+    await general.send(f"Bot yeniden başlatıldı.")
     verifych = client.get_channel(764880248336154664)
     
 @client.event
