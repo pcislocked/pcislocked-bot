@@ -5,7 +5,7 @@ import discord
 import string
 from datetime import datetime
 from discord.ext import commands
-TOKEN = "TÖRE"
+TOKEN = "nahcek.com"
 GUILD = "617801724345843742"
 intents = discord.Intents(messages=True, guilds=True, members = True)
 client = discord.Client(intents=intents)
@@ -76,7 +76,7 @@ async def on_message(message):
     if message.author == client.user:
         return
         
-    if message.content == 'sa' or message.content == 'SA' or message.content == 'sA' or message.content == 'Sa':
+    if message.content.lower() == 'sa' or message.content.lower() == 'SA' or message.content.lower() == 'sA' or message.content.lower() == 'Sa':
         verifych = client.get_channel(764880248336154664)
         if message.channel == verifych:
             ment=message.author.mention
@@ -86,128 +86,128 @@ async def on_message(message):
             await member.kick(reason="verify sa pcislockedbot")
             await message.channel.send(f"{ment} = atıldı 🕋")
         else:
-            n = random.randint(1,3)
-            if n == 1 or n == 3:
-                await message.channel.send("burası cami mi orospu evladı")
+            n = random.randint(1,8)
             if n == 2:
                 await message.channel.send("devam edersen sonun böyle olur orospu çocuğu https://www.youtube.com/watch?v=PHkL6xGGU_U")
-
-    if message.content == 'as' or message.content == 'AS' or message.content == 'As' or message.content == 'aS':
+            else:
+                await message.channel.send("burası cami mi orospu evladı")
+                
+    if message.content.lower() == 'as' or message.content.lower() == 'AS' or message.content.lower() == 'As' or message.content.lower() == 'aS':
         ment=message.author.mention
         await message.channel.send(f"ulan allahın selamını almayacaksın demedik mi {ment}")
 
-    if message.content == 'ass':
+    if message.content.lower() == 'ass':
         ment=message.author.mention
         await message.channel.send("lol")
 
-    if message.content == 'Selamın aleyküm' or message.content == 'selamın aleyküm' or message.content == 'Selamin aleyküm' or message.content == 'selamin aleyküm' or message.content == 'Selamın aleykum' or message.content == 'selamın aleykum' or message.content == 'Selamin aleykum' or message.content == 'selamin aleykum' or message.content == 'Selamın Aleyküm' or message.content == 'selamın Aleyküm' or message.content == 'Selamin Aleyküm' or message.content == 'selamin Aleyküm' or message.content == 'Selamın Aleykum' or message.content == 'selamın Aleykum' or message.content == 'Selamin Aleykum' or message.content == 'selamin Aleykum':
+    if message.content.lower() == 'Selamın aleyküm' or message.content.lower() == 'selamın aleyküm' or message.content.lower() == 'Selamin aleyküm' or message.content.lower() == 'selamin aleyküm' or message.content.lower() == 'Selamın aleykum' or message.content.lower() == 'selamın aleykum' or message.content.lower() == 'Selamin aleykum' or message.content.lower() == 'selamin aleykum' or message.content.lower() == 'Selamın Aleyküm' or message.content.lower() == 'selamın Aleyküm' or message.content.lower() == 'Selamin Aleyküm' or message.content.lower() == 'selamin Aleyküm' or message.content.lower() == 'Selamın Aleykum' or message.content.lower() == 'selamın Aleykum' or message.content.lower() == 'Selamin Aleykum' or message.content.lower() == 'selamin Aleykum':
         await message.channel.send("niye zorluyorsun orospu evladı ban yemek için mi")
         
-    if message.content == 'ataturk' or message.content == 'atatürk' or message.content == 'Ataturk' or message.content == 'Atatürk':
+    if message.content.lower() == 'ataturk' or message.content.lower() == 'atatürk' or message.content.lower() == 'Ataturk' or message.content.lower() == 'Atatürk':
         await message.channel.send("ağla https://www.youtube.com/watch?v=j1QK2jzy_LI")
 
-    if message.content == 'osmanlı' or message.content == 'osmanli' or message.content == 'Osmanlı' or message.content == 'Osmanli':
+    if message.content.lower() == 'osmanlı' or message.content.lower() == 'osmanli' or message.content.lower() == 'Osmanlı' or message.content.lower() == 'Osmanli':
         await message.channel.send("ağla https://www.youtube.com/watch?v=8Rvqc4-EWNE")
 
-    if message.content == 'khontkar':
+    if message.content.lower() == 'khontkar':
         await message.channel.send("trap müzik değil saçmalıktır")
 
-    if message.content == 'sik kırığı':
+    if message.content.lower() == 'sik kırığı':
         await message.channel.send("ben sana küfretmedim yarramın kafası")
 
-    if message.content == 'allah' or message.content == 'Allah' or message.content == '🕋':
+    if message.content.lower() == 'allah' or message.content.lower() == 'Allah' or message.content.lower() == '🕋':
         await message.channel.send("https://cdn.discordapp.com/attachments/629749813440675872/726923126537191424/atat.jpg")
 
-    if message.content == 'aw':
+    if message.content.lower() == 'aw':
         await message.channel.send("aw kullanmayın dejenere orospu çocukları")
 
-    if message.content == 'tomris':
+    if message.content.lower() == 'tomris':
         await message.add_reaction('♿')
         await message.channel.send("https://media.discordapp.net/attachments/742459973556240386/743092135791820830/unknown.png")
 
-    if message.content == 'tunahan':
+    if message.content.lower() == 'tunahan':
         await message.add_reaction('🇬')
         await message.add_reaction('🇦')
         await message.add_reaction('🇾')
 
-    if message.content == 'Fortnite' or message.content == 'fortnite':
+    if message.content.lower() == 'Fortnite' or message.content.lower() == 'fortnite':
         await message.add_reaction('🇬')
         await message.add_reaction('🇦')
         await message.add_reaction('🇾')
         await message.channel.send("when you ask to god for help but god said https://media.discordapp.net/attachments/629749813440675872/741600181253963826/Screenshot_20200808_131408_com.discord.jpg")
 
-    if message.content == 'kurt' or message.content == 'kürt' or message.content == 'Kurt' or message.content == 'Kürt' or message.content == 'kurd' or message.content == 'kürd' or message.content == 'Kurd' or message.content == 'Kürd':
+    if message.content.lower() == 'kurt' or message.content.lower() == 'kürt' or message.content.lower() == 'Kurt' or message.content.lower() == 'Kürt' or message.content.lower() == 'kurd' or message.content.lower() == 'kürd' or message.content.lower() == 'Kurd' or message.content.lower() == 'Kürd':
         await message.channel.send("https://www.youtube.com/watch?v=5xyb8uC92pI&t=56")
         
-    if message.content == '31'or message.content == '30+1' or message.content == '20+11':
+    if message.content.lower() == '31'or message.content.lower() == '30+1' or message.content.lower() == '20+11':
         n = random.randint(8,24)
         def rndmz(length):
             letters = 'ASDASDASDASDASDASDasdasdasdasdasdasdqweqweqweqweqwqweQWEQWEQWEQWEQWEQWEASDASDASDASDASDASDasdasdasdasdasdasdqweqweqweqweqwqweQWEQWEQWEQWEQWEQWEASDASDASDASDASDASDasdasdasdasdasdasdqweqweqweqweqwqweQWEQWEQWEQWEQWEQWE:::::::::::::::::qwerwtyuüıopğüşlkjhgfdsaxzcvbnmöç.1432567890PREWTYUIOPĞÜŞLAFDGHKXMC'
             return ''.join(random.choice(letters) for i in range(length))
         await message.channel.send(f"{rndmz(n)}")
 
-    if message.content == 'dinozor' or message.content == 'dinazor' or message.content == 'Dinozor' or message.content == 'Dinazor':
+    if message.content.lower() == 'dinozor' or message.content.lower() == 'dinazor' or message.content.lower() == 'Dinozor' or message.content.lower() == 'Dinazor':
         await message.channel.send("https://www.youtube.com/watch?v=9pV8tMQ92Dc")
            
-    if message.content == 'kadın' or message.content == 'Kadın' or message.content == 'kadınlar' or message.content == 'Kadınlar':
+    if message.content.lower() == 'kadın' or message.content.lower() == 'Kadın' or message.content.lower() == 'kadınlar' or message.content.lower() == 'Kadınlar':
         await message.channel.send("https://media.discordapp.net/attachments/742459973556240386/743147623782940692/unknown.png")
            
-    if message.content == 'keloğlan gülüyor' or message.content == 'Keloğlan gülüyor' or message.content == 'Keloğlan Gülüyor' or message.content == 'keloğlan gülüyor.' or message.content == 'KELOĞLAN GÜLÜYOR' or message.content == 'KELOĞLAN GÜLÜYOR.' or message.content == 'Keloğlan gülüyor.' or message.content == 'Keloğlan Gülüyor.':
+    if message.content.lower() == 'keloğlan gülüyor' or message.content.lower() == 'Keloğlan gülüyor' or message.content.lower() == 'Keloğlan Gülüyor' or message.content.lower() == 'keloğlan gülüyor.' or message.content.lower() == 'KELOĞLAN GÜLÜYOR' or message.content.lower() == 'KELOĞLAN GÜLÜYOR.' or message.content.lower() == 'Keloğlan gülüyor.' or message.content.lower() == 'Keloğlan Gülüyor.':
         await message.channel.send("https://cdn.discordapp.com/attachments/742459973556240386/757715660007538809/keloglan_guluyor.mp4")
            
-    if message.content == 'burak oyunda' or message.content == 'Burak oyunda' or message.content == 'burak Oyunda' or message.content == 'Burak Oyunda':
+    if message.content.lower() == 'burak oyunda' or message.content.lower() == 'Burak oyunda' or message.content.lower() == 'burak Oyunda' or message.content.lower() == 'Burak Oyunda':
         await message.channel.send("https://forum.donanimhaber.com/merhaba-arkadaslar-ben-burak-maynkraftin-yennnniii-bolumune-hos-geldinizzzzzz--117861123")
            
-    if message.content == 'keloğlan' or message.content == 'keloğlan earrape' or message.content == 'Keloğlan' or message.content == 'Keloğlan earrape' or message.content == 'keloğlan geçiş müziği' or message.content == 'Keloğlan geçiş müziği' or message.content == 'keloğlan Earrape' or message.content == 'keloğlan Geçiş müziği' or message.content == 'Keloğlan geçiş Müziği' or message.content == 'Keloğlan Geçiş Müziği':
+    if message.content.lower() == 'keloğlan' or message.content.lower() == 'keloğlan earrape' or message.content.lower() == 'Keloğlan' or message.content.lower() == 'Keloğlan earrape' or message.content.lower() == 'keloğlan geçiş müziği' or message.content.lower() == 'Keloğlan geçiş müziği' or message.content.lower() == 'keloğlan Earrape' or message.content.lower() == 'keloğlan Geçiş müziği' or message.content.lower() == 'Keloğlan geçiş Müziği' or message.content.lower() == 'Keloğlan Geçiş Müziği':
         await message.channel.send("https://cdn.discordapp.com/attachments/742459973556240386/757731496776826971/keloglan_gecisi_32db_earrape.mp4")
         
-    if message.content == 'Siktir git' or message.content == 'Siktir Git' or message.content == 'siktir git' or message.content == 'siktir Git' or message.content == 'Siktirin gidin' or message.content == 'Siktirin Gidin' or message.content == 'siktirin Gidin' or message.content == 'siktirin gidin':
+    if message.content.lower() == 'Siktir git' or message.content.lower() == 'Siktir Git' or message.content.lower() == 'siktir git' or message.content.lower() == 'siktir Git' or message.content.lower() == 'Siktirin gidin' or message.content.lower() == 'Siktirin Gidin' or message.content.lower() == 'siktirin Gidin' or message.content.lower() == 'siktirin gidin':
         await message.channel.send("https://www.youtube.com/watch?v=MpDwtSvM32Y")
         
-    if message.content == 'peki' or message.content == 'Peki' or message.content == 'pekı' or message.content == 'Pekı' or message.content == 'PEKİ' or message.content == 'PEKI':
+    if message.content.lower() == 'peki' or message.content.lower() == 'Peki' or message.content.lower() == 'pekı' or message.content.lower() == 'Pekı' or message.content.lower() == 'PEKİ' or message.content.lower() == 'PEKI':
         await message.channel.send("ananın amı peki")
 
-    if message.content == 'lan':
+    if message.content.lower() == 'lan':
         await message.channel.send("lan")
                         
-    if message.content == 'Lan':
+    if message.content.lower() == 'Lan':
         await message.channel.send("Lan")
                     
-    if message.content == 'LAN':
+    if message.content.lower() == 'LAN':
         await message.channel.send("LAN")
                         
-    if message.content == 'ulan':
+    if message.content.lower() == 'ulan':
         await message.channel.send("ulan")
                         
-    if message.content == 'Ulan':
+    if message.content.lower() == 'Ulan':
         await message.channel.send("Ulan")
                     
-    if message.content == 'ULAN':
+    if message.content.lower() == 'ULAN':
         await message.channel.send("ULAN")
                         
-    if message.content == 'coronavirus':
+    if message.content.lower() == 'coronavirus':
         await message.channel.send("Do you mean: human malware")
         
-    if message.content == 'sansar suicide' or message.content == 'Sansar suicide' or message.content == 'sansar Suicide' or message.content == 'Sansar Suicide' or message.content == 'SANSAR SUICIDE' or message.content == 'SANSAR SUİCİDE' or message.content == 'sansar suıcıde':
+    if message.content.lower() == 'sansar suicide' or message.content.lower() == 'Sansar suicide' or message.content.lower() == 'sansar Suicide' or message.content.lower() == 'Sansar Suicide' or message.content.lower() == 'SANSAR SUICIDE' or message.content.lower() == 'SANSAR SUİCİDE' or message.content.lower() == 'sansar suıcıde':
         await message.channel.send("https://cdn.discordapp.com/attachments/695562300295217174/743420436141834280/sansar_suicide.mp4")
        
-    if message.content == 'ping':
+    if message.content.lower() == 'ping':
         pbong = client.latency*1000
         await message.channel.send('pong orospu evladı. discord RTT: {0}ms.'.format(round(pbong, 2)))
         
-    if message.content == 'kaşık enes batur' or message.content == 'kasık enes batur' or message.content == 'kaşik enes batur' or message.content == 'kasik enes batur' or message.content == 'KAŞIK ENES BATUR' or message.content == 'KASIK ENES BATUR' or message.content == 'KAŞİK ENES BATUR' or message.content == 'KASİK ENES BATUR':
+    if message.content.lower() == 'kaşık enes batur' or message.content.lower() == 'kasık enes batur' or message.content.lower() == 'kaşik enes batur' or message.content.lower() == 'kasik enes batur' or message.content.lower() == 'KAŞIK ENES BATUR' or message.content.lower() == 'KASIK ENES BATUR' or message.content.lower() == 'KAŞİK ENES BATUR' or message.content.lower() == 'KASİK ENES BATUR':
         await message.channel.send("https://media.discordapp.net/attachments/742459973556240386/778388988624764928/kasik_enes_batur-1.png")
 
-    if message.content == 'götöş' or message.content == 'gotöş' or message.content == 'götoş' or message.content == 'gotoş' or message.content == 'GÖTÖŞ' or message.content == 'GÖTOŞ' or message.content == 'GOTÖŞ' or message.content == 'GOTOŞ' or message.content == 'götös' or message.content == 'gotös' or message.content == 'götos' or message.content == 'gotos' or message.content == 'GÖTÖS' or message.content == 'GÖTOS' or message.content == 'GOTÖS' or message.content == 'GOTOS':
+    if message.content.lower() == 'götöş' or message.content.lower() == 'gotöş' or message.content.lower() == 'götoş' or message.content.lower() == 'gotoş' or message.content.lower() == 'GÖTÖŞ' or message.content.lower() == 'GÖTOŞ' or message.content.lower() == 'GOTÖŞ' or message.content.lower() == 'GOTOŞ' or message.content.lower() == 'götös' or message.content.lower() == 'gotös' or message.content.lower() == 'götos' or message.content.lower() == 'gotos' or message.content.lower() == 'GÖTÖS' or message.content.lower() == 'GÖTOS' or message.content.lower() == 'GOTÖS' or message.content.lower() == 'GOTOS':
         await message.channel.send("https://media.discordapp.net/attachments/742459973556240386/778381895666761738/gotos.png")
        
-    if message.content == 'napim':
+    if message.content.lower() == 'napim':
         ment=message.author.mention
         await message.channel.send(f"duymamış oliyim, kaşınma 🕋 {ment}", delete_after=20)
         await message.delete()
             
 
-    if message.content == '🤡':
+    if message.content.lower() == '🤡':
         ment=message.author.mention
         member=message.author
         await message.delete()
@@ -215,21 +215,21 @@ async def on_message(message):
         await member.ban(reason="clown emoji pcislockedbot", delete_message_days=0)
         await message.channel.send(f"{ment} = banlandı 🕋")
         
-    if message.content == 'göte bak kocaman' or message.content == 'Göte bak kocaman' or message.content == 'gote bak kocaman' or message.content == 'Gote bak kocaman' or message.content == 'GÖTE BAK KOCAMAN' or message.content == 'GOTE BAK KOCAMAN':
+    if message.content.lower() == 'göte bak kocaman' or message.content.lower() == 'gote bak kocaman':
         n = random.randint(1,8)
         if n == 1 or n == 3 or n == 5 or n == 7:
             await message.channel.send("https://media.discordapp.net/attachments/742459973556240386/779505199780724746/gote_bak_kocaman_2.jpg")
         if n == 2 or n == 4 or n == 6 or n == 8:
             await message.channel.send("https://media.discordapp.net/attachments/742459973556240386/779505203706986536/gote_bak_kocaman.png")
             
-    if message.content == 'töre' or message.content == 'tore' or message.content == 'Töre' or message.content == 'Tore' or message.content == 'TÖRE' or message.content == 'TOREN':
+    if message.content.lower() == 'töre' or message.content.lower() == 'tore':
         ng = random.randint(1,99)
         if ng == 31:
             await message.channel.send("https://www.youtube.com/watch?v=fThSYeBoPFw")
         else:
             await message.add_reaction('<:tore:739979995094712504>')
             
-    if message.content.lower() == 'pu' or message.content.lower() == 'pü':
+    if message.content.lower() == 'pu' or message.content.lower() == 'pü' or message.content.lower() == 'puh' or message.content.lower() == 'püh':
         await message.channel.send('https://media.giphy.com/media/3o6Mb6n1senEQtbgdy/giphy.gif')
         
 client.run(TOKEN)
