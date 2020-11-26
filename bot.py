@@ -5,7 +5,7 @@ import discord
 import string
 from datetime import datetime
 from discord.ext import commands
-TOKEN = "türkçe rap"
+TOKEN = "nws"
 GUILD = "617801724345843742"
 intents = discord.Intents(messages=True, guilds=True, members = True)
 client = discord.Client(intents=intents)
@@ -22,7 +22,7 @@ async def on_ready():
         f'{guild.name}(id: {guild.id})'
     )
     general = client.get_channel(629749813440675872)
-    await general.send(f"Bot yeniden başlatıldı.")
+    # await general.send(f"Bot yeniden başlatıldı.")
     verifych = client.get_channel(764880248336154664)
     
 @client.event
@@ -238,15 +238,22 @@ async def on_message(message):
         await message.channel.send("tşk")
         
     if message.content.lower() == 'öd' or message.content.lower() == 'od':
-        uid = message.author.id
-        uth = message.author.mention
-        fetchMessage = await channel.history(limit=5).find(lambda m: m.author.id == uid)
-        if fetchMessage.content == 'tşk':
-            await message.author.ban(reason="tşk öd autoban")
-            await message.channel.send(f"{uth} = banlandı 🕋 https://www.youtube.com/watch?v=wnedkVrgFF0")
-        else:       
-            return
-            
-
-client.run(TOKEN)
+        await message.channel.send("seni banlicam hatırlat bana") 
+        return
+        # uid = message.author.id
+        # cid = message.channel.id
+        # uth = message.author.mention
+        # async for fetchMessage in message.channel.history(limit=7, before=message, oldest_first=True):
+            # print(f"{fetchMessage.content}")
+            # if fetchMessage.author == client.user:
+                # return
+            # if fetchMessage.content == 'tm' and     fetchMessage.author.id == uid:
+                # print(f"heyyyy")
+                # await message.channel.send("it works you fucking idiot")
+                # await message.author.ban(reason="tşk öd autoban")
+                # await message.channel.send(f"{uth} = banlandı 🕋 https://www.youtube.com/watch?v=wnedkVrgFF0")
+            # else:
+                # print("else çıktı")
+                # return
+                #somehow i gotta fix this
 client.run(TOKEN)
