@@ -5,7 +5,7 @@ import discord
 import string
 from datetime import datetime
 from discord.ext import commands
-TOKEN = "nahcek.com"
+TOKEN = "türkçe rap"
 GUILD = "617801724345843742"
 intents = discord.Intents(messages=True, guilds=True, members = True)
 client = discord.Client(intents=intents)
@@ -234,5 +234,19 @@ async def on_message(message):
     if message.content.lower() == 'pu' or message.content.lower() == 'pü' or message.content.lower() == 'puh' or message.content.lower() == 'püh':
         await message.channel.send('https://media.giphy.com/media/3o6Mb6n1senEQtbgdy/giphy.gif')
         
+    if message.content.lower() == 'tm':
+        await message.channel.send("tşk")
+        
+    if message.content.lower() == 'öd' or message.content.lower() == 'od':
+        uid = message.author.id
+        uth = message.author.mention
+        fetchMessage = await channel.history(limit=5).find(lambda m: m.author.id == uid)
+        if fetchMessage.content == 'tşk':
+            await message.author.ban(reason="tşk öd autoban")
+            await message.channel.send(f"{uth} = banlandı 🕋 https://www.youtube.com/watch?v=wnedkVrgFF0")
+        else
+            return
+            
+
 client.run(TOKEN)
 client.run(TOKEN)
