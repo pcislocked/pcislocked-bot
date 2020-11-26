@@ -244,7 +244,7 @@ async def on_message(message):
         if fetchMessage.content == 'tşk':
             await message.author.ban(reason="tşk öd autoban")
             await message.channel.send(f"{uth} = banlandı 🕋 https://www.youtube.com/watch?v=wnedkVrgFF0")
-        else
+        else:       
             return
             
 
