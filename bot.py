@@ -5,7 +5,12 @@ import discord
 import string
 from datetime import datetime
 from discord.ext import commands
-TOKEN = "nws"
+from datetime import time
+from discord.utils import get
+from dotenv import load_dotenv
+import os
+load_dotenv()
+TOKEN = os.getenv('BOT_TOKEN')
 GUILD = "617801724345843742"
 intents = discord.Intents(messages=True, guilds=True, members = True)
 client = discord.Client(intents=intents)
@@ -22,11 +27,12 @@ async def on_ready():
         f'{guild.name}(id: {guild.id})'
     )
     general = client.get_channel(629749813440675872)
-    # await general.send(f"Bot yeniden başlatıldı.")
+    await general.send(f"Bot yeniden başlatıldı.")
     verifych = client.get_channel(764880248336154664)
     
 @client.event
 async def on_member_join(member):
+    guildd = client.get_guild(617801724345843742)
     verifych = client.get_channel(764880248336154664)
     joinlog = client.get_channel(702503861453193216)
     verifyclone = client.get_channel(780207454846844928)
@@ -37,16 +43,32 @@ async def on_member_join(member):
     mcd = member.created_at
     mdm = member.discriminator
     mnc = member.name
-    nou = datetime.now()
-    await verifyclone.send(f"SABIKA KAYDI:\n kisi: {ment} nick+discrim: {mnc}#{mdm} \nID: {mid}\n pp: {mpp}\n joined at: {mjd}\n account creation: {mcd}")
-    await joinlog.send(f"{ment} katıldı\n ID: {mid}\ntimestamp: {nou}")
-    await verifych.send(f"hoşgeldin {ment} şimdi buraya bir şeyler yaz ve bekle. içerde de adam gibi davran. \n \n eğer mesaj yazamıyosan telefon doğrulaması yap \n \n doğrulamada ses kontrolü yapmıyoruz o yüzden sese girmen hiç bir şeyi değiştirmez.")
+    nou = datetime.now()    
+    noc = nou.strftime("%H")
+    evr = discord.utils.get(guildd.roles, id=617801724345843742)
     def rnid(length):
         letters = '0123456789abcdef'
         return ''.join(random.choice(letters) for i in range(length))
     await member.edit(nick=f"new user {rnid(4)}")
+    await verifyclone.send(f"SABIKA KAYDI:\n kisi: {ment} nick+discrim: {mnc}#{mdm} \nID: {mid}\n pp: {mpp}\n joined at: {mjd}\n account creation: {mcd}")
+    await joinlog.send(f"{ment} katıldı\n ID: {mid}\ntimestamp: {nou}")
+    if int(10) > int(noc):
+        await verifych.set_permissions(target=evr, read_messages=True,
+                                                   send_messages=False)
+        await verifych.send(f"hoşgeldin {ment}, şu anda yeni üye almıyoruz. Yeni üye alımları Türkiye saati ile 10:00'da açılacak. \n **NOT: izinlerin güncelleştirilebilmesi için sunucudan çıkıp geri girmen gerekebilir.** Sunucu davetini nereden aldıysan oradan yine geri girersin sıkıntı olmaz.")
+    elif int(noc) < int(23):
+        await verifych.set_permissions(target=evr, read_messages=True,
+                                                   send_messages=True)
+        await verifych.send(f"hoşgeldin {ment} şimdi buraya bir şeyler yaz ve bekle. içerde de adam gibi davran. \n \n eğer mesaj yazamıyosan telefon doğrulaması yap(veya sabah 10'u bekle.) \n \n doğrulamada ses kontrolü yapmıyoruz o yüzden sese girmen hiç bir şeyi değiştirmez.")
+    elif int(noc) == int(23):
+        await verifych.set_permissions(target=evr, read_messages=True,
+                                                   send_messages=False)
+        await verifych.send(f"hoşgeldin {ment}, şu anda yeni üye almıyoruz. Yeni üye alımları Türkiye saati ile 10:00'da açılacak. \n **NOT: izinlerin güncelleştirilebilmesi için sunucudan çıkıp geri girmen gerekebilir.** Sunucu davetini nereden aldıysan oradan yine geri girersin sıkıntı olmaz.")
+    else:
+        print("nigga wtf at line 62")
+        await verifych.send(f"hoşgeldin {ment} şimdi buraya bir şeyler yaz ve bekle. içerde de adam gibi davran. \n \n eğer mesaj yazamıyosan telefon doğrulaması yap(veya sabah 10'u bekle.) \n \n doğrulamada ses kontrolü yapmıyoruz o yüzden sese girmen hiç bir şeyi değiştirmez. \n (line 69)TEKNİK HATA: SAAT BİLGİSİ ALINAMADI")
+        return
 
-    
 @client.event
 async def on_member_remove(member):
     verifych = client.get_channel(764880248336154664)
@@ -65,7 +87,6 @@ async def on_message(message):
     #for debugging only
     # pribnt(message.author)
     # print(message.content)
-
     if message.channel == client.get_channel(764880248336154664):
         disc = message.author.discriminator
         name = message.author.name
@@ -78,7 +99,7 @@ async def on_message(message):
     if message.author == client.user:
         return
         
-    if message.content.lower() == 'sa' or message.content.lower() == 'SA' or message.content.lower() == 'sA' or message.content.lower() == 'Sa':
+    if message.content.lower() == 'sa':
         verifych = client.get_channel(764880248336154664)
         if message.channel == verifych:
             ment=message.author.mention
@@ -248,7 +269,7 @@ async def on_message(message):
             # if fetchMessage.author == client.user:
                 # return
             # if fetchMessage.content == 'tm' and     fetchMessage.author.id == uid:
-                # print(f"heyyyy")
+                # print(f"nigger")
                 # await message.channel.send("it works you fucking idiot")
                 # await message.author.ban(reason="tşk öd autoban")
                 # await message.channel.send(f"{uth} = banlandı 🕋 https://www.youtube.com/watch?v=wnedkVrgFF0")
@@ -256,4 +277,6 @@ async def on_message(message):
                 # print("else çıktı")
                 # return
                 #somehow i gotta fix this
+                #i promise i will
+
 client.run(TOKEN)
