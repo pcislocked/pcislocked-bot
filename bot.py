@@ -43,8 +43,7 @@ async def on_member_join(member):
     mcd = member.created_at
     mdm = member.discriminator
     mnc = member.name
-    nou = datetime.now()    
-    noc = nou.strftime("%H")
+    nou = datetime.now()
     evr = discord.utils.get(guildd.roles, id=617801724345843742)
     def rnid(length):
         letters = '0123456789abcdef'
@@ -52,15 +51,21 @@ async def on_member_join(member):
     await member.edit(nick=f"new user {rnid(4)}")
     await verifyclone.send(f"SABIKA KAYDI:\n kisi: {ment} nick+discrim: {mnc}#{mdm} \nID: {mid}\n pp: {mpp}\n joined at: {mjd}\n account creation: {mcd}")
     await joinlog.send(f"{ment} katıldı\n ID: {mid}\ntimestamp: {nou}")
+    noz = datetime.now()
+    noc = noz.strftime("%H")
+    print(noc)
     if int(10) > int(noc):
+        print("1")
         await verifych.set_permissions(target=evr, read_messages=True,
                                                    send_messages=False)
         await verifych.send(f"hoşgeldin {ment}, şu anda yeni üye almıyoruz. Yeni üye alımları Türkiye saati ile 10:00'da açılacak. \n **NOT: izinlerin güncelleştirilebilmesi için sunucudan çıkıp geri girmen gerekebilir.** Sunucu davetini nereden aldıysan oradan yine geri girersin sıkıntı olmaz.")
     elif int(noc) < int(23):
         await verifych.set_permissions(target=evr, read_messages=True,
                                                    send_messages=True)
-        await verifych.send(f"hoşgeldin {ment} şimdi buraya bir şeyler yaz ve bekle. içerde de adam gibi davran. \n \n eğer mesaj yazamıyosan telefon doğrulaması yap(veya sabah 10'u bekle.) \n \n doğrulamada ses kontrolü yapmıyoruz o yüzden sese girmen hiç bir şeyi değiştirmez.")
+        print("2")
+        await verifych.send(f"hoşgeldin {ment} şimdi buraya bir şeyler yaz ve bekle. içerde de adam gibi davran. \n \n eğer mesaj yazamıyosan telefon doğrulaması yap\n \n doğrulamada ses kontrolü yapmıyoruz o yüzden sese girmen hiç bir şeyi değiştirmez.")
     elif int(noc) == int(23):
+        print("3")
         await verifych.set_permissions(target=evr, read_messages=True,
                                                    send_messages=False)
         await verifych.send(f"hoşgeldin {ment}, şu anda yeni üye almıyoruz. Yeni üye alımları Türkiye saati ile 10:00'da açılacak. \n **NOT: izinlerin güncelleştirilebilmesi için sunucudan çıkıp geri girmen gerekebilir.** Sunucu davetini nereden aldıysan oradan yine geri girersin sıkıntı olmaz.")
