@@ -217,7 +217,7 @@ async def on_message(message):
         await message.channel.send("Do you mean: human malware")
         
     if message.content.lower() == 'sansar suicide' or message.content.lower() == 'Sansar suicide' or message.content.lower() == 'sansar Suicide' or message.content.lower() == 'Sansar Suicide' or message.content.lower() == 'SANSAR SUICIDE' or message.content.lower() == 'SANSAR SUİCİDE' or message.content.lower() == 'sansar suıcıde':
-        await message.channel.send("https://cdn.discordapp.com/attachments/695562300295217174/743420436141834280/sansar_suicide.mp4")
+        await message.channel.send("This video depicts an oldschool Turkish rapper, Sansar Salvo, loading a gun and putting it on his head, then looks at the gun thoughtfully, while the beat of the \"Şimdilerde Hayal\" song plays in the background. This section of the video was originally from his promotion video for the 21 gram mixtape, which is a mixtape that generally consists of melancholic and emotional songs. https://cdn.discordapp.com/attachments/695562300295217174/743420436141834280/sansar_suicide.mp4")
        
     if message.content.lower() == 'ping':
         pbong = client.latency*1000
