@@ -56,18 +56,23 @@ async def on_member_join(member):
     noz = datetime.now()
     noc = noz.strftime("%H")
     print(noc)
-    if int(10) > int(noc):
-        print("1")
+    if int(7) > int(noc):
+        print("before 7utc")
         await verifych.set_permissions(target=evr, read_messages=True,
                                                    send_messages=False)
         await verifych.send(f"hoşgeldin {ment}, şu anda yeni üye almıyoruz. Yeni üye alımları Türkiye saati ile 10:00'da açılacak. \n **NOT: izinlerin güncelleştirilebilmesi için sunucudan çıkıp geri girmen gerekebilir.** Sunucu davetini nereden aldıysan oradan yine geri girersin sıkıntı olmaz.")
-    elif int(noc) < int(23):
+    elif int(noc) < int(20):
         await verifych.set_permissions(target=evr, read_messages=True,
                                                    send_messages=True)
-        print("2")
+        print("before 20utc")
         await verifych.send(f"hoşgeldin {ment} şimdi buraya bir şeyler yaz ve bekle. içerde de adam gibi davran. \n \n eğer mesaj yazamıyosan telefon doğrulaması yap\n \n doğrulamada ses kontrolü yapmıyoruz o yüzden sese girmen hiç bir şeyi değiştirmez.")
-    elif int(noc) == int(23):
-        print("3")
+    elif int(noc) == int(20):
+        print("during 20utc")
+        await verifych.set_permissions(target=evr, read_messages=True,
+                                                   send_messages=False)
+        await verifych.send(f"hoşgeldin {ment}, şu anda yeni üye almıyoruz. Yeni üye alımları Türkiye saati ile 10:00'da açılacak. \n **NOT: izinlerin güncelleştirilebilmesi için sunucudan çıkıp geri girmen gerekebilir.** Sunucu davetini nereden aldıysan oradan yine geri girersin sıkıntı olmaz.")
+    elif int(noc) > int(20):
+        print("after 20utc")
         await verifych.set_permissions(target=evr, read_messages=True,
                                                    send_messages=False)
         await verifych.send(f"hoşgeldin {ment}, şu anda yeni üye almıyoruz. Yeni üye alımları Türkiye saati ile 10:00'da açılacak. \n **NOT: izinlerin güncelleştirilebilmesi için sunucudan çıkıp geri girmen gerekebilir.** Sunucu davetini nereden aldıysan oradan yine geri girersin sıkıntı olmaz.")
@@ -112,7 +117,8 @@ async def on_message(message):
             ment=message.author.mention
             member=message.author
             await message.delete()
-            await message.channel.send(f"madem verifyda sa yazdın siktir git o zaman {ment}")
+            await message.channel.send(f"madem verifyda sa yazdın siktir git o zaman {ment} \n\n 5 saniye sonra kickleneceksin son sözlerini söyle")
+            await asyncio.sleep(5)
             await member.kick(reason="verify sa pcislockedbot")
             await message.channel.send(f"{ment} = atıldı 🕋")
         else:
@@ -122,7 +128,7 @@ async def on_message(message):
             else:
                 await message.channel.send("burası cami mi orospu evladı")
                 
-    if message.content.lower() == 'as' or message.content.lower() == 'AS' or message.content.lower() == 'As' or message.content.lower() == 'aS':
+    if message.content.lower() == 'as':
         ment=message.author.mention
         await message.channel.send(f"ulan allahın selamını almayacaksın demedik mi {ment}")
 
