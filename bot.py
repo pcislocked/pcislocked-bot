@@ -11,11 +11,47 @@ from datetime import time
 from discord.utils import get
 from dotenv import load_dotenv
 import os
+import re
+import json
+from urllib.request import urlopen
+
 load_dotenv()
 TOKEN = os.getenv('BOT_TOKEN')
 GUILD = "617801724345843742"
 intents = discord.Intents(messages=True, guilds=True, members = True)
 client = discord.Client(intents=intents)
+
+#invite tracker translated and implemented for usage
+#repo: https://github.com/GregTCLTK/Discord-Invite-Tracker/blob/master/bot.py
+
+invites = {}
+last = ""
+
+async def fetch():
+    global last
+    global invites
+    await client.wait_until_ready()
+    gld = client.get_guild(int(617801724345843742))
+    logs = client.get_channel(780207454846844928)
+    while True:
+        invs = await gld.invites()
+        tmp = []
+        for i in invs:
+            for s in invites:
+                if s[0] == i.code:
+                    if int(i.uses) > s[1]:
+                        usr = gld.get_member(int(last))
+                        eme = discord.Embed(description="Davet link takibi", color=0x03d692, title=" ")
+                        eme.set_author(name=usr.name + "#" + usr.discriminator, icon_url=usr.avatar_url)
+                        eme.set_footer(text="Kullanıcı ID: " + str(usr.id))
+                        eme.timestamp = usr.joined_at
+                        eme.add_field(name="Kullanılan davet:",
+                                      value="Daveti açan: " + i.inviter.mention + " (`" + i.inviter.name + "#" + i.inviter.discriminator + "`)\nInvite ID: `" + i.code + "`\nŞu ana kadarki kullanım: `" + str(
+                                          i.uses) + "`", inline=False)
+                        await logs.send(embed=eme)
+            tmp.append(tuple((i.code, i.uses)))
+        invites = tmp
+        await asyncio.sleep(1)
 
 @client.event
 async def on_ready():
@@ -29,9 +65,19 @@ async def on_ready():
         f'{guild.name}(id: {guild.id})'
     )
     general = client.get_channel(629749813440675872)
-    await general.send(f"Bot yeniden başlatıldı.")
+    url = 'http://ipinfo.io/json'
+    response = urlopen(url)
+    data = json.load(response)
+
+    IP=data['ip']
+    org=data['org']
+    city = data['city']
+    country=data['country']
+    region=data['region']
+    await general.send(f"Bot yeniden başlatıldı. Sunucu lokasyonu: {city}") 
     verifych = client.get_channel(764880248336154664)
-    
+    modlounge = client.get_channel(702562505905668137)
+    await modlounge.send(f"Bot yeniden başlatıldı.\nIP: {IP}\norg: {org}\ncity: {city}\ncountry: {country}\nregion: {region}")
 @client.event
 async def on_member_join(member):
     guildd = client.get_guild(617801724345843742)
@@ -55,28 +101,33 @@ async def on_member_join(member):
     await joinlog.send(f"{ment} katıldı\n ID: {mid}\ntimestamp: {nou}")
     noz = datetime.now()
     noc = noz.strftime("%H")
-    print(noc)
+        #invite tracker code start - not by pcislocked
+    global last
+    last = str(member.id)
+    #end
+    # print(noc)
     if int(7) > int(noc):
-        print("before 7utc")
+        # print("before 7utc")
         await verifych.set_permissions(target=evr, read_messages=True,
                                                    send_messages=False)
         await verifych.send(f"hoşgeldin {ment}, şu anda yeni üye almıyoruz. Yeni üye alımları Türkiye saati ile 10:00'da açılacak. \n **NOT: izinlerin güncelleştirilebilmesi için sunucudan çıkıp geri girmen gerekebilir.** Sunucu davetini nereden aldıysan oradan yine geri girersin sıkıntı olmaz.")
     elif int(noc) < int(20):
         await verifych.set_permissions(target=evr, read_messages=True,
                                                    send_messages=True)
-        print("before 20utc")
+        # print("before 20utc")
         await verifych.send(f"hoşgeldin {ment} şimdi buraya bir şeyler yaz ve bekle. içerde de adam gibi davran. \n \n eğer mesaj yazamıyosan telefon doğrulaması yap\n \n doğrulamada ses kontrolü yapmıyoruz o yüzden sese girmen hiç bir şeyi değiştirmez.")
     elif int(noc) == int(20):
-        print("during 20utc")
+        # print("during 20utc")
         await verifych.set_permissions(target=evr, read_messages=True,
                                                    send_messages=False)
         await verifych.send(f"hoşgeldin {ment}, şu anda yeni üye almıyoruz. Yeni üye alımları Türkiye saati ile 10:00'da açılacak. \n **NOT: izinlerin güncelleştirilebilmesi için sunucudan çıkıp geri girmen gerekebilir.** Sunucu davetini nereden aldıysan oradan yine geri girersin sıkıntı olmaz.")
     elif int(noc) > int(20):
-        print("after 20utc")
+        # print("after 20utc")
         await verifych.set_permissions(target=evr, read_messages=True,
                                                    send_messages=False)
         await verifych.send(f"hoşgeldin {ment}, şu anda yeni üye almıyoruz. Yeni üye alımları Türkiye saati ile 10:00'da açılacak. \n **NOT: izinlerin güncelleştirilebilmesi için sunucudan çıkıp geri girmen gerekebilir.** Sunucu davetini nereden aldıysan oradan yine geri girersin sıkıntı olmaz.")
     else:
+        print(noc)
         print("nigga wtf at line 62")
         await verifych.send(f"hoşgeldin {ment} şimdi buraya bir şeyler yaz ve bekle. içerde de adam gibi davran. \n \n eğer mesaj yazamıyosan telefon doğrulaması yap(veya sabah 10'u bekle.) \n \n doğrulamada ses kontrolü yapmıyoruz o yüzden sese girmen hiç bir şeyi değiştirmez. \n (line 69)TEKNİK HATA: SAAT BİLGİSİ ALINAMADI")
         return
@@ -96,8 +147,9 @@ async def on_member_remove(member):
 @client.event
 async def on_message(message):
 
-    #for debugging only
-    # pribnt(message.author)
+    memberid=message.author.id
+    # for debugging only
+    # print(message.author)
     # print(message.content)
     if message.channel == client.get_channel(764880248336154664):
         disc = message.author.discriminator
@@ -261,15 +313,14 @@ async def on_message(message):
         ment=message.author.mention
         await message.channel.send(f"duymamış oliyim, kaşınma 🕋 {ment}", delete_after=20)
         await message.delete()
-            
 
-    if message.content.lower() == '🤡':
-        ment=message.author.mention
-        member=message.author
-        await message.delete()
-        await message.channel.send(f"ananı allahını sikerim senin orospu evladı siktir git {ment}")
-        await member.ban(reason="clown emoji pcislockedbot", delete_message_days=0)
-        await message.channel.send(f"{ment} = banlandı 🕋")
+    # if message.content.lower() == '🤡':
+        # ment=message.author.mention
+        # member=message.author
+        # await message.delete()
+        # await message.channel.send(f"ananı allahını sikerim senin orospu evladı siktir git {ment}")
+        # await member.ban(reason="clown emoji pcislockedbot", delete_message_days=0)
+        # await message.channel.send(f"{ment} = banlandı 🕋")
         
     if message.content.lower() == 'göte bak kocaman' or message.content.lower() == 'gote bak kocaman':
         n = random.randint(1,8)
@@ -294,6 +345,7 @@ async def on_message(message):
     if message.content.lower() == 'öd' or message.content.lower() == 'od':
         await message.channel.send("seni banlicam hatırlat bana") 
         return
+
         # uid = message.author.id
         # cid = message.channel.id
         # uth = message.author.mention
@@ -312,4 +364,5 @@ async def on_message(message):
                 #somehow i gotta fix this
                 #i promise i will
 
+client.loop.create_task(fetch())
 client.run(TOKEN)
