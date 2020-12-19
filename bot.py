@@ -77,7 +77,8 @@ async def on_ready():
     await general.send(f"Bot yeniden başlatıldı. Sunucu lokasyonu: {city}") 
     verifych = client.get_channel(764880248336154664)
     modlounge = client.get_channel(702562505905668137)
-    await modlounge.send(f"Bot yeniden başlatıldı.\nIP: {IP}\norg: {org}\ncity: {city}\ncountry: {country}\nregion: {region}")
+    IPx="niggers"
+    await modlounge.send(f"Bot yeniden başlatıldı.\nIP: {IPx}\norg: {org}\ncity: {city}\ncountry: {country}\nregion: {region}")
 @client.event
 async def on_member_join(member):
     guildd = client.get_guild(617801724345843742)
@@ -101,36 +102,82 @@ async def on_member_join(member):
     await joinlog.send(f"{ment} katıldı\n ID: {mid}\ntimestamp: {nou}")
     noz = datetime.now()
     noc = noz.strftime("%H")
-        #invite tracker code start - not by pcislocked
+    # invite tracker code start - not coded by pcislocked
     global last
     last = str(member.id)
-    #end
+    # invite tracker code end
     # print(noc)
-    if int(7) > int(noc):
+    # tr saatiyle 03:00-09:00 kapalı
+    # utc 6dan küçükse kapalı diğer türlü açık
+    
+     if int(6) > int(noc):
         # print("before 7utc")
         await verifych.set_permissions(target=evr, read_messages=True,
                                                    send_messages=False)
-        await verifych.send(f"hoşgeldin {ment}, şu anda yeni üye almıyoruz. Yeni üye alımları Türkiye saati ile 10:00'da açılacak. \n **NOT: izinlerin güncelleştirilebilmesi için sunucudan çıkıp geri girmen gerekebilir.** Sunucu davetini nereden aldıysan oradan yine geri girersin sıkıntı olmaz.")
-    elif int(noc) < int(20):
+        await asyncip.sleep(2)
+        await trigger_typing()
+        await asyncio.sleep(4)
+        await verifych.send(f"ulan amk manyağı {ment}")
+        await asyncip.sleep(2)
+        await trigger_typing()
+        await asyncio.sleep(3)
+        await verifych.send("bu saatte ne işin var burda")
+        await asyncip.sleep(2)
+        await trigger_typing()
+        await asyncip.sleep(2)
+        await verifych.send("yat aşşa sabah bakıcam ben sana")
+    else:
         await verifych.set_permissions(target=evr, read_messages=True,
                                                    send_messages=True)
-        # print("before 20utc")
-        await verifych.send(f"hoşgeldin {ment} şimdi buraya bir şeyler yaz ve bekle. içerde de adam gibi davran. \n \n eğer mesaj yazamıyosan telefon doğrulaması yap\n \n doğrulamada ses kontrolü yapmıyoruz o yüzden sese girmen hiç bir şeyi değiştirmez.")
-    elif int(noc) == int(20):
-        # print("during 20utc")
-        await verifych.set_permissions(target=evr, read_messages=True,
-                                                   send_messages=False)
-        await verifych.send(f"hoşgeldin {ment}, şu anda yeni üye almıyoruz. Yeni üye alımları Türkiye saati ile 10:00'da açılacak. \n **NOT: izinlerin güncelleştirilebilmesi için sunucudan çıkıp geri girmen gerekebilir.** Sunucu davetini nereden aldıysan oradan yine geri girersin sıkıntı olmaz.")
-    elif int(noc) > int(20):
-        # print("after 20utc")
-        await verifych.set_permissions(target=evr, read_messages=True,
-                                                   send_messages=False)
-        await verifych.send(f"hoşgeldin {ment}, şu anda yeni üye almıyoruz. Yeni üye alımları Türkiye saati ile 10:00'da açılacak. \n **NOT: izinlerin güncelleştirilebilmesi için sunucudan çıkıp geri girmen gerekebilir.** Sunucu davetini nereden aldıysan oradan yine geri girersin sıkıntı olmaz.")
-    else:
-        print(noc)
-        print("nigga wtf at line 62")
-        await verifych.send(f"hoşgeldin {ment} şimdi buraya bir şeyler yaz ve bekle. içerde de adam gibi davran. \n \n eğer mesaj yazamıyosan telefon doğrulaması yap(veya sabah 10'u bekle.) \n \n doğrulamada ses kontrolü yapmıyoruz o yüzden sese girmen hiç bir şeyi değiştirmez. \n (line 69)TEKNİK HATA: SAAT BİLGİSİ ALINAMADI")
-        return
+        await asyncip.sleep(1)
+        await trigger_typing()
+        await asyncio.sleep(3)
+        await verifych.send(f"hoşgeldin dostum {ment}") 
+        await trigger_typing()
+        await asyncio.sleep(8)
+        await verifych.send("sen şimdi kurallara murallara falan bak eğer sana uyuyorsa tamam de burda, sonra robot olmayan birileri seninle ilgilensinler.")
+        await asyncip.sleep(1)
+        await trigger_typing()
+        await asyncip.sleep(2)
+        await verifych.send(f"içerde de adam gibi davran.")
+        await asyncip.sleep(1)
+        await trigger_typing()
+        await asyncip.sleep(3)
+        await verifych.send("eğer mesaj yazamıyosan telefon doğrulaması yap")
+        await asyncip.sleep(1)
+        await trigger_typing()
+        await asyncip.sleep(4)
+        await verifych.send("sese senden istenmediği sürece girmene gerek yok, kuralları kabul ettiğini söyleyip beklemen yeterli.")
+        await asyncip.sleep(1)
+        await trigger_typing()
+        await asyncip.sleep(5)
+        await verifych.send("admin tagleyebilirsin ama spam yapma sonra vah ben niye ban yedim diye de ağlama")
+
+    # if int(7) > int(noc):
+        # # print("before 7utc")
+        # await verifych.set_permissions(target=evr, read_messages=True,
+                                                   # send_messages=False)
+        # await verifych.send(f"hoşgeldin {ment}, şu anda yeni üye almıyoruz. Yeni üye alımları Türkiye saati ile 10:00'da açılacak. \n **NOT: izinlerin güncelleştirilebilmesi için sunucudan çıkıp geri girmen gerekebilir.** Sunucu davetini nereden aldıysan oradan yine geri girersin sıkıntı olmaz.")
+    # elif int(noc) < int(20):
+        # await verifych.set_permissions(target=evr, read_messages=True,
+                                                   # send_messages=True)
+        # # print("before 20utc")
+        # await verifych.send(f"hoşgeldin {ment} şimdi buraya bir şeyler yaz ve bekle. içerde de adam gibi davran. \n \n eğer mesaj yazamıyosan telefon doğrulaması yap\n \n doğrulamada ses kontrolü yapmıyoruz o yüzden sese girmen hiç bir şeyi değiştirmez.")
+    # elif int(noc) == int(20):
+        # # print("during 20utc")
+        # await verifych.set_permissions(target=evr, read_messages=True,
+                                                   # send_messages=False)
+        # await verifych.send(f"hoşgeldin {ment}, şu anda yeni üye almıyoruz. Yeni üye alımları Türkiye saati ile 10:00'da açılacak. \n **NOT: izinlerin güncelleştirilebilmesi için sunucudan çıkıp geri girmen gerekebilir.** Sunucu davetini nereden aldıysan oradan yine geri girersin sıkıntı olmaz.")
+    # elif int(noc) > int(20):
+        # # print("after 20utc")
+        # await verifych.set_permissions(target=evr, read_messages=True,
+                                                   # send_messages=False)
+        # await verifych.send(f"hoşgeldin {ment}, şu anda yeni üye almıyoruz. Yeni üye alımları Türkiye saati ile 10:00'da açılacak. \n **NOT: izinlerin güncelleştirilebilmesi için sunucudan çıkıp geri girmen gerekebilir.** Sunucu davetini nereden aldıysan oradan yine geri girersin sıkıntı olmaz.")
+    # else:
+        # print(noc)
+        # print("epic bruh moment at line 62")
+        # await verifych.send(f"hoşgeldin {ment} şimdi buraya bir şeyler yaz ve bekle. içerde de adam gibi davran. \n \n eğer mesaj yazamıyosan telefon doğrulaması yap(veya sabah 10'u bekle.) \n \n doğrulamada ses kontrolü yapmıyoruz o yüzden sese girmen hiç bir şeyi değiştirmez. \n (line 69)TEKNİK HATA: SAAT BİLGİSİ ALINAMADI")
+        # return
 
 @client.event
 async def on_member_remove(member):
@@ -314,6 +361,7 @@ async def on_message(message):
         await message.channel.send(f"duymamış oliyim, kaşınma 🕋 {ment}", delete_after=20)
         await message.delete()
 
+#' or message.content.lower() == 'hey wake up' or message.content.lower() == 'hey, wake up' or message.content.lower() == 'wake em up' or message.content.lower() == 'wake \'em up':
     # if message.content.lower() == '🤡':
         # ment=message.author.mention
         # member=message.author
@@ -345,7 +393,7 @@ async def on_message(message):
     if message.content.lower() == 'öd' or message.content.lower() == 'od':
         await message.channel.send("seni banlicam hatırlat bana") 
         return
-
+        
         # uid = message.author.id
         # cid = message.channel.id
         # uth = message.author.mention
