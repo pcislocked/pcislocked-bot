@@ -110,7 +110,7 @@ async def on_member_join(member):
     # tr saatiyle 03:00-09:00 kapalı
     # utc 6dan küçükse kapalı diğer türlü açık
     
-     if int(6) > int(noc):
+    if int(6) > int(noc):
         # print("before 7utc")
         await verifych.set_permissions(target=evr, read_messages=True,
                                                    send_messages=False)
