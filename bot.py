@@ -110,22 +110,26 @@ async def on_member_join(member):
     # tr saatiyle 03:00-09:00 kapalı
     # utc 6dan küçükse kapalı diğer türlü açık
     
-    if int(6) > int(noc):
-        # print("before 7utc")
-        await verifych.set_permissions(target=evr, read_messages=True,
-                                                   send_messages=False)
-        await verifych.send(f"ulan amk manyağı {ment}")
-        await verifych.send("bu saatte ne işin var burda")
-        await verifych.send("yat aşşa sabah bakıcam ben sana")
-    else:
-        await verifych.set_permissions(target=evr, read_messages=True,
-                                                   send_messages=True)
-        await verifych.send(f"hoşgeldin dostum {ment}") 
-        await verifych.send("sen şimdi kurallara murallara falan bak eğer sana uyuyorsa tamam de burda, sonra robot olmayan birileri seninle ilgilensinler.")
-        await verifych.send(f"içerde de adam gibi davran.")
-        await verifych.send("eğer mesaj yazamıyosan telefon doğrulaması yap")
-        await verifych.send("sese senden istenmediği sürece girmene gerek yok, kuralları kabul ettiğini söyleyip beklemen yeterli.")
-        await verifych.send("admin tagleyebilirsin ama spam yapma sonra vah ben niye ban yedim diye de ağlama")
+    # if int(6) > int(noc):
+        # # print("before 7utc")
+        # await verifych.set_permissions(target=evr, read_messages=True,
+                                                   # send_messages=False)
+        # await verifych.send(f"ulan amk manyağı {ment}")
+        # await verifych.send("bu saatte ne işin var burda")
+        # await verifych.send("yat aşşa sabah bakıcam ben sana")
+    # else:
+        # await verifych.set_permissions(target=evr, read_messages=True,
+                                                   # send_messages=True)
+        # await verifych.send(f"hoşgeldin dostum {ment}") 
+        # await verifych.send("sen şimdi kurallara murallara falan bak eğer sana uyuyorsa tamam de burda, sonra robot olmayan birileri seninle ilgilensinler.")
+        # await verifych.send(f"içerde de adam gibi davran.")
+        # await verifych.send("eğer mesaj yazamıyosan telefon doğrulaması yap")
+        # await verifych.send("sese senden istenmediği sürece girmene gerek yok, kuralları kabul ettiğini söyleyip beklemen yeterli.")
+        # await verifych.send("admin tagleyebilirsin ama spam yapma sonra vah ben niye ban yedim diye de ağlama")
+
+
+## töre
+
 
     # if int(7) > int(noc):
         # # print("before 7utc")
