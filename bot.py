@@ -10,10 +10,12 @@ from discord.ext import commands
 from datetime import time
 from discord.utils import get
 from dotenv import load_dotenv
+from time import gmtime
+from time import strftime
 import os
 import re
 import json
-import uptime
+from uptime import uptime
 from urllib.request import urlopen
 
 load_dotenv()
@@ -79,7 +81,7 @@ async def on_ready():
     verifych = client.get_channel(764880248336154664)
     modlounge = client.get_channel(702562505905668137)
     IPx="niggers"
-    await modlounge.send(f"Bot yeniden başlatıldı.\nIP: {IPx}\norg: {org}\ncity: {city}\ncountry: {country}\nregion: {region}")
+    await modlounge.send(f"Bot yeniden başlatıldı.\nIP: {IP}\norg: {org}\ncity: {city}\ncountry: {country}\nregion: {region}")
 @client.event
 async def on_member_join(member):
     guildd = client.get_guild(617801724345843742)
@@ -330,8 +332,9 @@ async def on_message(message):
         await message.channel.send('pong orospu evladı. discord RTT: {0}ms.'.format(round(pbong, 2)))
     
     if message.content.lower() == 'uptime':
-        uptim = uptime()
-        await message.channel.send(f'System uptime is: {pbong} - pcislocked\'s autoresponder bot v163')
+        uptim = strftime("%H:%M:%S", gmtime(uptime()))
+        uptin = uptime()
+        await message.channel.send(f'System uptime is: {uptim} ({uptin} seconds) - pcislocked\'s autoresponder bot v169')
         
     if message.content.lower() == 'kaşık enes batur' or message.content.lower() == 'kasık enes batur' or message.content.lower() == 'kaşik enes batur' or message.content.lower() == 'kasik enes batur' or message.content.lower() == 'KAŞIK ENES BATUR' or message.content.lower() == 'KASIK ENES BATUR' or message.content.lower() == 'KAŞİK ENES BATUR' or message.content.lower() == 'KASİK ENES BATUR':
         await message.channel.send("https://media.discordapp.net/attachments/742459973556240386/778388988624764928/kasik_enes_batur-1.png")
