@@ -23,6 +23,9 @@ TOKEN = os.getenv('BOT_TOKEN')
 GUILD = "617801724345843742"
 intents = discord.Intents(messages=True, guilds=True, members = True)
 client = discord.Client(intents=intents)
+startTime = datetime.now()
+
+ver = int(179)
 
 #invite tracker translated and implemented for usage
 #repo: https://github.com/GregTCLTK/Discord-Invite-Tracker/blob/master/bot.py
@@ -332,9 +335,11 @@ async def on_message(message):
         await message.channel.send('pong orospu evladı. discord RTT: {0}ms.'.format(round(pbong, 2)))
     
     if message.content.lower() == 'uptime':
-        uptim = strftime("%H:%M:%S", gmtime(uptime()))
+        uptim = strftime("%H saat %M dakika %S saniye", gmtime(uptime()))
         uptin = uptime()
-        await message.channel.send(f'System uptime is: {uptim} ({uptin} seconds) - pcislocked\'s autoresponder bot v169')
+        days = uptin//int(86400)
+        niggers = datetime.now() - startTime
+        await message.channel.send(f'Sunucunun açık olma süresi: {days} gün {uptim} (toplam {uptin} saniye)(bot.py uptime: {niggers})\n\npcislocked\'s autoresponder bot v{ver} - hosted with heroku \nbot, sistem uptiime\'ından bağımsız olarak yeniden başlatılıyor.')
         
     if message.content.lower() == 'kaşık enes batur' or message.content.lower() == 'kasık enes batur' or message.content.lower() == 'kaşik enes batur' or message.content.lower() == 'kasik enes batur' or message.content.lower() == 'KAŞIK ENES BATUR' or message.content.lower() == 'KASIK ENES BATUR' or message.content.lower() == 'KAŞİK ENES BATUR' or message.content.lower() == 'KASİK ENES BATUR':
         await message.channel.send("https://media.discordapp.net/attachments/742459973556240386/778388988624764928/kasik_enes_batur-1.png")
