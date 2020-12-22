@@ -331,7 +331,7 @@ async def on_message(message):
     
     if message.content.lower() == 'uptime':
         uptim = uptime()
-        await message.channel.send(f'System uptime is: {pbong} - pcislocked\'s autoresponder bot v149')
+        await message.channel.send(f'System uptime is: {pbong} - pcislocked\'s autoresponder bot v163')
         
     if message.content.lower() == 'kaşık enes batur' or message.content.lower() == 'kasık enes batur' or message.content.lower() == 'kaşik enes batur' or message.content.lower() == 'kasik enes batur' or message.content.lower() == 'KAŞIK ENES BATUR' or message.content.lower() == 'KASIK ENES BATUR' or message.content.lower() == 'KAŞİK ENES BATUR' or message.content.lower() == 'KASİK ENES BATUR':
         await message.channel.send("https://media.discordapp.net/attachments/742459973556240386/778388988624764928/kasik_enes_batur-1.png")
