@@ -25,7 +25,7 @@ intents = discord.Intents(messages=True, guilds=True, members = True)
 client = discord.Client(intents=intents)
 startTime = datetime.now()
 
-ver = int(179)
+ver = int(181)
 
 #invite tracker translated and implemented for usage
 #repo: https://github.com/GregTCLTK/Discord-Invite-Tracker/blob/master/bot.py
@@ -47,17 +47,26 @@ async def fetch():
                 if s[0] == i.code:
                     if int(i.uses) > s[1]:
                         usr = gld.get_member(int(last))
-                        eme = discord.Embed(description="Davet link takibi", color=0x03d692, title=" ")
-                        eme.set_author(name=usr.name + "#" + usr.discriminator, icon_url=usr.avatar_url)
-                        eme.set_footer(text="Kullanıcı ID: " + str(usr.id))
-                        eme.timestamp = usr.joined_at
-                        eme.add_field(name="Kullanılan davet:",
-                                      value="Daveti açan: " + i.inviter.mention + " (`" + i.inviter.name + "#" + i.inviter.discriminator + "`)\nInvite ID: `" + i.code + "`\nŞu ana kadarki kullanım: `" + str(
-                                          i.uses) + "`", inline=False)
-                        await logs.send(embed=eme)
+                        # msg = discord.Embed(description="Davet link takibi", color=0x03d692, title=" ")
+                        # eme.set_author(name=usr.name + "#" + usr.discriminator, icon_url=usr.avatar_url)
+                        # eme.set_footer(text="Kullanıcı ID: " + str(usr.id))
+                        # eme.timestamp = usr.joined_at
+                        # eme.add_field(name="Kullanılan davet:",
+                                      # value="Daveti açan: " + i.inviter.mention + " (`" + i.inviter.name + "#" + i.inviter.discriminator + "`)\nInvite ID: `" + i.code + "`\nŞu ana kadarki kullanım: `" + str(
+                                          # i.uses) + "`", inline=False)
+                        # await logs.send(embed=eme)
+                        giren = usr.mention
+                        girid = usr.id
+                        sokan = i.inviter.mention
+                        sokid = i.inviter.id
+                        icode = i.code
+                        kulln = i.uses
+                        await logs.send(f"**INVITE TAKİBİ**\n{giren}(ID: {girid})")
+                        await logs.send(f"sunucuya {sokan}(ID: {sokid}) kişisinin {icode} invite'ı ile girdi.")
+                        await logs.send(f"Şu ana kadar kullanım: {kulln}")
             tmp.append(tuple((i.code, i.uses)))
         invites = tmp
-        await asyncio.sleep(1)
+        await asyncio.sleep(2)
 
 @client.event
 async def on_ready():
@@ -112,6 +121,18 @@ async def on_member_join(member):
     global last
     last = str(member.id)
     # invite tracker code end
+    await verifych.send(f"hoşgeldin dostum {ment}") 
+    await asyncio.sleep(2)
+    await verifych.send("sen şimdi kurallara murallara falan bak eğer sana uyuyorsa tamam de burda, sonra robot olmayan birileri seninle ilgilensinler.")
+    await asyncio.sleep(2)
+    await verifych.send(f"içerde de adam gibi davran.")
+    await asyncio.sleep(2)
+    await verifych.send("eğer mesaj yazamıyosan telefon doğrulaması yap")
+    await asyncio.sleep(2)
+    await verifych.send("sese senden istenmediği sürece girmene gerek yok, kuralları kabul ettiğini söyleyip beklemen yeterli.")
+    await asyncio.sleep(2)
+    await verifych.send("admin tagleyebilirsin ama spam yapma sonra vah ben niye ban yedim diye de ağlama")
+
     # print(noc)
     # tr saatiyle 03:00-09:00 kapalı
     # utc 6dan küçükse kapalı diğer türlü açık
