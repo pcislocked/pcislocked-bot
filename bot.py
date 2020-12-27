@@ -25,7 +25,7 @@ intents = discord.Intents(messages=True, guilds=True, members = True)
 client = discord.Client(intents=intents)
 startTime = datetime.now()
 
-ver = int(181)
+ver = int(182)
 
 #invite tracker translated and implemented for usage
 #repo: https://github.com/GregTCLTK/Discord-Invite-Tracker/blob/master/bot.py
@@ -79,7 +79,7 @@ async def on_ready():
         f'{client.user} is connected to the following guild:\n'
         f'{guild.name}(id: {guild.id})'
     )
-    general = client.get_channel(629749813440675872)
+    general = client.get_channel(792561973292302356)
     url = 'http://ipinfo.io/json'
     response = urlopen(url)
     data = json.load(response)
@@ -200,10 +200,11 @@ async def on_member_remove(member):
 async def on_message(message):
 
     memberid=message.author.id
+    verifych = client.get_channel(764880248336154664)
     # for debugging only
     # print(message.author)
     # print(message.content)
-    if message.channel == client.get_channel(764880248336154664):
+    if message.channel == client.get_channel(764880248336154664): # verify
         disc = message.author.discriminator
         name = message.author.name
         cont = message.content
@@ -215,22 +216,21 @@ async def on_message(message):
     if message.author == client.user:
         return
         
+    if message.content.lower() == 'sa' and message.channel == verifych:
+        ment=message.author.mention
+        member=message.author
+        await message.delete()
+        await message.channel.send(f"madem verifyda sa yazdın siktir git o zaman {ment} \n\n 5 saniye sonra kickleneceksin son sözlerini söyle")
+        await asyncio.sleep(5)
+        await member.kick(reason="verify sa pcislockedbot")
+        await message.channel.send(f"{ment} = atıldı 🕋")
+        
     if message.content.lower() == 'sa':
-        verifych = client.get_channel(764880248336154664)
-        if message.channel == verifych:
-            ment=message.author.mention
-            member=message.author
-            await message.delete()
-            await message.channel.send(f"madem verifyda sa yazdın siktir git o zaman {ment} \n\n 5 saniye sonra kickleneceksin son sözlerini söyle")
-            await asyncio.sleep(5)
-            await member.kick(reason="verify sa pcislockedbot")
-            await message.channel.send(f"{ment} = atıldı 🕋")
+        n = random.randint(1,8)
+        if n == 2:
+            await message.channel.send("devam edersen sonun böyle olur orospu çocuğu https://www.youtube.com/watch?v=PHkL6xGGU_U")
         else:
-            n = random.randint(1,8)
-            if n == 2:
-                await message.channel.send("devam edersen sonun böyle olur orospu çocuğu https://www.youtube.com/watch?v=PHkL6xGGU_U")
-            else:
-                await message.channel.send("burası cami mi orospu evladı")
+            await message.channel.send("burası cami mi orospu evladı")
                 
     if message.content.lower() == 'as':
         ment=message.author.mention
@@ -405,6 +405,14 @@ async def on_message(message):
     if message.content.lower() == 'öd' or message.content.lower() == 'od':
         await message.channel.send("seni banlicam hatırlat bana") 
         return
+                
+    if message.content.lower() == '034729' and message.channel == verifych:
+        ment=message.author.mention
+        await message.delete()
+        await message.channel.send(f"helal kanka")
+        guilddx = client.get_guild(617801724345843742)
+        member = discord.utils.get(guilddx.roles, id=744936843476336682)
+        await message.author.add_roles(member)
         
         # uid = message.author.id
         # cid = message.channel.id
