@@ -25,13 +25,13 @@ intents = discord.Intents(messages=True, guilds=True, members = True)
 client = discord.Client(intents=intents)
 startTime = datetime.now()
 
-ver = int(182)
+ver = int(187)
 
 #invite tracker translated and implemented for usage
 #repo: https://github.com/GregTCLTK/Discord-Invite-Tracker/blob/master/bot.py
 
 invites = {}
-last = ""
+last = "0"
 
 async def fetch():
     global last
@@ -46,7 +46,7 @@ async def fetch():
             for s in invites:
                 if s[0] == i.code:
                     if int(i.uses) > s[1]:
-                        usr = gld.get_member(int(last))
+                        usr = gld.get_member(int(float(last)))
                         # msg = discord.Embed(description="Davet link takibi", color=0x03d692, title=" ")
                         # eme.set_author(name=usr.name + "#" + usr.discriminator, icon_url=usr.avatar_url)
                         # eme.set_footer(text="Kullanıcı ID: " + str(usr.id))
@@ -71,6 +71,8 @@ async def fetch():
 @client.event
 async def on_ready():
     activity = discord.Game(name="Bota bir şey mi eklemek istiyorsun? Git kendin ekle amk: github: pcislocked-bot")
+    # activity = discord.Game(name="debug connected")
+    # await client.change_presence(status=discord.Status.dnd, activity=activity)
     await client.change_presence(status=discord.Status.idle, activity=activity)
     for guild in client.guilds:
         if guild.name == GUILD:
@@ -89,11 +91,12 @@ async def on_ready():
     city = data['city']
     country=data['country']
     region=data['region']
+    # await general.send(f"Bot test modunda başlatıldı.") 
     await general.send(f"Bot yeniden başlatıldı. Sunucu lokasyonu: {city}") 
     verifych = client.get_channel(764880248336154664)
-    modlounge = client.get_channel(702562505905668137)
-    IPx="niggers"
-    await modlounge.send(f"Bot yeniden başlatıldı.\nIP: {IP}\norg: {org}\ncity: {city}\ncountry: {country}\nregion: {region}")
+    modloungelog = client.get_channel(795054947695067146)
+    IPx="SİLDİM - ev IP'm"
+    await modloungelog.send(f"Bot yeniden başlatıldı.\nIP: {IP}\norg: {org}\ncity: {city}\ncountry: {country}\nregion: {region}")
 @client.event
 async def on_member_join(member):
     guildd = client.get_guild(617801724345843742)
@@ -121,17 +124,17 @@ async def on_member_join(member):
     global last
     last = str(member.id)
     # invite tracker code end
-    await verifych.send(f"hoşgeldin dostum {ment}") 
+    await verifych.send(f"hoşgeldin dostum {ment}", delete_after=10800)
     await asyncio.sleep(2)
-    await verifych.send("sen şimdi kurallara murallara falan bak eğer sana uyuyorsa tamam de burda, sonra robot olmayan birileri seninle ilgilensinler.")
+    await verifych.send("sen şimdi kurallara murallara falan bak eğer sana uyuyorsa tamam de burda, sonra robot olmayan birileri seninle ilgilensinler.", delete_after=10800)
     await asyncio.sleep(2)
-    await verifych.send(f"içerde de adam gibi davran.")
+    await verifych.send(f"içerde de adam gibi davran.", delete_after=10800)
     await asyncio.sleep(2)
-    await verifych.send("eğer mesaj yazamıyosan telefon doğrulaması yap")
+    await verifych.send("eğer mesaj yazamıyosan telefon doğrulaması yap", delete_after=10800)
     await asyncio.sleep(2)
-    await verifych.send("sese senden istenmediği sürece girmene gerek yok, kuralları kabul ettiğini söyleyip beklemen yeterli.")
+    await verifych.send("sese senden istenmediği sürece girmene gerek yok, kuralları kabul ettiğini söyleyip beklemen yeterli.", delete_after=10800)
     await asyncio.sleep(2)
-    await verifych.send("admin tagleyebilirsin ama spam yapma sonra vah ben niye ban yedim diye de ağlama")
+    await verifych.send("admin tagleyebilirsin ama spam yapma sonra vah ben niye ban yedim diye de ağlama", delete_after=10800)
 
     # print(noc)
     # tr saatiyle 03:00-09:00 kapalı
@@ -165,7 +168,7 @@ async def on_member_join(member):
         # await verifych.send(f"hoşgeldin {ment}, şu anda yeni üye almıyoruz. Yeni üye alımları Türkiye saati ile 10:00'da açılacak. \n **NOT: izinlerin güncelleştirilebilmesi için sunucudan çıkıp geri girmen gerekebilir.** Sunucu davetini nereden aldıysan oradan yine geri girersin sıkıntı olmaz.")
     # elif int(noc) < int(20):
         # await verifych.set_permissions(target=evr, read_messages=True,
-                                                   # send_messages=True)
+         #                                          send_messages=True)
         # # print("before 20utc")
         # await verifych.send(f"hoşgeldin {ment} şimdi buraya bir şeyler yaz ve bekle. içerde de adam gibi davran. \n \n eğer mesaj yazamıyosan telefon doğrulaması yap\n \n doğrulamada ses kontrolü yapmıyoruz o yüzden sese girmen hiç bir şeyi değiştirmez.")
     # elif int(noc) == int(20):
@@ -204,6 +207,61 @@ async def on_message(message):
     # for debugging only
     # print(message.author)
     # print(message.content)
+    modlounge = client.get_channel(702562505905668137)
+    
+    if message.content.lower() == '!raid' and message.channel == modlounge:
+        await modlounge.send("raid lockdown running now")
+        activeraid = True
+        guildd = client.get_guild(617801724345843742)
+        welcomech = client.get_channel(629749203261980712)
+        rulespublicch = client.get_channel(739264333858472017)
+        verifych = client.get_channel(764880248336154664)
+        verifyvoice = client.get_channel(709827236504666244)
+        referrencech = client.get_channel(795580438831693824)
+        evr = discord.utils.get(guildd.roles, id=617801724345843742)
+        general = client.get_channel(792561973292302356)
+        await welcomech.set_permissions(target=evr, view_channel=False,
+                                                   send_messages=False)
+        await rulespublicch.set_permissions(target=evr, view_channel=False,
+                                                   send_messages=False)
+        await verifych.set_permissions(target=evr, view_channel=False,
+                                                   send_messages=False)
+        await verifyvoice.set_permissions(target=evr, view_channel=False,
+                                                   connect=False,
+                                                   speak=False)
+        await referrencech.set_permissions(target=evr, send_messages=False)
+        await modlounge.send("!raid OK - kanallar kapatıldı.")
+        announce = client.get_channel(733313674344661052)
+        await announce.send(f"DİKKAT: Sunucu raid(baskın) altında olduğu için sunucuya bütün girişler otomatik olarak kapatılmıştır. join log'u susturmak isteyebilirsiniz.")
+        await general.send(f"DİKKAT: Sunucu raid(baskın) altında olduğu için sunucuya bütün girişler otomatik olarak kapatılmıştır. join log'u susturmak isteyebilirsiniz.")
+        
+    if message.content.lower() == '!unraid' and message.channel == modlounge:
+        await modlounge.send("reverting...")
+        activeraid = False
+        guildd = client.get_guild(617801724345843742)
+        welcomech = client.get_channel(629749203261980712)
+        rulespublicch = client.get_channel(739264333858472017)
+        verifych = client.get_channel(764880248336154664)
+        verifyvoice = client.get_channel(709827236504666244)
+        referrencech = client.get_channel(795580438831693824)
+        announce = client.get_channel(733313674344661052)
+        evr = discord.utils.get(guildd.roles, id=617801724345843742)
+        general = client.get_channel(792561973292302356)
+        await welcomech.set_permissions(target=evr, view_channel=True,
+                                                   send_messages=False)
+        await rulespublicch.set_permissions(target=evr, view_channel=True,
+                                                   send_messages=False)
+        await verifych.set_permissions(target=evr, view_channel=True,
+                                                   send_messages=True)
+        await verifyvoice.set_permissions(target=evr, view_channel=True,
+                                                   connect=True,
+                                                   speak=True)
+        await referrencech.set_permissions(target=evr, send_messages=True)
+        await modlounge.send("!unraid OK")
+        announce = client.get_channel(733313674344661052)
+        await announce.send(f"baskın bitti lol")
+        await general.send(f"baskın bitti lol")
+
     if message.channel == client.get_channel(764880248336154664): # verify
         disc = message.author.discriminator
         name = message.author.name
@@ -212,6 +270,22 @@ async def on_message(message):
         nou = datetime.now()
         logch = client.get_channel(780207454846844928)
         await logch.send(f"{name}#{disc}: {cont}\nID: {mid} - timestamp: {nou}")
+
+    if message.channel == client.get_channel(795580438831693824): # reference-verify
+        guilddx = client.get_guild(617801724345843742)
+        refver = discord.utils.get(guilddx.roles, id=795580318962286602)
+        member = discord.utils.get(guilddx.roles, id=744936843476336682)
+        await channel.message.send("Teşekkürler. Sunucuya yönlendiriliyorsunuz, EĞER ")
+        await asyncio.sleep(3)
+        await message.author.add_roles(member)
+        await message.author.remove_roles(refver)
+        disc = message.author.discriminator
+        name = message.author.name
+        cont = message.content
+        mid = message.author.id
+        nou = datetime.now()
+        lowgch = client.get_channel(702503861453193216)
+        await lowgch.send(f"REFERANS KAYDI:\n{name}#{disc}: {cont}\nID: {mid} - timestamp: {nou}")
         
     if message.author == client.user:
         return
@@ -368,10 +442,17 @@ async def on_message(message):
     if message.content.lower() == 'götöş' or message.content.lower() == 'gotöş' or message.content.lower() == 'götoş' or message.content.lower() == 'gotoş' or message.content.lower() == 'GÖTÖŞ' or message.content.lower() == 'GÖTOŞ' or message.content.lower() == 'GOTÖŞ' or message.content.lower() == 'GOTOŞ' or message.content.lower() == 'götös' or message.content.lower() == 'gotös' or message.content.lower() == 'götos' or message.content.lower() == 'gotos' or message.content.lower() == 'GÖTÖS' or message.content.lower() == 'GÖTOS' or message.content.lower() == 'GOTÖS' or message.content.lower() == 'GOTOS':
         await message.channel.send("https://media.discordapp.net/attachments/742459973556240386/778381895666761738/gotos.png")
        
-    if message.content.lower() == 'napim':
+    if message.content.lower() == 'napim' or message.content.lower() == 'nabım':
         ment=message.author.mention
         await message.channel.send(f"duymamış oliyim, kaşınma 🕋 {ment}", delete_after=20)
         await message.delete()
+       
+    if message.content.lower() == 'nabim' or message.content.lower() == 'nabım':
+        ment=message.author.mention
+        await message.channel.send(f"b ile yazmayacaktın 🕋 {ment} son sözlerini söyle", delete_after=30)
+        await asyncio.sleep(10)
+        await message.author.kick(reason="nabim yazdı, pcislockedbot")
+        await message.channel.send(f"{ment} = atıldı 🕋")
 
 #' or message.content.lower() == 'hey wake up' or message.content.lower() == 'hey, wake up' or message.content.lower() == 'wake em up' or message.content.lower() == 'wake \'em up':
     # if message.content.lower() == '🤡':
@@ -402,17 +483,38 @@ async def on_message(message):
     if message.content.lower() == 'tm':
         await message.channel.send("tşk")
         
+    if message.content.lower() == 'fıkralarla türkiye' or message.content.lower() == 'fıkralarla türkiye intro':
+        await message.channel.send("https://www.youtube.com/watch?v=9GPOeIhcICg") 
+        return
+        
     if message.content.lower() == 'öd' or message.content.lower() == 'od':
         await message.channel.send("seni banlicam hatırlat bana") 
         return
                 
-    if message.content.lower() == '034729' and message.channel == verifych:
+    if message.content.lower() == '857238' and message.channel == verifych:
         ment=message.author.mention
         await message.delete()
-        await message.channel.send(f"helal kanka")
+        await message.channel.send(f"Kuralları okuduğun için teşekkürler, geç bakalım. **Şüpheli durumlarda tekrar buraya dönebileceğini unutma.**", delete_after=8)
+        
         guilddx = client.get_guild(617801724345843742)
         member = discord.utils.get(guilddx.roles, id=744936843476336682)
         await message.author.add_roles(member)
+        
+    if message.content.lower() == '!referans' and message.channel == verifych and activeraid == False:
+        ment=message.author.mention
+        await message.delete()
+        refverch = client.get_channel(795580438831693824)
+        refchment = refverch.mention
+        await message.channel.send(f"Lütfen bekleyin, referans kanalına yönlendiriliyorsunuz, mesajı gördüğünüzden emin olmak için gecikme koydum. {refchment}", delete_after=10)
+        await asyncio.sleep(3)
+        guilddx = client.get_guild(617801724345843742)
+        refver = discord.utils.get(guilddx.roles, id=795580318962286602)
+        modpin = discord.utils.get(guilddx.roles, id=744937119956467812)
+        await message.author.add_roles(refver)
+        await asyncio.sleep(2)
+        await refverch.send(f"Dostum {ment} hoşgeldin. Kimden referansla buraya geldiğini **TEK BİR MESAJDA** ve o kişiyi ETİKETLEYEREK moderatörler seni çok hızlı bir şekilde içeri alacaklar. Modlara etiket atmana gerek yok.\n\n **BU KURALLARA UYMAYARAK BUNU YAZMAZSAN SUNUCUDAN ATILIRSIN, KÖTÜYE KULLANIRSAN BANLANIRSIN.**\n\n**Referansını belirten mesajını gönderdiğin andan itibaren bütün kuralları okumuş ve onaylamış sayılırsın.**", delete_after=1800)
+        # moding = modpin.mention
+        # await refverch.send(f"{moding} lan amına koduklarım bakın hele şuraya")
         
         # uid = message.author.id
         # cid = message.channel.id
