@@ -5,6 +5,7 @@ import random
 import asyncio
 import discord
 import string
+import pickle
 from datetime import datetime
 from discord.ext import commands
 from datetime import time
@@ -24,8 +25,12 @@ GUILD = "617801724345843742"
 intents = discord.Intents(messages=True, guilds=True, members = True)
 client = discord.Client(intents=intents)
 startTime = datetime.now()
-
-ver = int(187)
+activeraid = pickle.load(open("activeraid.pk1", "rb"))
+codepass = pickle.load(open("codepass.pk1", "rb"))
+refpass = pickle.load(open("refpass.pk1", "rb"))
+welcomemessage = pickle.load(open("welcomemessage.pk1", "rb"))
+writejoinquitlog = pickle.load(open("writejoinquitlog.pk1", "rb"))
+ver = int(189)
 
 #invite tracker translated and implemented for usage
 #repo: https://github.com/GregTCLTK/Discord-Invite-Tracker/blob/master/bot.py
@@ -92,11 +97,12 @@ async def on_ready():
     country=data['country']
     region=data['region']
     # await general.send(f"Bot test modunda başlatıldı.") 
-    await general.send(f"Bot yeniden başlatıldı. Sunucu lokasyonu: {city}") 
+    # await general.send(f"Bot yeniden başlatıldı. Sunucu lokasyonu: {city}") 
     verifych = client.get_channel(764880248336154664)
     modloungelog = client.get_channel(795054947695067146)
     IPx="SİLDİM - ev IP'm"
-    await modloungelog.send(f"Bot yeniden başlatıldı.\nIP: {IP}\norg: {org}\ncity: {city}\ncountry: {country}\nregion: {region}")
+    await modloungelog.send(f"Bot yeniden başlatıldı.\nIP: {IPx}\norg: {org}\ncity: {city}\ncountry: {country}\nregion: {region}\n\nYüklenen değerler:\nactiveraid:{activeraid}\ncodepass:{codepass}\nrefpass:{refpass}\nwelcomemessage:{welcomemessage}\nwritejoinquitlog:{writejoinquitlog}\n\n*(1=true, 0=false, welcome message için: 0, kapalı; 1, tek mesaj; 2, tam mesaj)*")
+    print(f"Bot yeniden başlatıldı.\nIP: {IPx}\norg: {org}\ncity: {city}\ncountry: {country}\nregion: {region}\n\nYüklenen değerler:\nactiveraid:{activeraid}\ncodepass:{codepass}\nrefpass:{refpass}\nwelcomemessage:{welcomemessage}\nwritejoinquitlog:{writejoinquitlog}\n\n*(1=true, 0=false, welcome message için: 0, kapalı; 1, tek mesaj; 2, tam mesaj)*")
 @client.event
 async def on_member_join(member):
     guildd = client.get_guild(617801724345843742)
@@ -115,26 +121,31 @@ async def on_member_join(member):
     def rnid(length):
         letters = '0123456789abcdef'
         return ''.join(random.choice(letters) for i in range(length))
-    await member.edit(nick=f"new user {rnid(4)}")
-    await verifyclone.send(f"SABIKA KAYDI:\n kisi: {ment} nick+discrim: {mnc}#{mdm} \nID: {mid}\n pp: {mpp}\n joined at: {mjd}\n account creation: {mcd}")
-    await joinlog.send(f"{ment} katıldı\n ID: {mid}\ntimestamp: {nou}")
+    if writejoinquitlog == [1]:
+        await member.edit(nick=f"new user {rnid(4)}")
+        await joinlog.send(f"{ment} katıldı\n ID: {mid}\ntimestamp: {nou}")
+        await verifyclone.send(f"SABIKA KAYDI:\n kisi: {ment} nick+discrim: {mnc}#{mdm} \nID: {mid}\n pp: {mpp}\n joined at: {mjd}\n account creation: {mcd}")
     noz = datetime.now()
     noc = noz.strftime("%H")
     # invite tracker code start - not coded by pcislocked
     global last
     last = str(member.id)
     # invite tracker code end
-    await verifych.send(f"hoşgeldin dostum {ment}", delete_after=10800)
-    await asyncio.sleep(2)
-    await verifych.send("sen şimdi kurallara murallara falan bak eğer sana uyuyorsa tamam de burda, sonra robot olmayan birileri seninle ilgilensinler.", delete_after=10800)
-    await asyncio.sleep(2)
-    await verifych.send(f"içerde de adam gibi davran.", delete_after=10800)
-    await asyncio.sleep(2)
-    await verifych.send("eğer mesaj yazamıyosan telefon doğrulaması yap", delete_after=10800)
-    await asyncio.sleep(2)
-    await verifych.send("sese senden istenmediği sürece girmene gerek yok, kuralları kabul ettiğini söyleyip beklemen yeterli.", delete_after=10800)
-    await asyncio.sleep(2)
-    await verifych.send("admin tagleyebilirsin ama spam yapma sonra vah ben niye ban yedim diye de ağlama", delete_after=10800)
+    if welcomemessage == [2]:
+        await verifych.send(f"hoşgeldin dostum {ment}", delete_after=10800)
+        await asyncio.sleep(2)
+        await verifych.send("sen şimdi kurallara murallara falan bak eğer sana uyuyorsa tamam de burda, sonra robot olmayan birileri seninle ilgilensinler.", delete_after=10800)
+        await asyncio.sleep(2)
+        await verifych.send(f"içerde de adam gibi davran.", delete_after=10800)
+        await asyncio.sleep(2)
+        await verifych.send("eğer mesaj yazamıyosan telefon doğrulaması yap", delete_after=10800)
+        await asyncio.sleep(2)
+        await verifych.send("sese senden istenmediği sürece girmene gerek yok, kuralları kabul ettiğini söyleyip beklemen yeterli.", delete_after=10800)
+        await asyncio.sleep(2)
+        await verifych.send("admin tagleyebilirsin ama spam yapma sonra vah ben niye ban yedim diye de ağlama", delete_after=10800)
+    if welcomemessage == [1]:
+        await verifych.send(f"hoşgeldin dostum {ment}, kuralları incele ve eğer onaylıyorsan buraya \"kuralları oynaylıyorum\" yaz, ardından moderatörler hesabını inceleyip uygun görürlerse seni alacaklar.", delete_after=1800)
+
 
     # print(noc)
     # tr saatiyle 03:00-09:00 kapalı
@@ -195,13 +206,19 @@ async def on_member_remove(member):
     ment = member.mention
     mid = member.id
     nou = datetime.now()
-    await joinlog.send(f"{ment} geberdi\n ID: {mid}\ntimestamp: {nou}")
-    await verifyclone.send(f"{ment} çıktı. \n ID: {mid}\ntimestamp: {nou}")
+    if writejoinquitlog == [1]:
+        await joinlog.send(f"{ment} geberdi\n ID: {mid}\ntimestamp: {nou}")
+        await verifyclone.send(f"{ment} çıktı. \n ID: {mid}\ntimestamp: {nou}")
 
 
 @client.event
 async def on_message(message):
 
+    activeraid = pickle.load(open("activeraid.pk1", "rb"))
+    codepass = pickle.load(open("codepass.pk1", "rb"))
+    refpass = pickle.load(open("refpass.pk1", "rb"))
+    welcomemessage = pickle.load(open("welcomemessage.pk1", "rb"))
+    writejoinquitlog = pickle.load(open("writejoinquitlog.pk1", "rb"))
     memberid=message.author.id
     verifych = client.get_channel(764880248336154664)
     # for debugging only
@@ -211,7 +228,7 @@ async def on_message(message):
     
     if message.content.lower() == '!raid' and message.channel == modlounge:
         await modlounge.send("raid lockdown running now")
-        activeraid = True
+        activeraid = 1
         guildd = client.get_guild(617801724345843742)
         welcomech = client.get_channel(629749203261980712)
         rulespublicch = client.get_channel(739264333858472017)
@@ -232,12 +249,94 @@ async def on_message(message):
         await referrencech.set_permissions(target=evr, send_messages=False)
         await modlounge.send("!raid OK - kanallar kapatıldı.")
         announce = client.get_channel(733313674344661052)
+        activeraid = 1
+        pickle.dump([activeraid], open("activeraid.pk1", "wb"))
         await announce.send(f"DİKKAT: Sunucu raid(baskın) altında olduğu için sunucuya bütün girişler otomatik olarak kapatılmıştır. join log'u susturmak isteyebilirsiniz.")
         await general.send(f"DİKKAT: Sunucu raid(baskın) altında olduğu için sunucuya bütün girişler otomatik olarak kapatılmıştır. join log'u susturmak isteyebilirsiniz.")
         
+    if message.content.lower() == '!togglebypass' and message.channel == modlounge:
+        print(codepass)
+        if codepass == [1]:
+            codepass = 0
+            await modlounge.send(f"gizli kod yazarak verify'ı atlama artık kapalı.")
+        elif codepass == [0]:
+            codepass = 1
+            await modlounge.send(f"gizli kod yazarak verify'ı atlama artık açık.")
+        else:
+            codepass = 0
+            await modlounge.send(f"oopsie moment. codepass is set as 0, details on console")
+        pickle.dump([codepass], open("codepass.pk1", "wb"))
+        print(f"codepass is set as {codepass}")
+        
+    if message.content.lower() == '!toggleref' and message.channel == modlounge:
+        if refpass == [0]:
+            refpass = 1
+            await modlounge.send(f"!referans yazarak verify'ı atlama artık açık.")
+        else:
+            refpass = 0
+            await modlounge.send(f"!referans yazarak verify'ı atlama artık kapalı.")
+        pickle.dump([refpass], open("refpass.pk1", "wb"))
+        print(f"refpass is set as {refpass}")
+
+    if message.content.lower() == '!togglejq' and message.channel == modlounge:
+        if writejoinquitlog == [0]:
+            writejoinquitlog = 1
+            await modlounge.send(f"join-quit log artık **açık.**")
+            pickle.dump([writejoinquitlog], open("writejoinquitlog.pk1", "wb"))
+        else:
+            writejoinquitlog = 0
+            await modlounge.send(f"Botu aşırı yüklememek için artık join-quit log **atılmayacak.**")
+            pickle.dump([writejoinquitlog], open("writejoinquitlog.pk1", "wb"))
+        print(f"jq toggled, now it's {writejoinquitlog}")
+
+    if message.content.lower() == '!resetall' and message.channel == modlounge:
+        welcomemessage = 2
+        writejoinquitlog = 1
+        refpass = 1
+        codepass = 0
+        activeraid = 0
+        await modlounge.send(f"now everything set as below:\n welcomemessage={welcomemessage}\n writejoinquitlog={writejoinquitlog}\n refpass={refpass}\n codepass={codepass}\n activeraid={activeraid}")
+        pickle.dump([welcomemessage], open("welcomemessage.pk1", "wb"))
+        pickle.dump([writejoinquitlog], open("writejoinquitlog.pk1", "wb"))
+        pickle.dump([refpass], open("refpass.pk1", "wb"))
+        pickle.dump([codepass], open("codepass.pk1", "wb"))
+        pickle.dump([activeraid], open("activeraid.pk1", "wb"))
+
+    if message.content.lower() == '!togglewelcome' and message.channel == modlounge:
+        if welcomemessage == [2]:
+            welcomemessage = 1
+            await modlounge.send(f"artık kısa bir karşılama mesajı atılacak.")
+            pickle.dump([welcomemessage], open("welcomemessage.pk1", "wb"))
+        elif welcomemessage == [0]:
+            welcomemessage = 2
+            await modlounge.send(f"artık tam karşılama mesajı atılacak")
+            pickle.dump([welcomemessage], open("welcomemessage.pk1", "wb"))
+        elif welcomemessage == [1]:
+            print(welcomemessage)
+            welcomemessage = 0
+            print(welcomemessage)
+            await modlounge.send(f"Botu aşırı yüklememek için artık karşılama mesajı **atılmayacak.**")
+            pickle.dump([welcomemessage], open("welcomemessage.pk1", "wb"))
+            print(welcomemessage)
+        else:
+            await modlounge.send("i hate niggers. and i hate you too.")
+        print(f"welcome messages toggled, now it's {welcomemessage}")
+        
+    if message.content.lower() == '!kill' and message.channel == modlounge:
+        await modlounge.send(f"change da world\nmy final message. Goodb ye")
+        modloungelog = client.get_channel(795054947695067146)
+        ment = message.author.mention
+        await modloungelog.send(f"Bot {ment} tarafından killswitch ile kapatıldı.")
+        activity = discord.Game(name="offline")
+        await client.change_presence(status=discord.Status.invisible, activity=activity)
+        print(f"{ment} botu !kill ile kapattı.")
+        quit()
+
+    if message.content.lower() == '!values' and message.channel == modlounge:
+        await modlounge.send(f"Şu anda aktif olan değerler:\nactiveraid:{activeraid}\ncodepass:{codepass}\nrefpass:{refpass}\nwelcomemessage:{welcomemessage}\nwritejoinquitlog:{writejoinquitlog}\n\n*(1=true, 0=false, welcome message için: 0, kapalı; 1, tek mesaj; 2, tam mesaj)*")
+
     if message.content.lower() == '!unraid' and message.channel == modlounge:
         await modlounge.send("reverting...")
-        activeraid = False
         guildd = client.get_guild(617801724345843742)
         welcomech = client.get_channel(629749203261980712)
         rulespublicch = client.get_channel(739264333858472017)
@@ -259,10 +358,12 @@ async def on_message(message):
         await referrencech.set_permissions(target=evr, send_messages=True)
         await modlounge.send("!unraid OK")
         announce = client.get_channel(733313674344661052)
+        activeraid = 0
+        pickle.dump([activeraid], open("activeraid.pk1", "wb"))
         await announce.send(f"baskın bitti lol")
         await general.send(f"baskın bitti lol")
 
-    if message.channel == client.get_channel(764880248336154664): # verify
+    if message.channel == client.get_channel(764880248336154664) and activeraid == [0]: # verify
         disc = message.author.discriminator
         name = message.author.name
         cont = message.content
@@ -271,7 +372,7 @@ async def on_message(message):
         logch = client.get_channel(780207454846844928)
         await logch.send(f"{name}#{disc}: {cont}\nID: {mid} - timestamp: {nou}")
 
-    if message.channel == client.get_channel(795580438831693824): # reference-verify
+    if message.channel == client.get_channel(795580438831693824) and activeraid == [0] and refpass == [1]: # reference-verify
         guilddx = client.get_guild(617801724345843742)
         refver = discord.utils.get(guilddx.roles, id=795580318962286602)
         member = discord.utils.get(guilddx.roles, id=744936843476336682)
@@ -439,6 +540,9 @@ async def on_message(message):
     if message.content.lower() == 'kaşık enes batur' or message.content.lower() == 'kasık enes batur' or message.content.lower() == 'kaşik enes batur' or message.content.lower() == 'kasik enes batur' or message.content.lower() == 'KAŞIK ENES BATUR' or message.content.lower() == 'KASIK ENES BATUR' or message.content.lower() == 'KAŞİK ENES BATUR' or message.content.lower() == 'KASİK ENES BATUR':
         await message.channel.send("https://media.discordapp.net/attachments/742459973556240386/778388988624764928/kasik_enes_batur-1.png")
 
+    if message.content.lower() == 'kaşık enes batur png' or message.content.lower() == 'kasık enes batur png' or message.content.lower() == 'kaşik enes batur png' or message.content.lower() == 'kasik enes batur png' or message.content.lower() == 'KAŞIK ENES BATUR png' or message.content.lower() == 'KASIK ENES BATUR png' or message.content.lower() == 'KAŞİK ENES BATUR png' or message.content.lower() == 'KASİK ENES BATUR png':
+        await message.channel.send("https://media.discordapp.net/attachments/742459973556240386/778388988624764928/kasik_enes_batur-1.png")
+
     if message.content.lower() == 'götöş' or message.content.lower() == 'gotöş' or message.content.lower() == 'götoş' or message.content.lower() == 'gotoş' or message.content.lower() == 'GÖTÖŞ' or message.content.lower() == 'GÖTOŞ' or message.content.lower() == 'GOTÖŞ' or message.content.lower() == 'GOTOŞ' or message.content.lower() == 'götös' or message.content.lower() == 'gotös' or message.content.lower() == 'götos' or message.content.lower() == 'gotos' or message.content.lower() == 'GÖTÖS' or message.content.lower() == 'GÖTOS' or message.content.lower() == 'GOTÖS' or message.content.lower() == 'GOTOS':
         await message.channel.send("https://media.discordapp.net/attachments/742459973556240386/778381895666761738/gotos.png")
        
@@ -490,8 +594,14 @@ async def on_message(message):
     if message.content.lower() == 'öd' or message.content.lower() == 'od':
         await message.channel.send("seni banlicam hatırlat bana") 
         return
-                
-    if message.content.lower() == '857238' and message.channel == verifych:
+
+    if message.content.lower() == 'minibüs şöförleri' or message.content.lower() == 'minibus şöförleri' or message.content.lower() == 'minibüs söförleri' or message.content.lower() == 'minibus söförleri' or message.content.lower() == 'minibüs şoförleri' or message.content.lower() == 'minibus şoförleri' or message.content.lower() == 'minibüs soförleri' or message.content.lower() == 'minibus soförleri' or  message.content.lower() == 'minibüs şöforleri' or message.content.lower() == 'minibus şöforleri' or message.content.lower() == 'minibüs söforleri' or message.content.lower() == 'minibus soförleri' or message.content.lower() == 'minibüs şoforleri' or message.content.lower() == 'minibus şoforleri' or message.content.lower() == 'minibüs soforleri' or message.content.lower() == 'minibus soforleri':
+        await message.channel.send("https://cdn.discordapp.com/attachments/629749813440675872/784176424436891700/v.mp4")
+
+    if message.content.lower() == 'türkler' or  message.content.lower() == 'turkler' or message.content.lower() == 'türk milleti' or  message.content.lower() == 'turk milletı' or message.content.lower() == 'türk milletı' or  message.content.lower() == 'turk mılletı' or message.content.lower() == 'türk milleti zekidir' or  message.content.lower() == 'turk milleti zekidir' or  or message.content.lower() == 'türk milletı zekıdır' or  message.content.lower() == 'turk mılletı zekıdır':
+        await message.channel.send("https://media.discordapp.net/attachments/742459973556240386/796797170414125096/turkler_mal.jpg")
+    
+    if message.content.lower() == '857238' and message.channel == verifych and activeraid == [0] and codepass == [1]:
         ment=message.author.mention
         await message.delete()
         await message.channel.send(f"Kuralları okuduğun için teşekkürler, geç bakalım. **Şüpheli durumlarda tekrar buraya dönebileceğini unutma.**", delete_after=8)
@@ -500,7 +610,7 @@ async def on_message(message):
         member = discord.utils.get(guilddx.roles, id=744936843476336682)
         await message.author.add_roles(member)
         
-    if message.content.lower() == '!referans' and message.channel == verifych and activeraid == False:
+    if message.content.lower() == '!referans' and message.channel == verifych and activeraid == [0] and refpass == [1]:
         ment=message.author.mention
         await message.delete()
         refverch = client.get_channel(795580438831693824)
@@ -533,6 +643,10 @@ async def on_message(message):
                 # return
                 #somehow i gotta fix this
                 #i promise i will
+    if message.content.lower() == '!help' and message.channel == modlounge:
+        await message.channel.send("!kill - botu kapatır\n!resetall - sadece sorun çözme için, kullanmayın boşverin.\n!togglejq - #join-log kanalına atılan gir-çık mesajlarını açıp kapatır.\n!togglewelcome - birisi servera girdiğinde atılan hoşgeldin mesajlarını açıp kapatır.\n!values - sadece sorun çözme için, kullanmayın boşverin.\n!togglebypass - gizli kodu yazarak verify atlamayı açıp kapatır.\n!toggleref - !referans yazarak servera girmeyi açıp kapatır.\n!raid - herkese açık bütün kanalları kapatır - spam olması halinde joinquit mesajlarını ve welcome mesajlarını ayrıca kapatabilirsiniz.\n!unraid - kanalları eski haline getirir")
+    if message.content.lower() == '!help' and message.channel != modlounge:
+        await message.channel.send("bu komut sadece mod lounge'da çalışmaktadır. kullanıcıların kullanabileceği komutlar: ping, uptime :kekw:")
 
 client.loop.create_task(fetch())
 client.run(TOKEN)
