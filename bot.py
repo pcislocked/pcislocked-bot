@@ -30,7 +30,7 @@ codepass = pickle.load(open("codepass.pk1", "rb"))
 refpass = pickle.load(open("refpass.pk1", "rb"))
 welcomemessage = pickle.load(open("welcomemessage.pk1", "rb"))
 writejoinquitlog = pickle.load(open("writejoinquitlog.pk1", "rb"))
-ver = int(189)
+ver = int(195)
 
 #invite tracker translated and implemented for usage
 #repo: https://github.com/GregTCLTK/Discord-Invite-Tracker/blob/master/bot.py
@@ -90,19 +90,18 @@ async def on_ready():
     url = 'http://ipinfo.io/json'
     response = urlopen(url)
     data = json.load(response)
-
     IP=data['ip']
     org=data['org']
     city = data['city']
     country=data['country']
     region=data['region']
     # await general.send(f"Bot test modunda başlatıldı.") 
-    # await general.send(f"Bot yeniden başlatıldı. Sunucu lokasyonu: {city}") 
+    await general.send(f"Bot yeniden başlatıldı. Sunucu lokasyonu: {city}") 
     verifych = client.get_channel(764880248336154664)
     modloungelog = client.get_channel(795054947695067146)
     IPx="SİLDİM - ev IP'm"
     await modloungelog.send(f"Bot yeniden başlatıldı.\nIP: {IPx}\norg: {org}\ncity: {city}\ncountry: {country}\nregion: {region}\n\nYüklenen değerler:\nactiveraid:{activeraid}\ncodepass:{codepass}\nrefpass:{refpass}\nwelcomemessage:{welcomemessage}\nwritejoinquitlog:{writejoinquitlog}\n\n*(1=true, 0=false, welcome message için: 0, kapalı; 1, tek mesaj; 2, tam mesaj)*")
-    print(f"Bot yeniden başlatıldı.\nIP: {IPx}\norg: {org}\ncity: {city}\ncountry: {country}\nregion: {region}\n\nYüklenen değerler:\nactiveraid:{activeraid}\ncodepass:{codepass}\nrefpass:{refpass}\nwelcomemessage:{welcomemessage}\nwritejoinquitlog:{writejoinquitlog}\n\n*(1=true, 0=false, welcome message için: 0, kapalı; 1, tek mesaj; 2, tam mesaj)*")
+    print(f"Bot yeniden başlatıldı.\nIP: {IP}\norg: {org}\ncity: {city}\ncountry: {country}\nregion: {region}\n\nYüklenen değerler:\nactiveraid:{activeraid}\ncodepass:{codepass}\nrefpass:{refpass}\nwelcomemessage:{welcomemessage}\nwritejoinquitlog:{writejoinquitlog}\n\n*(1=true, 0=false, welcome message için: 0, kapalı; 1, tek mesaj; 2, tam mesaj)*")
 @client.event
 async def on_member_join(member):
     guildd = client.get_guild(617801724345843742)
@@ -598,7 +597,7 @@ async def on_message(message):
     if message.content.lower() == 'minibüs şöförleri' or message.content.lower() == 'minibus şöförleri' or message.content.lower() == 'minibüs söförleri' or message.content.lower() == 'minibus söförleri' or message.content.lower() == 'minibüs şoförleri' or message.content.lower() == 'minibus şoförleri' or message.content.lower() == 'minibüs soförleri' or message.content.lower() == 'minibus soförleri' or  message.content.lower() == 'minibüs şöforleri' or message.content.lower() == 'minibus şöforleri' or message.content.lower() == 'minibüs söforleri' or message.content.lower() == 'minibus soförleri' or message.content.lower() == 'minibüs şoforleri' or message.content.lower() == 'minibus şoforleri' or message.content.lower() == 'minibüs soforleri' or message.content.lower() == 'minibus soforleri':
         await message.channel.send("https://cdn.discordapp.com/attachments/629749813440675872/784176424436891700/v.mp4")
 
-    if message.content.lower() == 'türkler' or  message.content.lower() == 'turkler' or message.content.lower() == 'türk milleti' or  message.content.lower() == 'turk milletı' or message.content.lower() == 'türk milletı' or  message.content.lower() == 'turk mılletı' or message.content.lower() == 'türk milleti zekidir' or  message.content.lower() == 'turk milleti zekidir' or  or message.content.lower() == 'türk milletı zekıdır' or  message.content.lower() == 'turk mılletı zekıdır':
+    if message.content.lower() == 'türkler' or message.content.lower() == 'turkler' or message.content.lower() == 'türk milleti' or message.content.lower() == 'turk milletı' or message.content.lower() == 'türk milletı' or message.content.lower() == 'turk mılletı' or message.content.lower() == 'türk milleti zekidir' or message.content.lower() == 'turk milleti zekidir' or message.content.lower() == 'türk milletı zekıdır' or message.content.lower() == 'turk mılletı zekıdır':
         await message.channel.send("https://media.discordapp.net/attachments/742459973556240386/796797170414125096/turkler_mal.jpg")
     
     if message.content.lower() == '857238' and message.channel == verifych and activeraid == [0] and codepass == [1]:
@@ -644,7 +643,7 @@ async def on_message(message):
                 #somehow i gotta fix this
                 #i promise i will
     if message.content.lower() == '!help' and message.channel == modlounge:
-        await message.channel.send("!kill - botu kapatır\n!resetall - sadece sorun çözme için, kullanmayın boşverin.\n!togglejq - #join-log kanalına atılan gir-çık mesajlarını açıp kapatır.\n!togglewelcome - birisi servera girdiğinde atılan hoşgeldin mesajlarını açıp kapatır.\n!values - sadece sorun çözme için, kullanmayın boşverin.\n!togglebypass - gizli kodu yazarak verify atlamayı açıp kapatır.\n!toggleref - !referans yazarak servera girmeyi açıp kapatır.\n!raid - herkese açık bütün kanalları kapatır - spam olması halinde joinquit mesajlarını ve welcome mesajlarını ayrıca kapatabilirsiniz.\n!unraid - kanalları eski haline getirir")
+        await message.channel.send("!kill - botu kapatır\n!resetall - sadece sorun çözme için, kullanmayın boşverin.\n!togglejq - #join-log kanalına atılan gir-çık mesajlarını açıp kapatır.\n!togglewelcome - birisi servera girdiğinde atılan hoşgeldin mesajlarını açıp kapatır.\n!values - sadece sorun çözme için, kullanmayın boşverin.\n!togglebypass - gizli kodu yazarak verify atlamayı açıp kapatır.\n!toggleref - !referans yazarak servera girmeyi açıp kapatır.\n!raid - herkese açık bütün kanalları kapatır - spam olması halinde joinquit mesajlarını ve welcome mesajlarını ayrıca kapatabilirsiniz.\n!unraid - kanalları eski haline getirir.")
     if message.content.lower() == '!help' and message.channel != modlounge:
         await message.channel.send("bu komut sadece mod lounge'da çalışmaktadır. kullanıcıların kullanabileceği komutlar: ping, uptime :kekw:")
 
