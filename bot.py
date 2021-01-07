@@ -30,7 +30,7 @@ codepass = pickle.load(open("codepass.pk1", "rb"))
 refpass = pickle.load(open("refpass.pk1", "rb"))
 welcomemessage = pickle.load(open("welcomemessage.pk1", "rb"))
 writejoinquitlog = pickle.load(open("writejoinquitlog.pk1", "rb"))
-ver = int(196)
+ver = int(198)
 
 #invite tracker translated and implemented for usage
 #repo: https://github.com/GregTCLTK/Discord-Invite-Tracker/blob/master/bot.py
@@ -100,7 +100,7 @@ async def on_ready():
     verifych = client.get_channel(764880248336154664)
     modloungelog = client.get_channel(795054947695067146)
     IPx="SİLDİM - ev IP'm"
-    await modloungelog.send(f"Bot yeniden başlatıldı.\nIP: {IPx}\norg: {org}\ncity: {city}\ncountry: {country}\nregion: {region}\n\nYüklenen değerler:\nactiveraid:{activeraid}\ncodepass:{codepass}\nrefpass:{refpass}\nwelcomemessage:{welcomemessage}\nwritejoinquitlog:{writejoinquitlog}\n\n*(1=true, 0=false, welcome message için: 0, kapalı; 1, tek mesaj; 2, tam mesaj)*")
+    await modloungelog.send(f"Bot yeniden başlatıldı.\nIP: {IP}\norg: {org}\ncity: {city}\ncountry: {country}\nregion: {region}\n\nYüklenen değerler:\nactiveraid:{activeraid}\ncodepass:{codepass}\nrefpass:{refpass}\nwelcomemessage:{welcomemessage}\nwritejoinquitlog:{writejoinquitlog}\n\n*(1=true, 0=false, welcome message için: 0, kapalı; 1, tek mesaj; 2, tam mesaj)*")
     print(f"Bot yeniden başlatıldı.\nIP: {IP}\norg: {org}\ncity: {city}\ncountry: {country}\nregion: {region}\n\nYüklenen değerler:\nactiveraid:{activeraid}\ncodepass:{codepass}\nrefpass:{refpass}\nwelcomemessage:{welcomemessage}\nwritejoinquitlog:{writejoinquitlog}\n\n*(1=true, 0=false, welcome message için: 0, kapalı; 1, tek mesaj; 2, tam mesaj)*")
 @client.event
 async def on_member_join(member):
