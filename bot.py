@@ -30,7 +30,7 @@ codepass = pickle.load(open("codepass.pk1", "rb"))
 refpass = pickle.load(open("refpass.pk1", "rb"))
 welcomemessage = pickle.load(open("welcomemessage.pk1", "rb"))
 writejoinquitlog = pickle.load(open("writejoinquitlog.pk1", "rb"))
-ver = int(195)
+ver = int(196)
 
 #invite tracker translated and implemented for usage
 #repo: https://github.com/GregTCLTK/Discord-Invite-Tracker/blob/master/bot.py
@@ -258,23 +258,26 @@ async def on_message(message):
         if codepass == [1]:
             codepass = 0
             await modlounge.send(f"gizli kod yazarak verify'ı atlama artık kapalı.")
+            pickle.dump([codepass], open("codepass.pk1", "wb"))
         elif codepass == [0]:
             codepass = 1
             await modlounge.send(f"gizli kod yazarak verify'ı atlama artık açık.")
+            pickle.dump([codepass], open("codepass.pk1", "wb"))
         else:
             codepass = 0
             await modlounge.send(f"oopsie moment. codepass is set as 0, details on console")
-        pickle.dump([codepass], open("codepass.pk1", "wb"))
+            pickle.dump([codepass], open("codepass.pk1", "wb"))
         print(f"codepass is set as {codepass}")
         
     if message.content.lower() == '!toggleref' and message.channel == modlounge:
         if refpass == [0]:
             refpass = 1
             await modlounge.send(f"!referans yazarak verify'ı atlama artık açık.")
+            pickle.dump([refpass], open("refpass.pk1", "wb"))
         else:
             refpass = 0
             await modlounge.send(f"!referans yazarak verify'ı atlama artık kapalı.")
-        pickle.dump([refpass], open("refpass.pk1", "wb"))
+            pickle.dump([refpass], open("refpass.pk1", "wb"))
         print(f"refpass is set as {refpass}")
 
     if message.content.lower() == '!togglejq' and message.channel == modlounge:
