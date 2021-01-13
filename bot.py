@@ -30,13 +30,14 @@ codepass = pickle.load(open("codepass.pk1", "rb"))
 refpass = pickle.load(open("refpass.pk1", "rb"))
 welcomemessage = pickle.load(open("welcomemessage.pk1", "rb"))
 writejoinquitlog = pickle.load(open("writejoinquitlog.pk1", "rb"))
-ver = int(198)
+ver = int(216)
 
 #invite tracker translated and implemented for usage
 #repo: https://github.com/GregTCLTK/Discord-Invite-Tracker/blob/master/bot.py
 
 invites = {}
 last = "0"
+warnwords = ["!warn", "?warn", "!mute", "?mute"]
 
 async def fetch():
     global last
@@ -71,7 +72,7 @@ async def fetch():
                         await logs.send(f"Şu ana kadar kullanım: {kulln}")
             tmp.append(tuple((i.code, i.uses)))
         invites = tmp
-        await asyncio.sleep(2)
+        await asyncio.sleep(1)
 
 @client.event
 async def on_ready():
@@ -225,6 +226,10 @@ async def on_message(message):
     # print(message.content)
     modlounge = client.get_channel(702562505905668137)
     
+    
+    if message.author == client.user:
+        return
+    
     if message.content.lower() == '!raid' and message.channel == modlounge:
         await modlounge.send("raid lockdown running now")
         activeraid = 1
@@ -374,24 +379,31 @@ async def on_message(message):
         logch = client.get_channel(780207454846844928)
         await logch.send(f"{name}#{disc}: {cont}\nID: {mid} - timestamp: {nou}")
 
-    if message.channel == client.get_channel(795580438831693824) and activeraid == [0] and refpass == [1]: # reference-verify
+    if message.channel == client.get_channel(798942830843133952) and activeraid == [0] and refpass == [1] and message.author.id != 742302366195384333: # reference-verify
         guilddx = client.get_guild(617801724345843742)
         refver = discord.utils.get(guilddx.roles, id=795580318962286602)
+        if not refver in message.author.roles:
+            lowgch = client.get_channel(780207454846844928)
+            disc = message.author.discriminator
+            name = message.author.name
+            cont = message.content
+            mid = message.author.id
+            nou = datetime.now()
+            await lowgch.send(f"[refverch-log]{name}#{disc}: {cont}\nID: {mid} - timestamp: {nou}")
+            return
         member = discord.utils.get(guilddx.roles, id=744936843476336682)
-        await channel.message.send("Teşekkürler. Sunucuya yönlendiriliyorsunuz, EĞER ")
-        await asyncio.sleep(3)
-        await message.author.add_roles(member)
-        await message.author.remove_roles(refver)
+        lowgch = client.get_channel(780207454846844928)
         disc = message.author.discriminator
         name = message.author.name
         cont = message.content
         mid = message.author.id
         nou = datetime.now()
-        lowgch = client.get_channel(702503861453193216)
         await lowgch.send(f"REFERANS KAYDI:\n{name}#{disc}: {cont}\nID: {mid} - timestamp: {nou}")
-        
-    if message.author == client.user:
-        return
+        await message.channel.send("Teşekkürler. Sunucuya yönlendiriliyorsunuz, EĞER BU ÖZELLİĞİ KÖTÜYE KULLANDIĞINIZ TESPİT EDİLİRSE SUNUCUDAN BANLANIRSINIZ. ", delete_after=12)
+        await message.delete()
+        await asyncio.sleep(5)
+        await message.author.add_roles(member)
+        await message.author.remove_roles(refver)
         
     if message.content.lower() == 'sa' and message.channel == verifych:
         ment=message.author.mention
@@ -560,14 +572,13 @@ async def on_message(message):
         await message.author.kick(reason="nabim yazdı, pcislockedbot")
         await message.channel.send(f"{ment} = atıldı 🕋")
 
-#' or message.content.lower() == 'hey wake up' or message.content.lower() == 'hey, wake up' or message.content.lower() == 'wake em up' or message.content.lower() == 'wake \'em up':
-    # if message.content.lower() == '🤡':
-        # ment=message.author.mention
-        # member=message.author
-        # await message.delete()
-        # await message.channel.send(f"ananı allahını sikerim senin orospu evladı siktir git {ment}")
-        # await member.ban(reason="clown emoji pcislockedbot", delete_message_days=0)
-        # await message.channel.send(f"{ment} = banlandı 🕋")
+    if message.content.lower() == '🤡':
+        ment=message.author.mention
+        member=message.author
+        await message.delete()
+        await message.channel.send(f"ananı allahını sikerim senin orospu evladı siktir git {ment}")
+        await member.ban(reason="clown emoji pcislockedbot", delete_message_days=0)
+        await message.channel.send(f"{ment} = banlandı 🕋")
         
     if message.content.lower() == 'göte bak kocaman' or message.content.lower() == 'gote bak kocaman':
         n = random.randint(1,8)
@@ -611,20 +622,28 @@ async def on_message(message):
         guilddx = client.get_guild(617801724345843742)
         member = discord.utils.get(guilddx.roles, id=744936843476336682)
         await message.author.add_roles(member)
-        
-    if message.content.lower() == '!referans' and message.channel == verifych and activeraid == [0] and refpass == [1]:
+
+    if any(nword in message.content.lower() for nword in "!referans") and message.channel == verifych and activeraid == [0] and refpass == [0]:
         ment=message.author.mention
         await message.delete()
-        refverch = client.get_channel(795580438831693824)
-        refchment = refverch.mention
-        await message.channel.send(f"Lütfen bekleyin, referans kanalına yönlendiriliyorsunuz, mesajı gördüğünüzden emin olmak için gecikme koydum. {refchment}", delete_after=10)
-        await asyncio.sleep(3)
+        await message.channel.send(f"Üzgünüm {ment}, şu anda referans ile üye girişleri kapatılmış.", delete_after=8)
+
+    if any(nword in message.content.lower() for nword in "!referans") and message.channel == verifych and activeraid == [0] and refpass == [1]:
+        ment=message.author.mention
+        await message.delete()
         guilddx = client.get_guild(617801724345843742)
         refver = discord.utils.get(guilddx.roles, id=795580318962286602)
         modpin = discord.utils.get(guilddx.roles, id=744937119956467812)
         await message.author.add_roles(refver)
+        await message.channel.send(f"Lütfen bekleyin, <#798942830843133952> kanalına yönlendiriliyorsunuz, mesajı gördüğünüzden emin olmak için gecikme koydum. {ment}", delete_after=10)
+        await asyncio.sleep(3)
         await asyncio.sleep(2)
-        await refverch.send(f"Dostum {ment} hoşgeldin. Kimden referansla buraya geldiğini **TEK BİR MESAJDA** ve o kişiyi ETİKETLEYEREK moderatörler seni çok hızlı bir şekilde içeri alacaklar. Modlara etiket atmana gerek yok.\n\n **BU KURALLARA UYMAYARAK BUNU YAZMAZSAN SUNUCUDAN ATILIRSIN, KÖTÜYE KULLANIRSAN BANLANIRSIN.**\n\n**Referansını belirten mesajını gönderdiğin andan itibaren bütün kuralları okumuş ve onaylamış sayılırsın.**", delete_after=1800)
+        refverch = client.get_channel(798942830843133952)
+        refchment = refverch.mention
+        await refverch.send(f"Dostum {ment} hoşgeldin. Kimden referansla buraya geldiğini **TEK BİR MESAJDA** ve o kişiyi ETİKETLEYEREK moderatörler seni çok hızlı bir şekilde içeri alacaklar. Modlara etiket atmana gerek yok.\n\n **BU KURALLARA UYMAYARAK BUNU YAZMAZSAN SUNUCUDAN ATILIRSIN, KÖTÜYE KULLANIRSAN BANLANIRSIN.**\n\n**Referansını belirten mesajını gönderdiğin andan itibaren bütün kuralları okumuş ve onaylamış sayılırsın.**")
+        await asyncio.sleep(1800)
+        await message.author.remove_roles(refver)
+
         # moding = modpin.mention
         # await refverch.send(f"{moding} lan amına koduklarım bakın hele şuraya")
         
@@ -645,10 +664,13 @@ async def on_message(message):
                 # return
                 #somehow i gotta fix this
                 #i promise i will
+                
     if message.content.lower() == '!help' and message.channel == modlounge:
         await message.channel.send("!kill - botu kapatır\n!resetall - sadece sorun çözme için, kullanmayın boşverin.\n!togglejq - #join-log kanalına atılan gir-çık mesajlarını açıp kapatır.\n!togglewelcome - birisi servera girdiğinde atılan hoşgeldin mesajlarını açıp kapatır.\n!values - sadece sorun çözme için, kullanmayın boşverin.\n!togglebypass - gizli kodu yazarak verify atlamayı açıp kapatır.\n!toggleref - !referans yazarak servera girmeyi açıp kapatır.\n!raid - herkese açık bütün kanalları kapatır - spam olması halinde joinquit mesajlarını ve welcome mesajlarını ayrıca kapatabilirsiniz.\n!unraid - kanalları eski haline getirir.")
     if message.content.lower() == '!help' and message.channel != modlounge:
-        await message.channel.send("bu komut sadece mod lounge'da çalışmaktadır. kullanıcıların kullanabileceği komutlar: ping, uptime :kekw:")
-
+        await message.channel.send("bu komut sadece mod lounge'da çalışmaktadır. kullanıcıların kullanabileceği komutlar: ping, uptime <:KEKW:726449411344826469>")
+    if any(word in message.content.lower() for word in warnwords):
+        await message.channel.send("https://cdn.discordapp.com/attachments/742459973556240386/798290836197736488/VID-20201216-WA0057-1-1.mp4")
+        
 client.loop.create_task(fetch())
 client.run(TOKEN)
