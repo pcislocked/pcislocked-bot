@@ -26,8 +26,6 @@ intents = discord.Intents(messages=True, guilds=True, members = True)
 client = discord.Client(intents=intents)
 startTime = datetime.now()
 activeraid = pickle.load(open("activeraid.pk1", "rb"))
-codepass = pickle.load(open("codepass.pk1", "rb"))
-refpass = pickle.load(open("refpass.pk1", "rb"))
 welcomemessage = pickle.load(open("welcomemessage.pk1", "rb"))
 writejoinquitlog = pickle.load(open("writejoinquitlog.pk1", "rb"))
 ver = int(216)
@@ -101,8 +99,8 @@ async def on_ready():
     verifych = client.get_channel(764880248336154664)
     modloungelog = client.get_channel(795054947695067146)
     IPx="SİLDİM - ev IP'm"
-    await modloungelog.send(f"Bot yeniden başlatıldı.\nIP: {IP}\norg: {org}\ncity: {city}\ncountry: {country}\nregion: {region}\n\nYüklenen değerler:\nactiveraid:{activeraid}\ncodepass:{codepass}\nrefpass:{refpass}\nwelcomemessage:{welcomemessage}\nwritejoinquitlog:{writejoinquitlog}\n\n*(1=true, 0=false, welcome message için: 0, kapalı; 1, tek mesaj; 2, tam mesaj)*")
-    print(f"Bot yeniden başlatıldı.\nIP: {IP}\norg: {org}\ncity: {city}\ncountry: {country}\nregion: {region}\n\nYüklenen değerler:\nactiveraid:{activeraid}\ncodepass:{codepass}\nrefpass:{refpass}\nwelcomemessage:{welcomemessage}\nwritejoinquitlog:{writejoinquitlog}\n\n*(1=true, 0=false, welcome message için: 0, kapalı; 1, tek mesaj; 2, tam mesaj)*")
+    await modloungelog.send(f"Bot yeniden başlatıldı.\nIP: {IP}\norg: {org}\ncity: {city}\ncountry: {country}\nregion: {region}\n\nYüklenen değerler:\nactiveraid:{activeraid}\nwelcomemessage:{welcomemessage}\nwritejoinquitlog:{writejoinquitlog}\n\n*(1=true, 0=false, welcome message için: 0, kapalı; 1, tek mesaj; 2, tam mesaj)*")
+    print(f"Bot yeniden başlatıldı.\nIP: {IP}\norg: {org}\ncity: {city}\ncountry: {country}\nregion: {region}\n\nYüklenen değerler:\nactiveraid:{activeraid}\nwelcomemessage:{welcomemessage}\nwritejoinquitlog:{writejoinquitlog}\n\n*(1=true, 0=false, welcome message için: 0, kapalı; 1, tek mesaj; 2, tam mesaj)*")
 @client.event
 async def on_member_join(member):
     guildd = client.get_guild(617801724345843742)
@@ -215,8 +213,6 @@ async def on_member_remove(member):
 async def on_message(message):
 
     activeraid = pickle.load(open("activeraid.pk1", "rb"))
-    codepass = pickle.load(open("codepass.pk1", "rb"))
-    refpass = pickle.load(open("refpass.pk1", "rb"))
     welcomemessage = pickle.load(open("welcomemessage.pk1", "rb"))
     writejoinquitlog = pickle.load(open("writejoinquitlog.pk1", "rb"))
     memberid=message.author.id
@@ -238,7 +234,6 @@ async def on_message(message):
         rulespublicch = client.get_channel(739264333858472017)
         verifych = client.get_channel(764880248336154664)
         verifyvoice = client.get_channel(709827236504666244)
-        referrencech = client.get_channel(795580438831693824)
         evr = discord.utils.get(guildd.roles, id=617801724345843742)
         general = client.get_channel(792561973292302356)
         await welcomech.set_permissions(target=evr, view_channel=False,
@@ -250,40 +245,12 @@ async def on_message(message):
         await verifyvoice.set_permissions(target=evr, view_channel=False,
                                                    connect=False,
                                                    speak=False)
-        await referrencech.set_permissions(target=evr, send_messages=False)
         await modlounge.send("!raid OK - kanallar kapatıldı.")
         announce = client.get_channel(733313674344661052)
         activeraid = 1
         pickle.dump([activeraid], open("activeraid.pk1", "wb"))
         await announce.send(f"DİKKAT: Sunucu raid(baskın) altında olduğu için sunucuya bütün girişler otomatik olarak kapatılmıştır. join log'u susturmak isteyebilirsiniz.")
         await general.send(f"DİKKAT: Sunucu raid(baskın) altında olduğu için sunucuya bütün girişler otomatik olarak kapatılmıştır. join log'u susturmak isteyebilirsiniz.")
-        
-    if message.content.lower() == '!togglebypass' and message.channel == modlounge:
-        print(codepass)
-        if codepass == [1]:
-            codepass = 0
-            await modlounge.send(f"gizli kod yazarak verify'ı atlama artık kapalı.")
-            pickle.dump([codepass], open("codepass.pk1", "wb"))
-        elif codepass == [0]:
-            codepass = 1
-            await modlounge.send(f"gizli kod yazarak verify'ı atlama artık açık.")
-            pickle.dump([codepass], open("codepass.pk1", "wb"))
-        else:
-            codepass = 0
-            await modlounge.send(f"oopsie moment. codepass is set as 0, details on console")
-            pickle.dump([codepass], open("codepass.pk1", "wb"))
-        print(f"codepass is set as {codepass}")
-        
-    if message.content.lower() == '!toggleref' and message.channel == modlounge:
-        if refpass == [0]:
-            refpass = 1
-            await modlounge.send(f"!referans yazarak verify'ı atlama artık açık.")
-            pickle.dump([refpass], open("refpass.pk1", "wb"))
-        else:
-            refpass = 0
-            await modlounge.send(f"!referans yazarak verify'ı atlama artık kapalı.")
-            pickle.dump([refpass], open("refpass.pk1", "wb"))
-        print(f"refpass is set as {refpass}")
 
     if message.content.lower() == '!togglejq' and message.channel == modlounge:
         if writejoinquitlog == [0]:
@@ -299,14 +266,10 @@ async def on_message(message):
     if message.content.lower() == '!resetall' and message.channel == modlounge:
         welcomemessage = 2
         writejoinquitlog = 1
-        refpass = 1
-        codepass = 0
         activeraid = 0
-        await modlounge.send(f"now everything set as below:\n welcomemessage={welcomemessage}\n writejoinquitlog={writejoinquitlog}\n refpass={refpass}\n codepass={codepass}\n activeraid={activeraid}")
+        await modlounge.send(f"now everything set as below:\n welcomemessage={welcomemessage}\n writejoinquitlog={writejoinquitlog}\n activeraid={activeraid}")
         pickle.dump([welcomemessage], open("welcomemessage.pk1", "wb"))
         pickle.dump([writejoinquitlog], open("writejoinquitlog.pk1", "wb"))
-        pickle.dump([refpass], open("refpass.pk1", "wb"))
-        pickle.dump([codepass], open("codepass.pk1", "wb"))
         pickle.dump([activeraid], open("activeraid.pk1", "wb"))
 
     if message.content.lower() == '!togglewelcome' and message.channel == modlounge:
@@ -340,7 +303,7 @@ async def on_message(message):
         quit()
 
     if message.content.lower() == '!values' and message.channel == modlounge:
-        await modlounge.send(f"Şu anda aktif olan değerler:\nactiveraid:{activeraid}\ncodepass:{codepass}\nrefpass:{refpass}\nwelcomemessage:{welcomemessage}\nwritejoinquitlog:{writejoinquitlog}\n\n*(1=true, 0=false, welcome message için: 0, kapalı; 1, tek mesaj; 2, tam mesaj)*")
+        await modlounge.send(f"Şu anda aktif olan değerler:\nactiveraid:{activeraid}\nwelcomemessage:{welcomemessage}\nwritejoinquitlog:{writejoinquitlog}\n\n*(1=true, 0=false, welcome message için: 0, kapalı; 1, tek mesaj; 2, tam mesaj)*")
 
     if message.content.lower() == '!unraid' and message.channel == modlounge:
         await modlounge.send("reverting...")
@@ -349,7 +312,6 @@ async def on_message(message):
         rulespublicch = client.get_channel(739264333858472017)
         verifych = client.get_channel(764880248336154664)
         verifyvoice = client.get_channel(709827236504666244)
-        referrencech = client.get_channel(795580438831693824)
         announce = client.get_channel(733313674344661052)
         evr = discord.utils.get(guildd.roles, id=617801724345843742)
         general = client.get_channel(792561973292302356)
@@ -362,7 +324,6 @@ async def on_message(message):
         await verifyvoice.set_permissions(target=evr, view_channel=True,
                                                    connect=True,
                                                    speak=True)
-        await referrencech.set_permissions(target=evr, send_messages=True)
         await modlounge.send("!unraid OK")
         announce = client.get_channel(733313674344661052)
         activeraid = 0
@@ -379,32 +340,6 @@ async def on_message(message):
         logch = client.get_channel(780207454846844928)
         await logch.send(f"{name}#{disc}: {cont}\nID: {mid} - timestamp: {nou}")
 
-    if message.channel == client.get_channel(798942830843133952) and activeraid == [0] and refpass == [1] and message.author.id != 742302366195384333: # reference-verify
-        guilddx = client.get_guild(617801724345843742)
-        refver = discord.utils.get(guilddx.roles, id=795580318962286602)
-        if not refver in message.author.roles:
-            lowgch = client.get_channel(780207454846844928)
-            disc = message.author.discriminator
-            name = message.author.name
-            cont = message.content
-            mid = message.author.id
-            nou = datetime.now()
-            await lowgch.send(f"[refverch-log]{name}#{disc}: {cont}\nID: {mid} - timestamp: {nou}")
-            return
-        member = discord.utils.get(guilddx.roles, id=744936843476336682)
-        lowgch = client.get_channel(780207454846844928)
-        disc = message.author.discriminator
-        name = message.author.name
-        cont = message.content
-        mid = message.author.id
-        nou = datetime.now()
-        await lowgch.send(f"REFERANS KAYDI:\n{name}#{disc}: {cont}\nID: {mid} - timestamp: {nou}")
-        await message.channel.send("Teşekkürler. Sunucuya yönlendiriliyorsunuz, EĞER BU ÖZELLİĞİ KÖTÜYE KULLANDIĞINIZ TESPİT EDİLİRSE SUNUCUDAN BANLANIRSINIZ. ", delete_after=12)
-        await message.delete()
-        await asyncio.sleep(5)
-        await message.author.add_roles(member)
-        await message.author.remove_roles(refver)
-        
     if message.content.lower() == 'sa' and message.channel == verifych:
         ment=message.author.mention
         member=message.author
@@ -613,60 +548,9 @@ async def on_message(message):
 
     if message.content.lower() == 'türkler' or message.content.lower() == 'turkler' or message.content.lower() == 'türk milleti' or message.content.lower() == 'turk milletı' or message.content.lower() == 'türk milletı' or message.content.lower() == 'turk mılletı' or message.content.lower() == 'türk milleti zekidir' or message.content.lower() == 'turk milleti zekidir' or message.content.lower() == 'türk milletı zekıdır' or message.content.lower() == 'turk mılletı zekıdır':
         await message.channel.send("https://media.discordapp.net/attachments/742459973556240386/796797170414125096/turkler_mal.jpg")
-    
-    if message.content.lower() == '857238' and message.channel == verifych and activeraid == [0] and codepass == [1]:
-        ment=message.author.mention
-        await message.delete()
-        await message.channel.send(f"Kuralları okuduğun için teşekkürler, geç bakalım. **Şüpheli durumlarda tekrar buraya dönebileceğini unutma.**", delete_after=8)
-        
-        guilddx = client.get_guild(617801724345843742)
-        member = discord.utils.get(guilddx.roles, id=744936843476336682)
-        await message.author.add_roles(member)
 
-    if any(nword in message.content.lower() for nword in "!referans") and message.channel == verifych and activeraid == [0] and refpass == [0]:
-        ment=message.author.mention
-        await message.delete()
-        await message.channel.send(f"Üzgünüm {ment}, şu anda referans ile üye girişleri kapatılmış.", delete_after=8)
-
-    if any(nword in message.content.lower() for nword in "!referans") and message.channel == verifych and activeraid == [0] and refpass == [1]:
-        ment=message.author.mention
-        await message.delete()
-        guilddx = client.get_guild(617801724345843742)
-        refver = discord.utils.get(guilddx.roles, id=795580318962286602)
-        modpin = discord.utils.get(guilddx.roles, id=744937119956467812)
-        await message.author.add_roles(refver)
-        await message.channel.send(f"Lütfen bekleyin, <#798942830843133952> kanalına yönlendiriliyorsunuz, mesajı gördüğünüzden emin olmak için gecikme koydum. {ment}", delete_after=10)
-        await asyncio.sleep(3)
-        await asyncio.sleep(2)
-        refverch = client.get_channel(798942830843133952)
-        refchment = refverch.mention
-        await refverch.send(f"Dostum {ment} hoşgeldin. Kimden referansla buraya geldiğini **TEK BİR MESAJDA** ve o kişiyi ETİKETLEYEREK moderatörler seni çok hızlı bir şekilde içeri alacaklar. Modlara etiket atmana gerek yok.\n\n **BU KURALLARA UYMAYARAK BUNU YAZMAZSAN SUNUCUDAN ATILIRSIN, KÖTÜYE KULLANIRSAN BANLANIRSIN.**\n\n**Referansını belirten mesajını gönderdiğin andan itibaren bütün kuralları okumuş ve onaylamış sayılırsın.**")
-        await asyncio.sleep(1800)
-        await message.author.remove_roles(refver)
-
-        # moding = modpin.mention
-        # await refverch.send(f"{moding} lan amına koduklarım bakın hele şuraya")
-        
-        # uid = message.author.id
-        # cid = message.channel.id
-        # uth = message.author.mention
-        # async for fetchMessage in message.channel.history(limit=7, before=message, oldest_first=True):
-            # print(f"{fetchMessage.content}")
-            # if fetchMessage.author == client.user:
-                # return
-            # if fetchMessage.content == 'tm' and     fetchMessage.author.id == uid:
-                # print(f"nigger")
-                # await message.channel.send("it works you fucking idiot")
-                # await message.author.ban(reason="tşk öd autoban")
-                # await message.channel.send(f"{uth} = banlandı 🕋 https://www.youtube.com/watch?v=wnedkVrgFF0")
-            # else:
-                # print("else çıktı")
-                # return
-                #somehow i gotta fix this
-                #i promise i will
-                
     if message.content.lower() == '!help' and message.channel == modlounge:
-        await message.channel.send("!kill - botu kapatır\n!resetall - sadece sorun çözme için, kullanmayın boşverin.\n!togglejq - #join-log kanalına atılan gir-çık mesajlarını açıp kapatır.\n!togglewelcome - birisi servera girdiğinde atılan hoşgeldin mesajlarını açıp kapatır.\n!values - sadece sorun çözme için, kullanmayın boşverin.\n!togglebypass - gizli kodu yazarak verify atlamayı açıp kapatır.\n!toggleref - !referans yazarak servera girmeyi açıp kapatır.\n!raid - herkese açık bütün kanalları kapatır - spam olması halinde joinquit mesajlarını ve welcome mesajlarını ayrıca kapatabilirsiniz.\n!unraid - kanalları eski haline getirir.")
+        await message.channel.send("!kill - botu kapatır\n!resetall - sadece sorun çözme için, kullanmayın boşverin.\n!togglejq - #join-log kanalına atılan gir-çık mesajlarını açıp kapatır.\n!togglewelcome - birisi servera girdiğinde atılan hoşgeldin mesajlarını açıp kapatır.\n!values - sadece sorun çözme için, kullanmayın boşverin.\n!raid - herkese açık bütün kanalları kapatır - spam olması halinde joinquit mesajlarını ve welcome mesajlarını ayrıca kapatabilirsiniz.\n!unraid - kanalları eski haline getirir.")
     if message.content.lower() == '!help' and message.channel != modlounge:
         await message.channel.send("bu komut sadece mod lounge'da çalışmaktadır. kullanıcıların kullanabileceği komutlar: ping, uptime <:KEKW:726449411344826469>")
     if any(word in message.content.lower() for word in warnwords):
