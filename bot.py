@@ -536,6 +536,10 @@ async def on_message(message):
         if n == 2 or n == 4 or n == 6 or n == 8:
             await message.channel.send("https://media.discordapp.net/attachments/742459973556240386/779505203706986536/gote_bak_kocaman.png")
             
+            
+    if message.content.lower() == 'töre fakat dream rng' or message.content.lower() == 'tore fakat dream rng':
+        await message.channel.send("https://www.youtube.com/watch?v=fThSYeBoPFw")
+
     if message.content.lower() == 'töre' or message.content.lower() == 'tore':
         ng = random.randint(1,365)
         if ng == 31:
