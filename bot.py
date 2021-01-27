@@ -28,7 +28,7 @@ startTime = datetime.now()
 activeraid = pickle.load(open("activeraid.pk1", "rb"))
 welcomemessage = pickle.load(open("welcomemessage.pk1", "rb"))
 writejoinquitlog = pickle.load(open("writejoinquitlog.pk1", "rb"))
-ver = int(216)
+ver = int(220)
 
 #invite tracker translated and implemented for usage
 #repo: https://github.com/GregTCLTK/Discord-Invite-Tracker/blob/master/bot.py
@@ -36,6 +36,8 @@ ver = int(216)
 invites = {}
 last = "0"
 warnwords = ["!warn", "?warn", "!mute", "?mute"]
+bannedemojis = ["🤡"]
+# "😄"
 
 async def fetch():
     global last
@@ -95,7 +97,7 @@ async def on_ready():
     country=data['country']
     region=data['region']
     # await general.send(f"Bot test modunda başlatıldı.") 
-    await general.send(f"Bot yeniden başlatıldı. Sunucu lokasyonu: {city}") 
+    #await general.send(f"Bot yeniden başlatıldı. Sunucu lokasyonu: {city}") 
     verifych = client.get_channel(764880248336154664)
     modloungelog = client.get_channel(795054947695067146)
     IPx="SİLDİM - ev IP'm"
@@ -142,7 +144,7 @@ async def on_member_join(member):
         await asyncio.sleep(2)
         await verifych.send("admin tagleyebilirsin ama spam yapma sonra vah ben niye ban yedim diye de ağlama", delete_after=10800)
     if welcomemessage == [1]:
-        await verifych.send(f"hoşgeldin dostum {ment}, kuralları incele ve eğer onaylıyorsan buraya \"kuralları oynaylıyorum\" yaz, ardından moderatörler hesabını inceleyip uygun görürlerse seni alacaklar.", delete_after=1800)
+        await verifych.send(f"hoşgeldin dostum {ment}, sen kuralları incele, ardından buraya yaz bişeyler, moderatörler hesabını inceleyip uygun görürlerse seni alacaklar.", delete_after=1800)
 
 
     # print(noc)
@@ -208,7 +210,18 @@ async def on_member_remove(member):
         await joinlog.send(f"{ment} geberdi\n ID: {mid}\ntimestamp: {nou}")
         await verifyclone.send(f"{ment} çıktı. \n ID: {mid}\ntimestamp: {nou}")
 
-
+# @client.event
+# async def on_raw_reaction_add(reaction, user):
+    # print("yup")
+    # if any(emoji in reaction.emoji() for emoji in bannedemojis):
+        # ment=user.mention
+        # await reaction.clear()
+        # await reaction.message.channel.send(f"ananı allahını sikerim senin orospu evladı siktir git {ment}", delete_after=15)
+        # await asyncio.sleep(6)
+        # await user.ban(reason="banned emoji reacted, pcislockedbot", delete_message_days=0)
+        # await reaction.message.channel.send(f"{ment} = banlandı 🕋\n\nsaçma sapan emojiler atmayın.")
+        # i hate dumb niggers
+        
 @client.event
 async def on_message(message):
 
@@ -507,13 +520,14 @@ async def on_message(message):
         await message.author.kick(reason="nabim yazdı, pcislockedbot")
         await message.channel.send(f"{ment} = atıldı 🕋")
 
-    if message.content.lower() == '🤡':
+    if any(word in message.content.lower() for word in bannedemojis):
         ment=message.author.mention
         member=message.author
         await message.delete()
-        await message.channel.send(f"ananı allahını sikerim senin orospu evladı siktir git {ment}")
-        await member.ban(reason="clown emoji pcislockedbot", delete_message_days=0)
-        await message.channel.send(f"{ment} = banlandı 🕋")
+        await message.channel.send(f"ananı allahını sikerim senin orospu evladı siktir git {ment}", delete_after=15)
+        await asyncio.sleep(6)
+        await member.ban(reason="banned emoji pcislockedbot", delete_message_days=0)
+        await message.channel.send(f"{ment} = banlandı 🕋\n\nsaçma sapan emojiler atmayın.")
         
     if message.content.lower() == 'göte bak kocaman' or message.content.lower() == 'gote bak kocaman':
         n = random.randint(1,8)
