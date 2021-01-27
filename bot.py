@@ -537,7 +537,7 @@ async def on_message(message):
             await message.channel.send("https://media.discordapp.net/attachments/742459973556240386/779505203706986536/gote_bak_kocaman.png")
             
     if message.content.lower() == 'töre' or message.content.lower() == 'tore':
-        ng = random.randint(1,99)
+        ng = random.randint(1,365)
         if ng == 31:
             await message.channel.send("https://www.youtube.com/watch?v=fThSYeBoPFw")
         else:
