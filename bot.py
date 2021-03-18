@@ -28,7 +28,7 @@ startTime = datetime.now()
 activeraid = pickle.load(open("activeraid.pk1", "rb"))
 welcomemessage = pickle.load(open("welcomemessage.pk1", "rb"))
 writejoinquitlog = pickle.load(open("writejoinquitlog.pk1", "rb"))
-ver = int(276)
+ver = int(277)
 guildd = client.get_guild(617801724345843742)
 
 warnwords = ["!warn", "?warn"]
@@ -56,7 +56,7 @@ async def fetch():
             for s in invites:
                 if s[0] == i.code:
                     if int(i.uses) > s[1]:
-                        await logs.send("invite count changed, fetching...")
+                        await logs.send("takip etmeye calısıyorum... bundan sonra susarsam bozuk bir orospu evladıyım")
                         user = gld.get_member(int(last))
                         embe = discord.Embed(description="Sunucuya katıldı", color=0x03d692, title=" ")
                         embe.set_author(name=user.name + "#" + user.discriminator, icon_url=user.avatar_url)
@@ -66,10 +66,10 @@ async def fetch():
                                       value="Daveti açan: " + i.inviter.mention + " (`" + i.inviter.name + "#" + i.inviter.discriminator + "` | `" + str(i.inviter.id) + "`)\nDavet kodu: `" + i.code + "`\nKullanımlar: `" + str(
                                           i.uses) + "`", inline=False)
                         await logs.send(embed=embe)
-                        await logs.send("invite track fetched")
+                        await logs.send("benden bu kadar bi 4 saniye uyuycam")
             tmp.append(tuple((i.code, i.uses)))
         invites = tmp
-        await asyncio.sleep(1)
+        await asyncio.sleep(4)
 
                         # await logs.send(embed=eme)
                         # giren = usr.mention
