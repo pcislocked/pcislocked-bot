@@ -28,19 +28,20 @@ startTime = datetime.now()
 activeraid = pickle.load(open("activeraid.pk1", "rb"))
 welcomemessage = pickle.load(open("welcomemessage.pk1", "rb"))
 writejoinquitlog = pickle.load(open("writejoinquitlog.pk1", "rb"))
-ver = int(259)
+ver = int(276)
+guildd = client.get_guild(617801724345843742)
 
-#invite tracker translated and implemented for usage
-#repo: https://github.com/GregTCLTK/Discord-Invite-Tracker/blob/master/bot.py
-
-bot = commands.Bot(command_prefix='.')
-invites = {}
-last = "0"
 warnwords = ["!warn", "?warn"]
 mutewords = ["!mute", "?mute"]
 xdzawrd = [":xdza:", "<:xdza:767704490555473920>"]
 bannedemojis = ["🤡"]
 # "😄"
+
+#invite tracker translated and implemented for usage, last updated 18/3/2021
+#repo: https://github.com/GregTCLTK/Discord-Invite-Tracker/blob/master/bot.py
+
+invites = {}
+last = "0"
 
 async def fetch():
     global last
@@ -55,27 +56,32 @@ async def fetch():
             for s in invites:
                 if s[0] == i.code:
                     if int(i.uses) > s[1]:
-                        usr = gld.get_member(int(float(last)))
-                        msg = discord.Embed(description="Davet link takibi", color=0x03d692, title=" ")
-                        eme.set_author(name=usr.name + "#" + usr.discriminator, icon_url=usr.avatar_url)
-                        eme.set_footer(text="Kullanıcı ID: " + str(usr.id))
-                        eme.timestamp = usr.joined_at
-                        eme.add_field(name="Kullanılan davet:",
-                                      value="Daveti açan: " + i.inviter.mention + " (`" + i.inviter.name + "#" + i.inviter.discriminator + "`)\nInvite ID: `" + i.code + "`\nŞu ana kadarki kullanım: `" + str(
+                        await logs.send("invite count changed, fetching...")
+                        user = gld.get_member(int(last))
+                        embe = discord.Embed(description="Sunucuya katıldı", color=0x03d692, title=" ")
+                        embe.set_author(name=user.name + "#" + user.discriminator, icon_url=user.avatar_url)
+                        embe.set_footer(text="ID: " + str(user.id))
+                        embe.timestamp = user.joined_at
+                        embe.add_field(name="Kullanılan davet",
+                                      value="Daveti açan: " + i.inviter.mention + " (`" + i.inviter.name + "#" + i.inviter.discriminator + "` | `" + str(i.inviter.id) + "`)\nDavet kodu: `" + i.code + "`\nKullanımlar: `" + str(
                                           i.uses) + "`", inline=False)
-                        await logs.send(embed=eme)
-                        giren = usr.mention
-                        girid = usr.id
-                        sokan = i.inviter.mention
-                        sokid = i.inviter.id
-                        icode = i.code
-                        kulln = i.uses
-                        await logs.send(f"**INVITE TAKİBİ**\n{giren}(ID: {girid})")
-                        await logs.send(f"sunucuya {sokan}(ID: {sokid}) kişisinin {icode} invite'ı ile girdi.")
-                        await logs.send(f"Şu ana kadar kullanım: {kulln}")
+                        await logs.send(embed=embe)
+                        await logs.send("invite track fetched")
             tmp.append(tuple((i.code, i.uses)))
         invites = tmp
-        await asyncio.sleep(3)
+        await asyncio.sleep(1)
+
+                        # await logs.send(embed=eme)
+                        # giren = usr.mention
+                        # girid = usr.id
+                        # sokan = i.inviter.mention
+                        # sokid = i.inviter.id
+                        # icode = i.code
+                        # kulln = i.uses
+                        # await logs.send(f"**INVITE TAKİBİ**\n{giren}(ID: {girid})")
+                        # await logs.send(f"sunucuya {sokan}(ID: {sokid}) kişisinin {icode} invite'ı ile girdi.")
+                        # await logs.send(f"Şu ana kadar kullanım: {kulln}")
+            # tmp.append(tuple((i.code, i.uses)))
 
 @client.event
 async def on_ready():
@@ -617,7 +623,31 @@ async def on_message(message):
         
         if message.content.lower() == 'wave216':
             await message.channel.send("https://www.youtube.com/watch?v=jQp6qz0aj8o")
-        
+
+        if message.content.lower() == 'kes':
+            guildd = client.get_guild(617801724345843742)
+            viprol = discord.utils.get(guildd.roles, id=744941582960033842)
+            if viprol in message.author.roles and message.author.id != "301051917440909312":
+                await message.channel.send("https://media.discordapp.net/attachments/742459973556240386/818270689702314037/ZomboMeme_05032021043036.png?width=1178&height=676")
+            elif message.author.id == "301051917440909312":
+                await message.channel.send("?mute <@!3301051917440909312> 60d")
+            else:
+                await message.channel.send("kes lan taşşaksız <:KEKW:726449411344826469>")
+
+        if message.content.lower() == 'sirk' or message.content.lower() == 'circle':
+            await message.channel.send("https://cdn.discordapp.com/attachments/742459973556240386/819349451809882152/video0_2.mp4")
+
+        if message.content.lower() == "😄" or message.content.lower() == "😃" or message.content.lower() == "😺" or message.content.lower() == "😸":
+            await message.channel.send("😐")
+            await message.channel.send("https://cdn.discordapp.com/attachments/742459973556240386/819349932401885234/video0-326.mp4")
+
+        if message.content.lower() == 'thot':
+            await message.channel.send("https://cdn.discordapp.com/attachments/742459973556240386/819349622732488774/vazelin.mp4")
+
+        if message.content.lower() == 'lgbt':
+            await message.channel.send("https://cdn.discordapp.com/attachments/742459973556240386/819350511672360960/image0-13.gif")
+
+
         if any(word in message.content.lower() for word in warnwords):
             await message.channel.send("https://cdn.discordapp.com/attachments/742459973556240386/812816763565506591/VID-20201216-WA0057-1-1.mp4")
 
@@ -625,19 +655,25 @@ async def on_message(message):
             # loserdm = await message.author.create_dm()
             # await loserdm.send("pcislocked sunucusunda susturuldunuz. <:LULW:726449491120619571>\nhttps://cdn.discordapp.com/attachments/742459973556240386/812816548590256148/video0.mp4")
             await message.channel.send("https://cdn.discordapp.com/attachments/742459973556240386/812816548590256148/video0.mp4")
-            await asyncio.wait(1)
-            mapushane = client.get_channel(744962050777940068)
+            await asyncio.sleep(2)
             guildd = client.get_guild(617801724345843742)
+            mapushane = client.get_channel(744962050777940068)
             mutedrol = discord.utils.get(guildd.roles, id=748280170829316207)
             await mapushane.set_permissions(target=mutedrol, read_messages=True,
                                                              send_messages=True)
-            await asyncio.wait(10)
-            mapushane = client.get_channel(744962050777940068)
+            await asyncio.sleep(5)
             guildd = client.get_guild(617801724345843742)
+            mapushane = client.get_channel(744962050777940068)
             mutedrol = discord.utils.get(guildd.roles, id=748280170829316207)
             await mapushane.set_permissions(target=mutedrol, read_messages=True,
                                                              send_messages=True)
-        
+            await asyncio.sleep(20)
+            guildd = client.get_guild(617801724345843742)
+            mapushane = client.get_channel(744962050777940068)
+            mutedrol = discord.utils.get(guildd.roles, id=748280170829316207)
+            await mapushane.set_permissions(target=mutedrol, read_messages=True,
+                                                             send_messages=True)
+
         if message.content.lower() == 'mutefix':
             guildd = client.get_guild(617801724345843742)
             mapushane = client.get_channel(744962050777940068)
@@ -645,7 +681,7 @@ async def on_message(message):
             await mapushane.set_permissions(target=mutedrol, read_messages=True,
                                                              send_messages=True)
 
-            await message.channel.send("tamamdır")
+            await message.channel.send("tamamdır\ndipnot: mutefix çekmenize artık gerek yok, otomatik override olayını hallettim.")
 
         if message.channel == xdzamsg:
             if not any(word in message.content.lower() for word in xdzawrd):
@@ -653,7 +689,7 @@ async def on_message(message):
                 xdzalog = client.get_channel(812338508936773642)
                 disc = message.author.discriminator
                 name = message.author.name
-                cont = message.content
+                cont = message.clean_content
                 nick = message.author.nick
                 mid = message.author.id
                 nou = datetime.now()
@@ -670,7 +706,7 @@ async def on_message(message):
             disc = message.author.discriminator
             await message.add_reaction('<:xdza:767704490555473920>')
             name = message.author.name
-            cont = message.content
+            cont = message.clean_content
             nick = message.author.nick
             mid = message.author.id
             nou = datetime.now()
@@ -687,7 +723,7 @@ async def on_message(message):
             disc = message.author.discriminator
             await message.add_reaction('<:xdza:767704490555473920>')
             name = message.author.name
-            cont = message.content
+            cont = message.clean_content
             nick = message.author.nick
             mid = message.author.id
             nou = datetime.now()
