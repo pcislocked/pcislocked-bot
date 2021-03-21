@@ -28,13 +28,14 @@ startTime = datetime.now()
 activeraid = pickle.load(open("activeraid.pk1", "rb"))
 welcomemessage = pickle.load(open("welcomemessage.pk1", "rb"))
 writejoinquitlog = pickle.load(open("writejoinquitlog.pk1", "rb"))
-ver = int(277)
+ver = int(278)
 guildd = client.get_guild(617801724345843742)
 
 warnwords = ["!warn", "?warn"]
 mutewords = ["!mute", "?mute"]
 xdzawrd = [":xdza:", "<:xdza:767704490555473920>"]
 bannedemojis = ["🤡"]
+tumharfler = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 # "😄"
 
 #invite tracker translated and implemented for usage, last updated 18/3/2021
@@ -56,7 +57,6 @@ async def fetch():
             for s in invites:
                 if s[0] == i.code:
                     if int(i.uses) > s[1]:
-                        await logs.send("takip etmeye calısıyorum... bundan sonra susarsam bozuk bir orospu evladıyım")
                         user = gld.get_member(int(last))
                         embe = discord.Embed(description="Sunucuya katıldı", color=0x03d692, title=" ")
                         embe.set_author(name=user.name + "#" + user.discriminator, icon_url=user.avatar_url)
@@ -66,7 +66,6 @@ async def fetch():
                                       value="Daveti açan: " + i.inviter.mention + " (`" + i.inviter.name + "#" + i.inviter.discriminator + "` | `" + str(i.inviter.id) + "`)\nDavet kodu: `" + i.code + "`\nKullanımlar: `" + str(
                                           i.uses) + "`", inline=False)
                         await logs.send(embed=embe)
-                        await logs.send("benden bu kadar bi 4 saniye uyuycam")
             tmp.append(tuple((i.code, i.uses)))
         invites = tmp
         await asyncio.sleep(4)
@@ -264,14 +263,23 @@ async def on_message(message):
         memberid=message.author.id
         verifych = client.get_channel(764880248336154664)
         # for debugging only
-        # print(message.author)
-        # print(message.content)
+        print(message.author)
+        print(message.content)
         modlounge = client.get_channel(702562505905668137)
         xdzamsg = client.get_channel(811988918345793557)
         xdzamsg2 = client.get_channel(811988918345793557)
         modlog = client.get_channel(743049583457861683)
         general = client.get_channel(792561973292302356)
         xdzalog = client.get_channel(812338508936773642)
+
+        if message.channel == client.get_channel(764880248336154664) and activeraid == [0]: # verify
+            disc = message.author.discriminator
+            name = message.author.name
+            cont = message.content
+            mid = message.author.id
+            nou = datetime.now()
+            logch = client.get_channel(780207454846844928)
+            await logch.send(f"{name}#{disc}: {cont}\nID: {mid} - timestamp: {nou}")
         
         if message.author == client.user:
             return
@@ -381,23 +389,21 @@ async def on_message(message):
             await announce.send(f"baskın bitti lol")
             await general.send(f"baskın bitti lol")
 
-        if message.channel == client.get_channel(764880248336154664) and activeraid == [0]: # verify
-            disc = message.author.discriminator
-            name = message.author.name
-            cont = message.content
-            mid = message.author.id
-            nou = datetime.now()
-            logch = client.get_channel(780207454846844928)
-            await logch.send(f"{name}#{disc}: {cont}\nID: {mid} - timestamp: {nou}")
-
         if message.content.lower() == 'sa' and message.channel == verifych:
-            ment=message.author.mention
-            member=message.author
-            await message.delete()
-            await message.channel.send(f"madem verifyda sa yazdın siktir git o zaman {ment} \n\n 5 saniye sonra kickleneceksin son sözlerini söyle")
-            await asyncio.sleep(5)
-            await member.kick(reason="verify sa pcislockedbot")
-            await message.channel.send(f"{ment} = atıldı 🕋")
+            guildd = client.get_guild(617801724345843742)
+            viprol = discord.utils.get(guildd.roles, id=744941582960033842)
+            if viprol in message.author.roles:
+                return
+            elif message.author.id != "301051917440909312":
+                return
+            else:
+                ment=message.author.mention
+                member=message.author
+                await message.delete()
+                await message.channel.send(f"madem verifyda sa yazdın siktir git o zaman {ment} \n\n 5 saniye sonra kickleneceksin son sözlerini söyle")
+                await asyncio.sleep(5)
+                await member.kick(reason="verify sa pcislockedbot")
+                await message.channel.send(f"{ment} = atıldı 🕋")
             
         if message.content.lower() == 'sa':
             n = random.randint(1,8)
@@ -551,23 +557,41 @@ async def on_message(message):
             await message.delete()
             return
         if message.content.lower() == 'nabim' or message.content.lower() == 'nabım':
-            ment=message.author.mention
-            await message.channel.send(f"b ile yazmayacaktın 🕋 {ment} son sözlerini söyle", delete_after=30)
-            await asyncio.sleep(10)
-            await message.author.kick(reason="nabim yazdı, pcislockedbot")
-            await message.channel.send(f"{ment} = atıldı 🕋")
-            return
+            guildd = client.get_guild(617801724345843742)
+            viprol = discord.utils.get(guildd.roles, id=744941582960033842)
+            if viprol in message.author.roles:
+                await message.channel.send("türkçeni sikeyim")
+            else:
+                ment=message.author.mention
+                await message.channel.send(f"b ile yazmayacaktın 🕋 {ment} son sözlerini söyle", delete_after=30)
+                await asyncio.sleep(10)
+                await message.author.kick(reason="nabim yazdı, pcislockedbot")
+                await message.channel.send(f"{ment} = atıldı 🕋")
+                return
+        
         if any(word in message.content.lower() for word in bannedemojis):
-            ment=message.author.mention
-            member=message.author
-            await message.delete()
-            if message.content.lower() == '🤡':
+            guildd = client.get_guild(617801724345843742)
+            viprol = discord.utils.get(guildd.roles, id=744941582960033842)
+            if viprol in message.author.roles:
+                return
+            else:
+                ment=message.author.mention
+                member=message.author
+                await message.delete()
+        
+        
+        if message.content.lower() == '🤡':
+            guildd = client.get_guild(617801724345843742)
+            viprol = discord.utils.get(guildd.roles, id=744941582960033842)
+            if viprol in message.author.roles:
+                await message.channel.send(":clown:")
+            else:
                 await message.channel.send("https://cdn.discordapp.com/attachments/742459973556240386/812822961475682314/yoder.mp4")
-            await message.channel.send(f"ananı allahını sikerim senin orospu evladı siktir git {ment}", delete_after=15)
-            await asyncio.sleep(6)
-            await member.ban(reason="banned emoji pcislockedbot", delete_message_days=0)
-            await message.channel.send(f"{ment} = banlandı 🕋\n\nsaçma sapan emojiler atmayın.")
-            return
+                await message.channel.send(f"ananı allahını sikerim senin orospu evladı siktir git {ment}", delete_after=15)
+                await asyncio.sleep(10)
+                await member.ban(reason="banned emoji pcislockedbot", delete_message_days=0)
+                await message.channel.send(f"{ment} = banlandı 🕋\n\nsaçma sapan emojiler atmayın.")
+        
         if message.content.lower() == 'göte bak kocaman' or message.content.lower() == 'gote bak kocaman':
             n = random.randint(1,8)
             if n == 1 or n == 3 or n == 5 or n == 7:
@@ -627,14 +651,16 @@ async def on_message(message):
         if message.content.lower() == 'kes':
             guildd = client.get_guild(617801724345843742)
             viprol = discord.utils.get(guildd.roles, id=744941582960033842)
-            if viprol in message.author.roles and message.author.id != "301051917440909312":
+            if viprol in message.author.roles:
                 await message.channel.send("https://media.discordapp.net/attachments/742459973556240386/818270689702314037/ZomboMeme_05032021043036.png?width=1178&height=676")
             elif message.author.id == "301051917440909312":
                 await message.channel.send("?mute <@!3301051917440909312> 60d")
             else:
-                await message.channel.send("kes lan taşşaksız <:KEKW:726449411344826469>")
+                await message.delete()
+                ment=message.author.mention
+                await message.channel.send(f"sen kes lan taşşaksız {ment} <:KEKW:726449411344826469>")
 
-        if message.content.lower() == 'sirk' or message.content.lower() == 'circle':
+        if message.content.lower() == 'sirk' or message.content.lower() == 'circus':
             await message.channel.send("https://cdn.discordapp.com/attachments/742459973556240386/819349451809882152/video0_2.mp4")
 
         if message.content.lower() == "😄" or message.content.lower() == "😃" or message.content.lower() == "😺" or message.content.lower() == "😸":
@@ -703,22 +729,28 @@ async def on_message(message):
                 await xdzamsg.set_permissions(target=memb, send_messages=False)
 
         if any(word in message.content.lower() for word in xdzawrd) and message.channel == general:
-            disc = message.author.discriminator
-            await message.add_reaction('<:xdza:767704490555473920>')
-            name = message.author.name
-            cont = message.clean_content
-            nick = message.author.nick
-            mid = message.author.id
-            nou = datetime.now()
-            xdzamsg = client.get_channel(811988918345793557)
-            xdzalog = client.get_channel(812338508936773642)
-            if nick == None:
-                await xdzamsg.send(f"{name}: {cont}")
-                await xdzalog.send(f"{name}#{disc}: {cont}\n||{mid}@{nou}/gen||")
-            if nick != None:
-                await xdzamsg.send(f"{nick}: {cont}")
-                await xdzalog.send(f"{name}#{disc} (a.k.a {nick}): {cont}\n||{mid}@{nou}/gen||")
-        
+            guildd = client.get_guild(617801724345843742)
+            malrol = discord.utils.get(guildd.roles, id=744938734130298969)
+            if malrol in message.author.roles:
+                return
+            else:
+                await message.add_reaction('<:xdza:767704490555473920>')
+                if any(word in message.content.lower() for word in tumharfler):
+                    disc = message.author.discriminator
+                    name = message.author.name
+                    cont = message.clean_content
+                    nick = message.author.nick
+                    mid = message.author.id
+                    nou = datetime.now()
+                    xdzamsg = client.get_channel(811988918345793557)
+                    xdzalog = client.get_channel(812338508936773642)
+                    if nick == None:
+                        await xdzamsg.send(f"{name}: {cont}")
+                        await xdzalog.send(f"{name}#{disc}: {cont}\n||{mid}@{nou}/gen||")
+                    if nick != None:
+                        await xdzamsg.send(f"{nick}: {cont}")
+                        await xdzalog.send(f"{name}#{disc} (a.k.a {nick}): {cont}\n||{mid}@{nou}/gen||")
+
         if message.channel == xdzamsg:
             disc = message.author.discriminator
             await message.add_reaction('<:xdza:767704490555473920>')
