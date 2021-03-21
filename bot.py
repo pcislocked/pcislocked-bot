@@ -28,7 +28,7 @@ startTime = datetime.now()
 activeraid = pickle.load(open("activeraid.pk1", "rb"))
 welcomemessage = pickle.load(open("welcomemessage.pk1", "rb"))
 writejoinquitlog = pickle.load(open("writejoinquitlog.pk1", "rb"))
-ver = int(278)
+ver = int(289)
 guildd = client.get_guild(617801724345843742)
 
 warnwords = ["!warn", "?warn"]
@@ -263,8 +263,8 @@ async def on_message(message):
         memberid=message.author.id
         verifych = client.get_channel(764880248336154664)
         # for debugging only
-        print(message.author)
-        print(message.content)
+        # print(message.author)
+        # print(message.content)
         modlounge = client.get_channel(702562505905668137)
         xdzamsg = client.get_channel(811988918345793557)
         xdzamsg2 = client.get_channel(811988918345793557)
@@ -579,12 +579,11 @@ async def on_message(message):
                 member=message.author
                 await message.delete()
         
-        
-        if message.content.lower() == '🤡':
+        if message.content() == '🤡':
             guildd = client.get_guild(617801724345843742)
             viprol = discord.utils.get(guildd.roles, id=744941582960033842)
             if viprol in message.author.roles:
-                await message.channel.send(":clown:")
+                await message.reaction.add(":clown:")
             else:
                 await message.channel.send("https://cdn.discordapp.com/attachments/742459973556240386/812822961475682314/yoder.mp4")
                 await message.channel.send(f"ananı allahını sikerim senin orospu evladı siktir git {ment}", delete_after=15)
