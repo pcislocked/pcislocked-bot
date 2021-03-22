@@ -699,69 +699,13 @@ async def on_message(message):
             await mapushane.set_permissions(target=mutedrol, read_messages=True,
                                                              send_messages=True)
 
-        if message.content.lower() == 'mutefix':
-            guildd = client.get_guild(617801724345843742)
-            mapushane = client.get_channel(744962050777940068)
-            mutedrol = discord.utils.get(guildd.roles, id=748280170829316207)
-            await mapushane.set_permissions(target=mutedrol, read_messages=True,
-                                                             send_messages=True)
+        # if message.content.lower() == 'mutefix':
+            # guildd = client.get_guild(617801724345843742)
+            # mapushane = client.get_channel(744962050777940068)
+            # mutedrol = discord.utils.get(guildd.roles, id=748280170829316207)
+            # await mapushane.set_permissions(target=mutedrol, read_messages=True,
+                                                             # send_messages=True)
 
-            await message.channel.send("tamamdır\ndipnot: mutefix çekmenize artık gerek yok, otomatik override olayını hallettim.")
-
-        if message.channel == xdzamsg:
-            if not any(word in message.content.lower() for word in xdzawrd):
-                memb = message.author
-                xdzalog = client.get_channel(812338508936773642)
-                disc = message.author.discriminator
-                name = message.author.name
-                cont = message.clean_content
-                nick = message.author.nick
-                mid = message.author.id
-                nou = datetime.now()
-                if nick == None:
-                    await xdzalog.send(f"aşağıdaki kişi xdza'dan mute yedi <:xdza:767704490555473920>\n{name}#{disc}): {cont}\n||{mid}@{nou}||"),
-                    await modlog.send(f"aşağıdaki kişi xdza'dan mute yedi <:xdza:767704490555473920>\n{name}#{disc}): {cont}\n||{mid}@{nou}||")
-                if nick != None:
-                    await xdzalog.send(f"aşağıdaki kişi xdza'dan mute yedi <:xdza:767704490555473920>\n{name}#{disc} (a.k.a {nick}): {cont}\n||{mid}@{nou}||"),
-                    await modlog.send(f"aşağıdaki kişi xdza'dan mute yedi <:xdza:767704490555473920>\n{name}#{disc} (a.k.a {nick}): {cont}\n||{mid}@{nou}||")
-                await message.delete()
-                await xdzamsg.set_permissions(target=memb, send_messages=False)
-
-        if any(word in message.content.lower() for word in xdzawrd) and message.channel == general:
-            guildd = client.get_guild(617801724345843742)
-            malrol = discord.utils.get(guildd.roles, id=744938734130298969)
-            if malrol in message.author.roles:
-                return
-            else:
-                await message.add_reaction('<:xdza:767704490555473920>')
-                if any(word in message.content.lower() for word in tumharfler):
-                    disc = message.author.discriminator
-                    name = message.author.name
-                    cont = message.clean_content
-                    nick = message.author.nick
-                    mid = message.author.id
-                    nou = datetime.now()
-                    xdzamsg = client.get_channel(811988918345793557)
-                    xdzalog = client.get_channel(812338508936773642)
-                    if nick == None:
-                        await xdzamsg.send(f"{name}: {cont}")
-                        await xdzalog.send(f"{name}#{disc}: {cont}\n||{mid}@{nou}/gen||")
-                    if nick != None:
-                        await xdzamsg.send(f"{nick}: {cont}")
-                        await xdzalog.send(f"{name}#{disc} (a.k.a {nick}): {cont}\n||{mid}@{nou}/gen||")
-
-        if message.channel == xdzamsg:
-            disc = message.author.discriminator
-            await message.add_reaction('<:xdza:767704490555473920>')
-            name = message.author.name
-            cont = message.clean_content
-            nick = message.author.nick
-            mid = message.author.id
-            nou = datetime.now()
-            if nick == None:
-                await xdzalog.send(f"{name}#{disc}: {cont}\n||{mid}@{nou}/xdzach||")
-            if nick != None:
-                await xdzalog.send(f"{name}#{disc} (a.k.a {nick}): {cont}\n||{mid}@{nou}/xdzach||")
-
+            # await message.channel.send("tamamdır\ndipnot: mutefix çekmenize artık gerek yok, otomatik override olayını hallettim.")
 client.loop.create_task(fetch())
 client.run(TOKEN)
