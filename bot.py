@@ -18,7 +18,6 @@ import re
 import json
 from uptime import uptime
 from urllib.request import urlopen
-
 load_dotenv()
 TOKEN = os.getenv('BOT_TOKEN')
 GUILD = "617801724345843742"
@@ -28,22 +27,18 @@ startTime = datetime.now()
 activeraid = pickle.load(open("activeraid.pk1", "rb"))
 welcomemessage = pickle.load(open("welcomemessage.pk1", "rb"))
 writejoinquitlog = pickle.load(open("writejoinquitlog.pk1", "rb"))
-ver = int(289)
+ver = int(292)
 guildd = client.get_guild(617801724345843742)
-
 warnwords = ["!warn", "?warn"]
 mutewords = ["!mute", "?mute"]
 xdzawrd = [":xdza:", "<:xdza:767704490555473920>"]
 bannedemojis = ["🤡"]
 tumharfler = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 # "😄"
-
 #invite tracker translated and implemented for usage, last updated 18/3/2021
 #repo: https://github.com/GregTCLTK/Discord-Invite-Tracker/blob/master/bot.py
-
 invites = {}
 last = "0"
-
 async def fetch():
     global last
     global invites
@@ -69,24 +64,9 @@ async def fetch():
             tmp.append(tuple((i.code, i.uses)))
         invites = tmp
         await asyncio.sleep(4)
-
-                        # await logs.send(embed=eme)
-                        # giren = usr.mention
-                        # girid = usr.id
-                        # sokan = i.inviter.mention
-                        # sokid = i.inviter.id
-                        # icode = i.code
-                        # kulln = i.uses
-                        # await logs.send(f"**INVITE TAKİBİ**\n{giren}(ID: {girid})")
-                        # await logs.send(f"sunucuya {sokan}(ID: {sokid}) kişisinin {icode} invite'ı ile girdi.")
-                        # await logs.send(f"Şu ana kadar kullanım: {kulln}")
-            # tmp.append(tuple((i.code, i.uses)))
-
 @client.event
 async def on_ready():
     activity = discord.Game(name="dm = not defteri lmao")
-    # activity = discord.Game(name="debug connected")
-    # await client.change_presence(status=discord.Status.dnd, activity=activity)
     await client.change_presence(status=discord.Status.idle, activity=activity)
     for guild in client.guilds:
         if guild.name == GUILD:
@@ -104,8 +84,6 @@ async def on_ready():
     city = data['city']
     country=data['country']
     region=data['region']
-    # await general.send(f"Bot test modunda başlatıldı.") 
-    #await general.send(f"Bot yeniden başlatıldı. Sunucu lokasyonu: {city}") 
     verifych = client.get_channel(764880248336154664)
     modloungelog = client.get_channel(795054947695067146)
     IPx="SİLDİM - ev IP'm"
@@ -153,59 +131,6 @@ async def on_member_join(member):
         await verifych.send("admin tagleyebilirsin ama spam yapma sonra vah ben niye ban yedim diye de ağlama", delete_after=10800)
     if welcomemessage == [1]:
         await verifych.send(f"hoşgeldin dostum {ment}, sen kuralları incele, ardından buraya yaz bişeyler, moderatörler hesabını inceleyip uygun görürlerse seni alacaklar.", delete_after=1800)
-
-
-    # print(noc)
-    # tr saatiyle 03:00-09:00 kapalı
-    # utc 6dan küçükse kapalı diğer türlü açık
-    
-    # if int(6) > int(noc):
-        # # print("before 7utc")
-        # await verifych.set_permissions(target=evr, read_messages=True,
-                                                   # send_messages=False)
-        # await verifych.send(f"ulan amk manyağı {ment}")
-        # await verifych.send("bu saatte ne işin var burda")
-        # await verifych.send("yat aşşa sabah bakıcam ben sana")
-    # else:
-        # await verifych.set_permissions(target=evr, read_messages=True,
-                                                   # send_messages=True)
-        # await verifych.send(f"hoşgeldin dostum {ment}") 
-        # await verifych.send("sen şimdi kurallara murallara falan bak eğer sana uyuyorsa tamam de burda, sonra robot olmayan birileri seninle ilgilensinler.")
-        # await verifych.send(f"içerde de adam gibi davran.")
-        # await verifych.send("eğer mesaj yazamıyosan telefon doğrulaması yap")
-        # await verifych.send("sese senden istenmediği sürece girmene gerek yok, kuralları kabul ettiğini söyleyip beklemen yeterli.")
-        # await verifych.send("admin tagleyebilirsin ama spam yapma sonra vah ben niye ban yedim diye de ağlama")
-
-
-## töre
-
-
-    # if int(7) > int(noc):
-        # # print("before 7utc")
-        # await verifych.set_permissions(target=evr, read_messages=True,
-                                                   # send_messages=False)
-        # await verifych.send(f"hoşgeldin {ment}, şu anda yeni üye almıyoruz. Yeni üye alımları Türkiye saati ile 10:00'da açılacak. \n **NOT: izinlerin güncelleştirilebilmesi için sunucudan çıkıp geri girmen gerekebilir.** Sunucu davetini nereden aldıysan oradan yine geri girersin sıkıntı olmaz.")
-    # elif int(noc) < int(20):
-        # await verifych.set_permissions(target=evr, read_messages=True,
-         #                                          send_messages=True)
-        # # print("before 20utc")
-        # await verifych.send(f"hoşgeldin {ment} şimdi buraya bir şeyler yaz ve bekle. içerde de adam gibi davran. \n \n eğer mesaj yazamıyosan telefon doğrulaması yap\n \n doğrulamada ses kontrolü yapmıyoruz o yüzden sese girmen hiç bir şeyi değiştirmez.")
-    # elif int(noc) == int(20):
-        # # print("during 20utc")
-        # await verifych.set_permissions(target=evr, read_messages=True,
-                                                   # send_messages=False)
-        # await verifych.send(f"hoşgeldin {ment}, şu anda yeni üye almıyoruz. Yeni üye alımları Türkiye saati ile 10:00'da açılacak. \n **NOT: izinlerin güncelleştirilebilmesi için sunucudan çıkıp geri girmen gerekebilir.** Sunucu davetini nereden aldıysan oradan yine geri girersin sıkıntı olmaz.")
-    # elif int(noc) > int(20):
-        # # print("after 20utc")
-        # await verifych.set_permissions(target=evr, read_messages=True,
-                                                   # send_messages=False)
-        # await verifych.send(f"hoşgeldin {ment}, şu anda yeni üye almıyoruz. Yeni üye alımları Türkiye saati ile 10:00'da açılacak. \n **NOT: izinlerin güncelleştirilebilmesi için sunucudan çıkıp geri girmen gerekebilir.** Sunucu davetini nereden aldıysan oradan yine geri girersin sıkıntı olmaz.")
-    # else:
-        # print(noc)
-        # print("epic bruh moment at line 62")
-        # await verifych.send(f"hoşgeldin {ment} şimdi buraya bir şeyler yaz ve bekle. içerde de adam gibi davran. \n \n eğer mesaj yazamıyosan telefon doğrulaması yap(veya sabah 10'u bekle.) \n \n doğrulamada ses kontrolü yapmıyoruz o yüzden sese girmen hiç bir şeyi değiştirmez. \n (line 69)TEKNİK HATA: SAAT BİLGİSİ ALINAMADI")
-        # return
-
 @client.event
 async def on_member_remove(member):
     verifych = client.get_channel(764880248336154664)
@@ -217,22 +142,6 @@ async def on_member_remove(member):
     if writejoinquitlog == [1]:
         await joinlog.send(f"{ment} geberdi\n ID: {mid}\ntimestamp: {nou}")
         await verifyclone.send(f"{ment} çıktı. \n ID: {mid}\ntimestamp: {nou}")
-
-# @client.event
-# async def on_raw_reaction_add(reaction, user):
-    # print("yup")
-    # if any(emoji in reaction.emoji() for emoji in bannedemojis):
-        # ment=user.mention
-        # await reaction.clear()
-        # await reaction.message.channel.send(f"ananı allahını sikerim senin orospu evladı siktir git {ment}", delete_after=15)
-        # await asyncio.sleep(6)
-        # await user.ban(reason="banned emoji reacted, pcislockedbot", delete_message_days=0)
-        # await reaction.message.channel.send(f"{ment} = banlandı 🕋\n\nsaçma sapan emojiler atmayın.")
-        # i hate dumb niggers
-
-# loserdm = await message.author.create_dm()
-# await loserdm.send("pcislocked sunucusunda susturuldunuz. <:LULW:726449491120619571>\nhttps://cdn.discordapp.com/attachments/742459973556240386/798290836197736488/VID-20201216-WA0057-1-1.mp4")
-
 @client.event
 async def on_message(message):
     if message.guild is None:
@@ -242,20 +151,19 @@ async def on_message(message):
         cont = message.clean_content
         mid = message.author.id
         nou = datetime.now()
-        if message.attachments: # if message has an attachment(s)
+        if message.attachments:
             atchm1 = message.attachments[0]
             url1 = atchm1.url
             if message.author == client.user:
                 await inbox.send(f"BOT MESSAGE BELOW\n{name}#{disc}: {cont}\nID: {mid} - timestamp: {nou}\nattachment(s):{url1}")
             if not message.author == client.user:
                 await inbox.send(f"{name}#{disc}: {cont}\nID: {mid} - timestamp: {nou}\nattachment(s):{url1}")
-        if not message.attachments: # if message doesnt have an attachment(s)
+        if not message.attachments: 
             if message.author == client.user:
                 await inbox.send(f"BOT MESSAGE BELOW\n{name}#{disc}: {cont}\nID: {mid} - timestamp: {nou}")
             if not message.author == client.user:
                 await inbox.send(f"{name}#{disc}: {cont}\nID: {mid} - timestamp: {nou}")
         return
-
     if message.guild is not None:
         activeraid = pickle.load(open("activeraid.pk1", "rb"))
         welcomemessage = pickle.load(open("welcomemessage.pk1", "rb"))
@@ -271,7 +179,6 @@ async def on_message(message):
         modlog = client.get_channel(743049583457861683)
         general = client.get_channel(792561973292302356)
         xdzalog = client.get_channel(812338508936773642)
-
         if message.channel == client.get_channel(764880248336154664) and activeraid == [0]: # verify
             disc = message.author.discriminator
             name = message.author.name
@@ -280,10 +187,8 @@ async def on_message(message):
             nou = datetime.now()
             logch = client.get_channel(780207454846844928)
             await logch.send(f"{name}#{disc}: {cont}\nID: {mid} - timestamp: {nou}")
-        
         if message.author == client.user:
             return
-        
         if message.content.lower() == '!raid' and message.channel == modlounge:
             await modlounge.send("raid lockdown running now")
             activeraid = 1
@@ -309,7 +214,6 @@ async def on_message(message):
             pickle.dump([activeraid], open("activeraid.pk1", "wb"))
             await announce.send(f"DİKKAT: Sunucu raid(baskın) altında olduğu için sunucuya bütün girişler otomatik olarak kapatılmıştır. join log'u susturmak isteyebilirsiniz.")
             await general.send(f"DİKKAT: Sunucu raid(baskın) altında olduğu için sunucuya bütün girişler otomatik olarak kapatılmıştır. join log'u susturmak isteyebilirsiniz.")
-
         if message.content.lower() == '!togglejq' and message.channel == modlounge:
             if writejoinquitlog == [0]:
                 writejoinquitlog = 1
@@ -320,7 +224,6 @@ async def on_message(message):
                 await modlounge.send(f"Botu aşırı yüklememek için artık join-quit log **atılmayacak.**")
                 pickle.dump([writejoinquitlog], open("writejoinquitlog.pk1", "wb"))
             print(f"jq toggled, now it's {writejoinquitlog}")
-
         if message.content.lower() == '!resetall' and message.channel == modlounge:
             welcomemessage = 2
             writejoinquitlog = 1
@@ -329,7 +232,6 @@ async def on_message(message):
             pickle.dump([welcomemessage], open("welcomemessage.pk1", "wb"))
             pickle.dump([writejoinquitlog], open("writejoinquitlog.pk1", "wb"))
             pickle.dump([activeraid], open("activeraid.pk1", "wb"))
-
         if message.content.lower() == '!togglewelcome' and message.channel == modlounge:
             if welcomemessage == [2]:
                 welcomemessage = 1
@@ -349,7 +251,6 @@ async def on_message(message):
             else:
                 await modlounge.send("i hate niggers. and i hate you too.")
             print(f"welcome messages toggled, now it's {welcomemessage}")
-            
         if message.content.lower() == '!kill' and message.channel == modlounge:
             await modlounge.send(f"change da world\nmy final message. Goodb ye \nNot: bot kısa süre içinde heroku tarafından yeniden başlatılacak.")
             modloungelog = client.get_channel(795054947695067146)
@@ -359,10 +260,8 @@ async def on_message(message):
             await client.change_presence(status=discord.Status.invisible, activity=activity)
             print(f"{ment} botu !kill ile kapattı.")
             quit()
-
         if message.content.lower() == '!values' and message.channel == modlounge:
             await modlounge.send(f"Şu anda aktif olan değerler:\nactiveraid:{activeraid}\nwelcomemessage:{welcomemessage}\nwritejoinquitlog:{writejoinquitlog}\n\n*(1=true, 0=false, welcome message için: 0, kapalı; 1, tek mesaj; 2, tam mesaj)*")
-
         if message.content.lower() == '!unraid' and message.channel == modlounge:
             await modlounge.send("reverting...")
             guildd = client.get_guild(617801724345843742)
@@ -388,7 +287,6 @@ async def on_message(message):
             pickle.dump([activeraid], open("activeraid.pk1", "wb"))
             await announce.send(f"baskın bitti lol")
             await general.send(f"baskın bitti lol")
-
         if message.content.lower() == 'sa' and message.channel == verifych:
             guildd = client.get_guild(617801724345843742)
             viprol = discord.utils.get(guildd.roles, id=744941582960033842)
@@ -404,113 +302,82 @@ async def on_message(message):
                 await asyncio.sleep(5)
                 await member.kick(reason="verify sa pcislockedbot")
                 await message.channel.send(f"{ment} = atıldı 🕋")
-            
         if message.content.lower() == 'sa':
             n = random.randint(1,8)
             if n == 2:
                 await message.channel.send("devam edersen sonun böyle olur orospu çocuğu https://www.youtube.com/watch?v=PHkL6xGGU_U")
             else:
                 await message.channel.send("burası cami mi orospu evladı")
-                    
         if message.content.lower() == 'as':
             ment=message.author.mention
             await message.channel.send(f"ulan allahın selamını almayacaksın demedik mi {ment}")
-
         if message.content.lower() == 'ass':
             ment=message.author.mention
             await message.channel.send("lol")
-
         if message.content.lower() == 'Selamın aleyküm' or message.content.lower() == 'selamın aleyküm' or message.content.lower() == 'Selamin aleyküm' or message.content.lower() == 'selamin aleyküm' or message.content.lower() == 'Selamın aleykum' or message.content.lower() == 'selamın aleykum' or message.content.lower() == 'Selamin aleykum' or message.content.lower() == 'selamin aleykum' or message.content.lower() == 'Selamın Aleyküm' or message.content.lower() == 'selamın Aleyküm' or message.content.lower() == 'Selamin Aleyküm' or message.content.lower() == 'selamin Aleyküm' or message.content.lower() == 'Selamın Aleykum' or message.content.lower() == 'selamın Aleykum' or message.content.lower() == 'Selamin Aleykum' or message.content.lower() == 'selamin Aleykum':
             await message.channel.send("niye zorluyorsun orospu evladı ban yemek için mi")
-            
         if message.content.lower() == 'ataturk' or message.content.lower() == 'atatürk' or message.content.lower() == 'Ataturk' or message.content.lower() == 'Atatürk':
             await message.channel.send("ağla https://www.youtube.com/watch?v=j1QK2jzy_LI")
-
         if message.content.lower() == 'osmanlı' or message.content.lower() == 'osmanli' or message.content.lower() == 'Osmanlı' or message.content.lower() == 'Osmanli':
             await message.channel.send("ağla https://www.youtube.com/watch?v=8Rvqc4-EWNE")
-
         if message.content.lower() == 'khontkar':
             await message.channel.send("trap müzik değil saçmalıktır")
-
         if message.content.lower() == 'sik kırığı':
             await message.channel.send("ben sana küfretmedim yarramın kafası")
-
         if message.content.lower() == 'allah' or message.content.lower() == 'Allah' or message.content.lower() == '🕋':
             await message.channel.send("https://cdn.discordapp.com/attachments/629749813440675872/726923126537191424/atat.jpg")
-
         if message.content.lower() == 'aw':
             await message.channel.send("aw kullanmayın dejenere orospu çocukları")
-
         if message.content.lower() == 'tomris':
             await message.add_reaction('♿')
             await message.channel.send("https://media.discordapp.net/attachments/742459973556240386/743092135791820830/unknown.png")
-
         if message.content.lower() == 'tunahan':
             await message.add_reaction('🇬')
             await message.add_reaction('🇦')
             await message.add_reaction('🇾')
-
         if message.content.lower() == 'Fortnite' or message.content.lower() == 'fortnite':
             await message.add_reaction('🇬')
             await message.add_reaction('🇦')
             await message.add_reaction('🇾')
             await message.channel.send("when you ask to god for help but god said https://media.discordapp.net/attachments/629749813440675872/741600181253963826/Screenshot_20200808_131408_com.discord.jpg")
-
         if message.content.lower() == 'kurt' or message.content.lower() == 'kürt' or message.content.lower() == 'Kurt' or message.content.lower() == 'Kürt' or message.content.lower() == 'kurd' or message.content.lower() == 'kürd' or message.content.lower() == 'Kurd' or message.content.lower() == 'Kürd':
             await message.channel.send("https://www.youtube.com/watch?v=5xyb8uC92pI&t=56")
-            
         if message.content.lower() == '31'or message.content.lower() == '30+1' or message.content.lower() == '20+11':
             n = random.randint(8,24)
             def rndmz(length):
                 letters = 'ASDASDASDASDASDASDasdasdasdasdasdasdqweqweqweqweqwqweQWEQWEQWEQWEQWEQWEASDASDASDASDASDASDasdasdasdasdasdasdqweqweqweqweqwqweQWEQWEQWEQWEQWEQWEASDASDASDASDASDASDasdasdasdasdasdasdqweqweqweqweqwqweQWEQWEQWEQWEQWEQWE:::::::::::::::::qwerwtyuüıopğüşlkjhgfdsaxzcvbnmöç.1432567890PREWTYUIOPĞÜŞLAFDGHKXMC'
                 return ''.join(random.choice(letters) for i in range(length))
             await message.channel.send(f"{rndmz(n)}")
-
         if message.content.lower() == 'dinozor' or message.content.lower() == 'dinazor' or message.content.lower() == 'Dinozor' or message.content.lower() == 'Dinazor':
             await message.channel.send("https://www.youtube.com/watch?v=9pV8tMQ92Dc")
-               
         if message.content.lower() == 'kadın' or message.content.lower() == 'Kadın' or message.content.lower() == 'kadınlar' or message.content.lower() == 'Kadınlar':
             await message.channel.send("https://media.discordapp.net/attachments/742459973556240386/743147623782940692/unknown.png")
-               
         if message.content.lower() == 'keloğlan gülüyor' or message.content.lower() == 'Keloğlan gülüyor' or message.content.lower() == 'Keloğlan Gülüyor' or message.content.lower() == 'keloğlan gülüyor.' or message.content.lower() == 'KELOĞLAN GÜLÜYOR' or message.content.lower() == 'KELOĞLAN GÜLÜYOR.' or message.content.lower() == 'Keloğlan gülüyor.' or message.content.lower() == 'Keloğlan Gülüyor.':
             await message.channel.send("https://cdn.discordapp.com/attachments/742459973556240386/757715660007538809/keloglan_guluyor.mp4")
-               
         if message.content.lower() == 'burak oyunda' or message.content.lower() == 'Burak oyunda' or message.content.lower() == 'burak Oyunda' or message.content.lower() == 'Burak Oyunda':
             await message.channel.send("https://forum.donanimhaber.com/merhaba-arkadaslar-ben-burak-maynkraftin-yennnniii-bolumune-hos-geldinizzzzzz--117861123")
-               
         if message.content.lower() == 'keloğlan' or message.content.lower() == 'keloğlan earrape' or message.content.lower() == 'Keloğlan' or message.content.lower() == 'Keloğlan earrape' or message.content.lower() == 'keloğlan geçiş müziği' or message.content.lower() == 'Keloğlan geçiş müziği' or message.content.lower() == 'keloğlan Earrape' or message.content.lower() == 'keloğlan Geçiş müziği' or message.content.lower() == 'Keloğlan geçiş Müziği' or message.content.lower() == 'Keloğlan Geçiş Müziği':
             await message.channel.send("https://cdn.discordapp.com/attachments/742459973556240386/757731496776826971/keloglan_gecisi_32db_earrape.mp4")
-            
         if message.content.lower() == 'Siktir git' or message.content.lower() == 'Siktir Git' or message.content.lower() == 'siktir git' or message.content.lower() == 'siktir Git' or message.content.lower() == 'Siktirin gidin' or message.content.lower() == 'Siktirin Gidin' or message.content.lower() == 'siktirin Gidin' or message.content.lower() == 'siktirin gidin':
             await message.channel.send("https://www.youtube.com/watch?v=MpDwtSvM32Y")
-            
         if message.content.lower() == 'peki' or message.content.lower() == 'Peki' or message.content.lower() == 'pekı' or message.content.lower() == 'Pekı' or message.content.lower() == 'PEKİ' or message.content.lower() == 'PEKI':
             await message.channel.send("ananın amı peki")
-
         if message.content.lower() == 'lan':
             await message.channel.send("lan")
-                            
         if message.content.lower() == 'Lan':
             await message.channel.send("Lan")
-                        
         if message.content.lower() == 'anan':
             await message.channel.send("https://media.discordapp.net/attachments/742459973556240386/800818196840054784/inci_nin_anan_caps_indeki_cocugu_bulmasi_304012_m.png")
-                            
         if message.content.lower() == 'ulan':
             await message.channel.send("ulan")
-        
         if message.content.lower() == 'Ulan':
             await message.channel.send("Ulan")
-                        
         if message.content.lower() == 'ULAN':
             await message.channel.send("ULAN")
-                            
         if message.content.lower() == 'coronavirus':
             await message.channel.send("Do you mean: human malware")
-            
         if message.content.lower() == 'sansar suicide' or message.content.lower() == 'Sansar suicide' or message.content.lower() == 'sansar Suicide' or message.content.lower() == 'Sansar Suicide' or message.content.lower() == 'SANSAR SUICIDE' or message.content.lower() == 'SANSAR SUİCİDE' or message.content.lower() == 'sansar suıcıde':
             await message.channel.send("This video meme below depicts an oldschool Turkish rapper, Sansar Salvo, loading a gun and putting it on his head, then looking at the gun thoughtfully, while the beat of the \"Şimdilerde Hayal\" song plays in the background. This section of the video was originally from his promotion video for the 21 gram mixtape, which is a mixtape that generally consists of melancholic and emotional songs.\nhttps://cdn.discordapp.com/attachments/695562300295217174/743420436141834280/sansar_suicide.mp4")
-           
         if message.content.lower() == 'sansar suicide all' or message.content.lower() == 'sansar suicide full':
             await message.channel.send("This video meme below depicts an oldschool Turkish rapper, Sansar Salvo, loading a gun and putting it on his head, then looking at the gun thoughtfully, while the beat of the \"Şimdilerde Hayal\" song plays in the background. This section of the video was originally from his promotion video for the 21 gram mixtape, which is a mixtape that generally consists of melancholic and emotional songs. \n Aşağıdaki meme videosu eski Türk rapçi Sansar Salvo'yu, arkada \"Şimdilerde Hayal\" şarkısının melodisi çalarken bir silahın ağzına mermiyi verdikten sonra silahı kafasına dayayıp sonrasında silaha düşünceli bir şekilde bakarken gösteriyor.  Videonun bu kısmı duygusal ve melankolik şarkılar içeren 21 gram mixtape'inin tanıtım videosundan.\n تصور ميم الفيديو أدناه مغني الراب التركي من المدرسة القديمة ، سانسار سالفو ، وهو يحمل مسدسًا ويضعه على رأسه ، ثم ينظر إلى البندقية بعناية ، بينما يتم تشغيل إيقاع أغنية \"سيمديليردي هايال\" في الخلفية. كان هذا الجزء من الفيديو في الأصل من مقطع الفيديو الترويجي الخاص به لشريط مزيج 21 جرام ، وهو عبارة عن شريط مختلط يتكون عمومًا من أغاني حزينة وعاطفية. \n Deze video-meme hieronder toont een ouderwetse Turkse rapper, Sansar Salvo, die een pistool laadt en het op zijn hoofd legt, en vervolgens bedachtzaam naar het pistool kijkt, terwijl het ritme van het \"Şimdilerde Hayal\" -lied op de achtergrond speelt. Dit gedeelte van de video kwam oorspronkelijk uit zijn promotievideo voor de mixtape van 21 gram, een mixtape die meestal bestaat uit melancholische en emotionele liedjes.")
             await asyncio.sleep(1)
@@ -534,14 +401,12 @@ async def on_message(message):
         if message.content.lower() == 'ping':
             pbong = client.latency*1000
             await message.channel.send('pong orospu evladı. discord RTT: {0}ms.'.format(round(pbong, 2)))
-        
         if message.content.lower() == 'uptime':
             uptim = strftime("%H saat %M dakika %S saniye", gmtime(uptime()))
             uptin = uptime()
             days = uptin//int(86400)
             niggers = datetime.now() - startTime
             await message.channel.send(f'Sunucunun açık olma süresi: {days} gün {uptim} (toplam {uptin} saniye)(bot.py uptime: {niggers})\n\npcislocked\'s autoresponder bot v{ver} - hosted with heroku \nbot, sistem uptiime\'ından bağımsız olarak yeniden başlatılıyor.')
-            
         if message.content.lower() == 'kaşık enes batur' or message.content.lower() == 'kasık enes batur' or message.content.lower() == 'kaşik enes batur' or message.content.lower() == 'kasik enes batur' or message.content.lower() == 'KAŞIK ENES BATUR' or message.content.lower() == 'KASIK ENES BATUR' or message.content.lower() == 'KAŞİK ENES BATUR' or message.content.lower() == 'KASİK ENES BATUR':
             await message.channel.send("https://media.discordapp.net/attachments/742459973556240386/778388988624764928/kasik_enes_batur-1.png")
             return
@@ -568,7 +433,6 @@ async def on_message(message):
                 await message.author.kick(reason="nabim yazdı, pcislockedbot")
                 await message.channel.send(f"{ment} = atıldı 🕋")
                 return
-        
         if any(word in message.content.lower() for word in bannedemojis):
             guildd = client.get_guild(617801724345843742)
             viprol = discord.utils.get(guildd.roles, id=744941582960033842)
@@ -578,8 +442,7 @@ async def on_message(message):
                 ment=message.author.mention
                 member=message.author
                 await message.delete()
-        
-        if message.content() == '🤡':
+        if message.content() == "🤡":
             guildd = client.get_guild(617801724345843742)
             viprol = discord.utils.get(guildd.roles, id=744941582960033842)
             if viprol in message.author.roles:
@@ -590,7 +453,6 @@ async def on_message(message):
                 await asyncio.sleep(10)
                 await member.ban(reason="banned emoji pcislockedbot", delete_message_days=0)
                 await message.channel.send(f"{ment} = banlandı 🕋\n\nsaçma sapan emojiler atmayın.")
-        
         if message.content.lower() == 'göte bak kocaman' or message.content.lower() == 'gote bak kocaman':
             n = random.randint(1,8)
             if n == 1 or n == 3 or n == 5 or n == 7:
@@ -638,15 +500,12 @@ async def on_message(message):
             return
         if message.content.lower() == 'türkler' or message.content.lower() == 'turkler' or message.content.lower() == 'türk milleti' or message.content.lower() == 'turk milletı' or message.content.lower() == 'türk milletı' or message.content.lower() == 'turk mılletı' or message.content.lower() == 'türk milleti zekidir' or message.content.lower() == 'turk milleti zekidir' or message.content.lower() == 'türk milletı zekıdır' or message.content.lower() == 'turk mılletı zekıdır':
             await message.channel.send("https://media.discordapp.net/attachments/742459973556240386/796797170414125096/turkler_mal.jpg")
-
         if message.content.lower() == '!help' and message.channel == modlounge:
             await message.channel.send("!kill - botu kapatır\n!resetall - sadece sorun çözme için, kullanmayın boşverin.\n!togglejq - #join-log kanalına atılan gir-çık mesajlarını açıp kapatır.\n!togglewelcome - birisi servera girdiğinde atılan hoşgeldin mesajlarını açıp kapatır.\n!values - sadece sorun çözme için, kullanmayın boşverin.\n!raid - herkese açık bütün kanalları kapatır - spam olması halinde joinquit mesajlarını ve welcome mesajlarını ayrıca kapatabilirsiniz.\n!unraid - kanalları eski haline getirir.")
         if message.content.lower() == '!help' and message.channel != modlounge:
             await message.channel.send("bu komut sadece mod lounge'da çalışmaktadır. kullanıcıların kullanabileceği komutlar: ping, uptime <:KEKW:726449411344826469>")
-        
         if message.content.lower() == 'wave216':
             await message.channel.send("https://www.youtube.com/watch?v=jQp6qz0aj8o")
-
         if message.content.lower() == 'kes':
             guildd = client.get_guild(617801724345843742)
             viprol = discord.utils.get(guildd.roles, id=744941582960033842)
@@ -658,27 +517,18 @@ async def on_message(message):
                 await message.delete()
                 ment=message.author.mention
                 await message.channel.send(f"sen kes lan taşşaksız {ment} <:KEKW:726449411344826469>")
-
         if message.content.lower() == 'sirk' or message.content.lower() == 'circus':
             await message.channel.send("https://cdn.discordapp.com/attachments/742459973556240386/819349451809882152/video0_2.mp4")
-
         if message.content.lower() == "😄" or message.content.lower() == "😃" or message.content.lower() == "😺" or message.content.lower() == "😸":
             await message.channel.send("😐")
             await message.channel.send("https://cdn.discordapp.com/attachments/742459973556240386/819349932401885234/video0-326.mp4")
-
         if message.content.lower() == 'thot':
             await message.channel.send("https://cdn.discordapp.com/attachments/742459973556240386/819349622732488774/vazelin.mp4")
-
         if message.content.lower() == 'lgbt':
             await message.channel.send("https://cdn.discordapp.com/attachments/742459973556240386/819350511672360960/image0-13.gif")
-
-
         if any(word in message.content.lower() for word in warnwords):
             await message.channel.send("https://cdn.discordapp.com/attachments/742459973556240386/812816763565506591/VID-20201216-WA0057-1-1.mp4")
-
         if any(word in message.content.lower() for word in mutewords):
-            # loserdm = await message.author.create_dm()
-            # await loserdm.send("pcislocked sunucusunda susturuldunuz. <:LULW:726449491120619571>\nhttps://cdn.discordapp.com/attachments/742459973556240386/812816548590256148/video0.mp4")
             await message.channel.send("https://cdn.discordapp.com/attachments/742459973556240386/812816548590256148/video0.mp4")
             await asyncio.sleep(2)
             guildd = client.get_guild(617801724345843742)
@@ -698,14 +548,5 @@ async def on_message(message):
             mutedrol = discord.utils.get(guildd.roles, id=748280170829316207)
             await mapushane.set_permissions(target=mutedrol, read_messages=True,
                                                              send_messages=True)
-
-        # if message.content.lower() == 'mutefix':
-            # guildd = client.get_guild(617801724345843742)
-            # mapushane = client.get_channel(744962050777940068)
-            # mutedrol = discord.utils.get(guildd.roles, id=748280170829316207)
-            # await mapushane.set_permissions(target=mutedrol, read_messages=True,
-                                                             # send_messages=True)
-
-            # await message.channel.send("tamamdır\ndipnot: mutefix çekmenize artık gerek yok, otomatik override olayını hallettim.")
 client.loop.create_task(fetch())
 client.run(TOKEN)
