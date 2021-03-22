@@ -27,7 +27,7 @@ startTime = datetime.now()
 activeraid = pickle.load(open("activeraid.pk1", "rb"))
 welcomemessage = pickle.load(open("welcomemessage.pk1", "rb"))
 writejoinquitlog = pickle.load(open("writejoinquitlog.pk1", "rb"))
-ver = int(292)
+ver = int(291)
 guildd = client.get_guild(617801724345843742)
 warnwords = ["!warn", "?warn"]
 mutewords = ["!mute", "?mute"]
@@ -64,9 +64,22 @@ async def fetch():
             tmp.append(tuple((i.code, i.uses)))
         invites = tmp
         await asyncio.sleep(4)
+                        # await logs.send(embed=eme)
+                        # giren = usr.mention
+                        # girid = usr.id
+                        # sokan = i.inviter.mention
+                        # sokid = i.inviter.id
+                        # icode = i.code
+                        # kulln = i.uses
+                        # await logs.send(f"**INVITE TAKİBİ**\n{giren}(ID: {girid})")
+                        # await logs.send(f"sunucuya {sokan}(ID: {sokid}) kişisinin {icode} invite'ı ile girdi.")
+                        # await logs.send(f"Şu ana kadar kullanım: {kulln}")
+            # tmp.append(tuple((i.code, i.uses)))
 @client.event
 async def on_ready():
     activity = discord.Game(name="dm = not defteri lmao")
+    # activity = discord.Game(name="debug connected")
+    # await client.change_presence(status=discord.Status.dnd, activity=activity)
     await client.change_presence(status=discord.Status.idle, activity=activity)
     for guild in client.guilds:
         if guild.name == GUILD:
@@ -84,6 +97,8 @@ async def on_ready():
     city = data['city']
     country=data['country']
     region=data['region']
+    # await general.send(f"Bot test modunda başlatıldı.") 
+    #await general.send(f"Bot yeniden başlatıldı. Sunucu lokasyonu: {city}") 
     verifych = client.get_channel(764880248336154664)
     modloungelog = client.get_channel(795054947695067146)
     IPx="SİLDİM - ev IP'm"
@@ -131,6 +146,52 @@ async def on_member_join(member):
         await verifych.send("admin tagleyebilirsin ama spam yapma sonra vah ben niye ban yedim diye de ağlama", delete_after=10800)
     if welcomemessage == [1]:
         await verifych.send(f"hoşgeldin dostum {ment}, sen kuralları incele, ardından buraya yaz bişeyler, moderatörler hesabını inceleyip uygun görürlerse seni alacaklar.", delete_after=1800)
+    # print(noc)
+    # tr saatiyle 03:00-09:00 kapalı
+    # utc 6dan küçükse kapalı diğer türlü açık
+    
+    # if int(6) > int(noc):
+        # # print("before 7utc")
+        # await verifych.set_permissions(target=evr, read_messages=True,
+                                                   # send_messages=False)
+        # await verifych.send(f"ulan amk manyağı {ment}")
+        # await verifych.send("bu saatte ne işin var burda")
+        # await verifych.send("yat aşşa sabah bakıcam ben sana")
+    # else:
+        # await verifych.set_permissions(target=evr, read_messages=True,
+                                                   # send_messages=True)
+        # await verifych.send(f"hoşgeldin dostum {ment}") 
+        # await verifych.send("sen şimdi kurallara murallara falan bak eğer sana uyuyorsa tamam de burda, sonra robot olmayan birileri seninle ilgilensinler.")
+        # await verifych.send(f"içerde de adam gibi davran.")
+        # await verifych.send("eğer mesaj yazamıyosan telefon doğrulaması yap")
+        # await verifych.send("sese senden istenmediği sürece girmene gerek yok, kuralları kabul ettiğini söyleyip beklemen yeterli.")
+        # await verifych.send("admin tagleyebilirsin ama spam yapma sonra vah ben niye ban yedim diye de ağlama")
+## töre
+    # if int(7) > int(noc):
+        # # print("before 7utc")
+        # await verifych.set_permissions(target=evr, read_messages=True,
+                                                   # send_messages=False)
+        # await verifych.send(f"hoşgeldin {ment}, şu anda yeni üye almıyoruz. Yeni üye alımları Türkiye saati ile 10:00'da açılacak. \n **NOT: izinlerin güncelleştirilebilmesi için sunucudan çıkıp geri girmen gerekebilir.** Sunucu davetini nereden aldıysan oradan yine geri girersin sıkıntı olmaz.")
+    # elif int(noc) < int(20):
+        # await verifych.set_permissions(target=evr, read_messages=True,
+         #                                          send_messages=True)
+        # # print("before 20utc")
+        # await verifych.send(f"hoşgeldin {ment} şimdi buraya bir şeyler yaz ve bekle. içerde de adam gibi davran. \n \n eğer mesaj yazamıyosan telefon doğrulaması yap\n \n doğrulamada ses kontrolü yapmıyoruz o yüzden sese girmen hiç bir şeyi değiştirmez.")
+    # elif int(noc) == int(20):
+        # # print("during 20utc")
+        # await verifych.set_permissions(target=evr, read_messages=True,
+                                                   # send_messages=False)
+        # await verifych.send(f"hoşgeldin {ment}, şu anda yeni üye almıyoruz. Yeni üye alımları Türkiye saati ile 10:00'da açılacak. \n **NOT: izinlerin güncelleştirilebilmesi için sunucudan çıkıp geri girmen gerekebilir.** Sunucu davetini nereden aldıysan oradan yine geri girersin sıkıntı olmaz.")
+    # elif int(noc) > int(20):
+        # # print("after 20utc")
+        # await verifych.set_permissions(target=evr, read_messages=True,
+                                                   # send_messages=False)
+        # await verifych.send(f"hoşgeldin {ment}, şu anda yeni üye almıyoruz. Yeni üye alımları Türkiye saati ile 10:00'da açılacak. \n **NOT: izinlerin güncelleştirilebilmesi için sunucudan çıkıp geri girmen gerekebilir.** Sunucu davetini nereden aldıysan oradan yine geri girersin sıkıntı olmaz.")
+    # else:
+        # print(noc)
+        # print("epic bruh moment at line 62")
+        # await verifych.send(f"hoşgeldin {ment} şimdi buraya bir şeyler yaz ve bekle. içerde de adam gibi davran. \n \n eğer mesaj yazamıyosan telefon doğrulaması yap(veya sabah 10'u bekle.) \n \n doğrulamada ses kontrolü yapmıyoruz o yüzden sese girmen hiç bir şeyi değiştirmez. \n (line 69)TEKNİK HATA: SAAT BİLGİSİ ALINAMADI")
+        # return
 @client.event
 async def on_member_remove(member):
     verifych = client.get_channel(764880248336154664)
@@ -142,6 +203,19 @@ async def on_member_remove(member):
     if writejoinquitlog == [1]:
         await joinlog.send(f"{ment} geberdi\n ID: {mid}\ntimestamp: {nou}")
         await verifyclone.send(f"{ment} çıktı. \n ID: {mid}\ntimestamp: {nou}")
+# @client.event
+# async def on_raw_reaction_add(reaction, user):
+    # print("yup")
+    # if any(emoji in reaction.emoji() for emoji in bannedemojis):
+        # ment=user.mention
+        # await reaction.clear()
+        # await reaction.message.channel.send(f"ananı allahını sikerim senin orospu evladı siktir git {ment}", delete_after=15)
+        # await asyncio.sleep(6)
+        # await user.ban(reason="banned emoji reacted, pcislockedbot", delete_message_days=0)
+        # await reaction.message.channel.send(f"{ment} = banlandı 🕋\n\nsaçma sapan emojiler atmayın.")
+        # i hate dumb niggers
+# loserdm = await message.author.create_dm()
+# await loserdm.send("pcislocked sunucusunda susturuldunuz. <:LULW:726449491120619571>\nhttps://cdn.discordapp.com/attachments/742459973556240386/798290836197736488/VID-20201216-WA0057-1-1.mp4")
 @client.event
 async def on_message(message):
     if message.guild is None:
@@ -151,14 +225,14 @@ async def on_message(message):
         cont = message.clean_content
         mid = message.author.id
         nou = datetime.now()
-        if message.attachments:
+        if message.attachments: # if message has an attachment(s)
             atchm1 = message.attachments[0]
             url1 = atchm1.url
             if message.author == client.user:
                 await inbox.send(f"BOT MESSAGE BELOW\n{name}#{disc}: {cont}\nID: {mid} - timestamp: {nou}\nattachment(s):{url1}")
             if not message.author == client.user:
                 await inbox.send(f"{name}#{disc}: {cont}\nID: {mid} - timestamp: {nou}\nattachment(s):{url1}")
-        if not message.attachments: 
+        if not message.attachments: # if message doesnt have an attachment(s)
             if message.author == client.user:
                 await inbox.send(f"BOT MESSAGE BELOW\n{name}#{disc}: {cont}\nID: {mid} - timestamp: {nou}")
             if not message.author == client.user:
@@ -529,6 +603,8 @@ async def on_message(message):
         if any(word in message.content.lower() for word in warnwords):
             await message.channel.send("https://cdn.discordapp.com/attachments/742459973556240386/812816763565506591/VID-20201216-WA0057-1-1.mp4")
         if any(word in message.content.lower() for word in mutewords):
+            # loserdm = await message.author.create_dm()
+            # await loserdm.send("pcislocked sunucusunda susturuldunuz. <:LULW:726449491120619571>\nhttps://cdn.discordapp.com/attachments/742459973556240386/812816548590256148/video0.mp4")
             await message.channel.send("https://cdn.discordapp.com/attachments/742459973556240386/812816548590256148/video0.mp4")
             await asyncio.sleep(2)
             guildd = client.get_guild(617801724345843742)
@@ -548,5 +624,12 @@ async def on_message(message):
             mutedrol = discord.utils.get(guildd.roles, id=748280170829316207)
             await mapushane.set_permissions(target=mutedrol, read_messages=True,
                                                              send_messages=True)
+        # if message.content.lower() == 'mutefix':
+            # guildd = client.get_guild(617801724345843742)
+            # mapushane = client.get_channel(744962050777940068)
+            # mutedrol = discord.utils.get(guildd.roles, id=748280170829316207)
+            # await mapushane.set_permissions(target=mutedrol, read_messages=True,
+                                                             # send_messages=True)
+            # await message.channel.send("tamamdır\ndipnot: mutefix çekmenize artık gerek yok, otomatik override olayını hallettim.")
 client.loop.create_task(fetch())
 client.run(TOKEN)
