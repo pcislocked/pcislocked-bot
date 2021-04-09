@@ -27,7 +27,7 @@ startTime = datetime.now()
 activeraid = pickle.load(open("activeraid.pk1", "rb"))
 welcomemessage = pickle.load(open("welcomemessage.pk1", "rb"))
 writejoinquitlog = pickle.load(open("writejoinquitlog.pk1", "rb"))
-ver = int(291)
+ver = int(302)
 guildd = client.get_guild(617801724345843742)
 warnwords = ["!warn", "?warn"]
 mutewords = ["!mute", "?mute"]
@@ -35,15 +35,16 @@ xdzawrd = [":xdza:", "<:xdza:767704490555473920>"]
 bannedemojis = ["🤡"]
 tumharfler = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 # "😄"
-#invite tracker translated and implemented for usage, last updated 18/3/2021
+#invite tracker translated and implemented for usage, last updated 9/4/2021 v1.1 d15022a
 #repo: https://github.com/GregTCLTK/Discord-Invite-Tracker/blob/master/bot.py
 invites = {}
-last = "0"
+last = ""
+
 async def fetch():
     global last
     global invites
     await client.wait_until_ready()
-    gld = client.get_guild(int(617801724345843742))
+    gld = client.get_guild(617801724345843742)
     logs = client.get_channel(780207454846844928)
     while True:
         invs = await gld.invites()
@@ -52,29 +53,19 @@ async def fetch():
             for s in invites:
                 if s[0] == i.code:
                     if int(i.uses) > s[1]:
-                        user = gld.get_member(int(last))
-                        embe = discord.Embed(description="Sunucuya katıldı", color=0x03d692, title=" ")
-                        embe.set_author(name=user.name + "#" + user.discriminator, icon_url=user.avatar_url)
-                        embe.set_footer(text="ID: " + str(user.id))
-                        embe.timestamp = user.joined_at
-                        embe.add_field(name="Kullanılan davet",
-                                      value="Daveti açan: " + i.inviter.mention + " (`" + i.inviter.name + "#" + i.inviter.discriminator + "` | `" + str(i.inviter.id) + "`)\nDavet kodu: `" + i.code + "`\nKullanımlar: `" + str(
+                        usr = gld.get_member(int(last))
+                        eme = discord.Embed(description="nerden girdi bu", color=0x03d692, title=" ")
+                        eme.set_author(name=usr.name + "#" + usr.discriminator, icon_url=usr.avatar_url)
+                        eme.set_footer(text="ID: " + str(usr.id))
+                        eme.timestamp = usr.joined_at
+                        eme.add_field(name="bak burdan girmiş",
+                                      value="davet eden: " + i.inviter.mention + " (`" + i.inviter.name + "#" + i.inviter.discriminator + "` | `" + str(i.inviter.id) + "`)\ninvite: `" + i.code + "`\nkullanımlar: `" + str(
                                           i.uses) + "`", inline=False)
-                        await logs.send(embed=embe)
+                        await logs.send(embed=eme)
             tmp.append(tuple((i.code, i.uses)))
         invites = tmp
         await asyncio.sleep(4)
-                        # await logs.send(embed=eme)
-                        # giren = usr.mention
-                        # girid = usr.id
-                        # sokan = i.inviter.mention
-                        # sokid = i.inviter.id
-                        # icode = i.code
-                        # kulln = i.uses
-                        # await logs.send(f"**INVITE TAKİBİ**\n{giren}(ID: {girid})")
-                        # await logs.send(f"sunucuya {sokan}(ID: {sokid}) kişisinin {icode} invite'ı ile girdi.")
-                        # await logs.send(f"Şu ana kadar kullanım: {kulln}")
-            # tmp.append(tuple((i.code, i.uses)))
+
 @client.event
 async def on_ready():
     activity = discord.Game(name="dm = not defteri lmao")
@@ -84,10 +75,10 @@ async def on_ready():
     for guild in client.guilds:
         if guild.name == GUILD:
             break
-    print(
-        f'{client.user} is connected to the following guild:\n'
-        f'{guild.name}(id: {guild.id})'
-    )
+    # print(
+        # f'{client.user} is connected to the following guild:\n'
+        # f'{guild.name}(id: {guild.id})'
+    # )
     general = client.get_channel(792561973292302356)
     url = 'http://ipinfo.io/json'
     response = urlopen(url)
@@ -101,9 +92,10 @@ async def on_ready():
     #await general.send(f"Bot yeniden başlatıldı. Sunucu lokasyonu: {city}") 
     verifych = client.get_channel(764880248336154664)
     modloungelog = client.get_channel(795054947695067146)
-    IPx="SİLDİM - ev IP'm"
+    # IPx="SİLDİM - ev IP'm"
     await modloungelog.send(f"Bot yeniden başlatıldı.\nIP: {IP}\norg: {org}\ncity: {city}\ncountry: {country}\nregion: {region}\n\nYüklenen değerler:\nactiveraid:{activeraid}\nwelcomemessage:{welcomemessage}\nwritejoinquitlog:{writejoinquitlog}\n\n*(1=true, 0=false, welcome message için: 0, kapalı; 1, tek mesaj; 2, tam mesaj)*")
     print(f"Bot yeniden başlatıldı.\nIP: {IP}\norg: {org}\ncity: {city}\ncountry: {country}\nregion: {region}\n\nYüklenen değerler:\nactiveraid:{activeraid}\nwelcomemessage:{welcomemessage}\nwritejoinquitlog:{writejoinquitlog}\n\n*(1=true, 0=false, welcome message için: 0, kapalı; 1, tek mesaj; 2, tam mesaj)*")
+
 @client.event
 async def on_member_join(member):
     guildd = client.get_guild(617801724345843742)
@@ -133,19 +125,19 @@ async def on_member_join(member):
     last = str(member.id)
     # invite tracker code end
     if welcomemessage == [2]:
-        await verifych.send(f"hoşgeldin dostum {ment}", delete_after=10800)
+        await verifych.send(f"hoşgeldin dostum {ment}", delete_after=1800)
         await asyncio.sleep(2)
-        await verifych.send("sen şimdi kurallara murallara falan bak eğer sana uyuyorsa tamam de burda, sonra robot olmayan birileri seninle ilgilensinler.", delete_after=10800)
+        await verifych.send("sen şimdi kurallara murallara falan bak eğer sana uyuyorsa tamam de burda, sonra robot olmayan birileri seninle ilgilensinler.", delete_after=1800)
         await asyncio.sleep(2)
-        await verifych.send(f"içerde de adam gibi davran.", delete_after=10800)
+        await verifych.send(f"içerde de adam gibi davran.", delete_after=1800)
         await asyncio.sleep(2)
-        await verifych.send("eğer mesaj yazamıyosan telefon doğrulaması yap", delete_after=10800)
+        await verifych.send("eğer mesaj yazamıyosan telefon doğrulaması yap", delete_after=1800)
         await asyncio.sleep(2)
-        await verifych.send("sese senden istenmediği sürece girmene gerek yok, kuralları kabul ettiğini söyleyip beklemen yeterli.", delete_after=10800)
+        await verifych.send("sese senden istenmediği sürece girmene gerek yok, kuralları kabul ettiğini söyleyip beklemen yeterli.", delete_after=1800)
         await asyncio.sleep(2)
-        await verifych.send("admin tagleyebilirsin ama spam yapma sonra vah ben niye ban yedim diye de ağlama", delete_after=10800)
+        await verifych.send("admin tagleyebilirsin ama spam yapma sonra vah ben niye ban yedim diye de ağlama", delete_after=1800)
     if welcomemessage == [1]:
-        await verifych.send(f"hoşgeldin dostum {ment}, sen kuralları incele, ardından buraya yaz bişeyler, moderatörler hesabını inceleyip uygun görürlerse seni alacaklar.", delete_after=1800)
+        await verifych.send(f"hoşgeldin dostum {ment}, sen kuralları incele, ardından buraya yaz bişeyler, moderatörler hesabını inceleyip uygun görürlerse seni alacaklar.", delete_after=900)
     # print(noc)
     # tr saatiyle 03:00-09:00 kapalı
     # utc 6dan küçükse kapalı diğer türlü açık
@@ -253,6 +245,7 @@ async def on_message(message):
         modlog = client.get_channel(743049583457861683)
         general = client.get_channel(792561973292302356)
         xdzalog = client.get_channel(812338508936773642)
+        
         if message.channel == client.get_channel(764880248336154664) and activeraid == [0]: # verify
             disc = message.author.discriminator
             name = message.author.name
@@ -261,8 +254,10 @@ async def on_message(message):
             nou = datetime.now()
             logch = client.get_channel(780207454846844928)
             await logch.send(f"{name}#{disc}: {cont}\nID: {mid} - timestamp: {nou}")
+        
         if message.author == client.user:
             return
+        
         if message.content.lower() == '!raid' and message.channel == modlounge:
             await modlounge.send("raid lockdown running now")
             activeraid = 1
@@ -270,7 +265,7 @@ async def on_message(message):
             welcomech = client.get_channel(629749203261980712)
             rulespublicch = client.get_channel(739264333858472017)
             verifych = client.get_channel(764880248336154664)
-            verifyvoice = client.get_channel(709827236504666244)
+            # verifyvoice = client.get_channel(709827236504666244)
             evr = discord.utils.get(guildd.roles, id=617801724345843742)
             general = client.get_channel(792561973292302356)
             await welcomech.set_permissions(target=evr, view_channel=False,
@@ -279,15 +274,16 @@ async def on_message(message):
                                                        send_messages=False)
             await verifych.set_permissions(target=evr, view_channel=False,
                                                        send_messages=False)
-            await verifyvoice.set_permissions(target=evr, view_channel=False,
-                                                       connect=False,
-                                                       speak=False)
+            # await verifyvoice.set_permissions(target=evr, view_channel=False,
+                                                       # connect=False,
+                                                       # speak=False)
             await modlounge.send("!raid OK - kanallar kapatıldı.")
             announce = client.get_channel(733313674344661052)
             activeraid = 1
             pickle.dump([activeraid], open("activeraid.pk1", "wb"))
-            await announce.send(f"DİKKAT: Sunucu raid(baskın) altında olduğu için sunucuya bütün girişler otomatik olarak kapatılmıştır. join log'u susturmak isteyebilirsiniz.")
-            await general.send(f"DİKKAT: Sunucu raid(baskın) altında olduğu için sunucuya bütün girişler otomatik olarak kapatılmıştır. join log'u susturmak isteyebilirsiniz.")
+            await announce.send(f"DİKKAT: Sunucu baskın altında olduğu için sunucuya bütün girişler otomatik olarak kapatılmıştır. join log'u susturmak isteyebilirsiniz.")
+            await general.send(f"DİKKAT: Sunucu baskın altında olduğu için sunucuya bütün girişler otomatik olarak kapatılmıştır. join log'u susturmak isteyebilirsiniz.")
+        
         if message.content.lower() == '!togglejq' and message.channel == modlounge:
             if writejoinquitlog == [0]:
                 writejoinquitlog = 1
@@ -298,6 +294,7 @@ async def on_message(message):
                 await modlounge.send(f"Botu aşırı yüklememek için artık join-quit log **atılmayacak.**")
                 pickle.dump([writejoinquitlog], open("writejoinquitlog.pk1", "wb"))
             print(f"jq toggled, now it's {writejoinquitlog}")
+        
         if message.content.lower() == '!resetall' and message.channel == modlounge:
             welcomemessage = 2
             writejoinquitlog = 1
@@ -306,6 +303,7 @@ async def on_message(message):
             pickle.dump([welcomemessage], open("welcomemessage.pk1", "wb"))
             pickle.dump([writejoinquitlog], open("writejoinquitlog.pk1", "wb"))
             pickle.dump([activeraid], open("activeraid.pk1", "wb"))
+        
         if message.content.lower() == '!togglewelcome' and message.channel == modlounge:
             if welcomemessage == [2]:
                 welcomemessage = 1
@@ -325,6 +323,7 @@ async def on_message(message):
             else:
                 await modlounge.send("i hate niggers. and i hate you too.")
             print(f"welcome messages toggled, now it's {welcomemessage}")
+        
         if message.content.lower() == '!kill' and message.channel == modlounge:
             await modlounge.send(f"change da world\nmy final message. Goodb ye \nNot: bot kısa süre içinde heroku tarafından yeniden başlatılacak.")
             modloungelog = client.get_channel(795054947695067146)
@@ -334,15 +333,17 @@ async def on_message(message):
             await client.change_presence(status=discord.Status.invisible, activity=activity)
             print(f"{ment} botu !kill ile kapattı.")
             quit()
+        
         if message.content.lower() == '!values' and message.channel == modlounge:
             await modlounge.send(f"Şu anda aktif olan değerler:\nactiveraid:{activeraid}\nwelcomemessage:{welcomemessage}\nwritejoinquitlog:{writejoinquitlog}\n\n*(1=true, 0=false, welcome message için: 0, kapalı; 1, tek mesaj; 2, tam mesaj)*")
+        
         if message.content.lower() == '!unraid' and message.channel == modlounge:
             await modlounge.send("reverting...")
             guildd = client.get_guild(617801724345843742)
             welcomech = client.get_channel(629749203261980712)
             rulespublicch = client.get_channel(739264333858472017)
             verifych = client.get_channel(764880248336154664)
-            verifyvoice = client.get_channel(709827236504666244)
+            # verifyvoice = client.get_channel(709827236504666244)
             announce = client.get_channel(733313674344661052)
             evr = discord.utils.get(guildd.roles, id=617801724345843742)
             general = client.get_channel(792561973292302356)
@@ -352,30 +353,26 @@ async def on_message(message):
                                                        send_messages=False)
             await verifych.set_permissions(target=evr, view_channel=True,
                                                        send_messages=True)
-            await verifyvoice.set_permissions(target=evr, view_channel=True,
-                                                       connect=True,
-                                                       speak=True)
+            # await verifyvoice.set_permissions(target=evr, view_channel=True,
+                                                       # connect=True,
+                                                       # speak=True)
             await modlounge.send("!unraid OK")
             announce = client.get_channel(733313674344661052)
             activeraid = 0
             pickle.dump([activeraid], open("activeraid.pk1", "wb"))
             await announce.send(f"baskın bitti lol")
             await general.send(f"baskın bitti lol")
+    
+        verifych = client.get_channel(764880248336154664)
         if message.content.lower() == 'sa' and message.channel == verifych:
             guildd = client.get_guild(617801724345843742)
-            viprol = discord.utils.get(guildd.roles, id=744941582960033842)
-            if viprol in message.author.roles:
-                return
-            elif message.author.id != "301051917440909312":
-                return
-            else:
-                ment=message.author.mention
-                member=message.author
-                await message.delete()
-                await message.channel.send(f"madem verifyda sa yazdın siktir git o zaman {ment} \n\n 5 saniye sonra kickleneceksin son sözlerini söyle")
-                await asyncio.sleep(5)
-                await member.kick(reason="verify sa pcislockedbot")
-                await message.channel.send(f"{ment} = atıldı 🕋")
+            ment=message.author.mention
+            member=message.author
+            await message.delete()
+            await message.channel.send(f"madem verifyda sa yazdın siktir git o zaman {ment} \n\n 15 saniye sonra kickleneceksin son sözlerini söyle")
+            await asyncio.sleep(15)
+            await member.kick(reason="verify sa pcislockedbot")
+            await message.channel.send(f"{ment} = atıldı 🕋")
         if message.content.lower() == 'sa':
             n = random.randint(1,8)
             if n == 2:
@@ -516,11 +513,13 @@ async def on_message(message):
                 ment=message.author.mention
                 member=message.author
                 await message.delete()
-        if message.content() == "🤡":
+        if message.content == "🤡":
             guildd = client.get_guild(617801724345843742)
             viprol = discord.utils.get(guildd.roles, id=744941582960033842)
             if viprol in message.author.roles:
+                print("1")
                 await message.reaction.add(":clown:")
+                print("31")
             else:
                 await message.channel.send("https://cdn.discordapp.com/attachments/742459973556240386/812822961475682314/yoder.mp4")
                 await message.channel.send(f"ananı allahını sikerim senin orospu evladı siktir git {ment}", delete_after=15)
@@ -605,28 +604,21 @@ async def on_message(message):
         if any(word in message.content.lower() for word in mutewords):
             # loserdm = await message.author.create_dm()
             # await loserdm.send("pcislocked sunucusunda susturuldunuz. <:LULW:726449491120619571>\nhttps://cdn.discordapp.com/attachments/742459973556240386/812816548590256148/video0.mp4")
-            await message.channel.send("https://cdn.discordapp.com/attachments/742459973556240386/812816548590256148/video0.mp4")
-            await asyncio.sleep(2)
             guildd = client.get_guild(617801724345843742)
-            mapushane = client.get_channel(744962050777940068)
-            mutedrol = discord.utils.get(guildd.roles, id=748280170829316207)
-            await mapushane.set_permissions(target=mutedrol, read_messages=True,
-                                                             send_messages=True)
-            await asyncio.sleep(5)
-            guildd = client.get_guild(617801724345843742)
-            mapushane = client.get_channel(744962050777940068)
-            mutedrol = discord.utils.get(guildd.roles, id=748280170829316207)
-            await mapushane.set_permissions(target=mutedrol, read_messages=True,
-                                                             send_messages=True)
-            await asyncio.sleep(20)
-            guildd = client.get_guild(617801724345843742)
-            mapushane = client.get_channel(744962050777940068)
-            mutedrol = discord.utils.get(guildd.roles, id=748280170829316207)
-            await mapushane.set_permissions(target=mutedrol, read_messages=True,
-                                                             send_messages=True)
+            modrol = discord.utils.get(guildd.roles, id=744936601947209847)
+            if modrol in message.author.roles:
+                await message.channel.send("https://cdn.discordapp.com/attachments/742459973556240386/812816548590256148/video0.mp4")
+                await asyncio.sleep(2)
+                guildd = client.get_guild(617801724345843742)
+                mapushane = client.get_channel(825810757903712306)
+                mutedrol = discord.utils.get(guildd.roles, id=748280170829316207)
+                await mapushane.set_permissions(target=mutedrol, read_messages=True,
+                                                                 send_messages=True)
+            else:
+                await message.channel.send("senin bunu kullanmaya iznin yok.", delete_after=10)
         # if message.content.lower() == 'mutefix':
             # guildd = client.get_guild(617801724345843742)
-            # mapushane = client.get_channel(744962050777940068)
+            # mapushane = client.get_channel(825810757903712306)
             # mutedrol = discord.utils.get(guildd.roles, id=748280170829316207)
             # await mapushane.set_permissions(target=mutedrol, read_messages=True,
                                                              # send_messages=True)
