@@ -27,10 +27,11 @@ startTime = datetime.now()
 activeraid = pickle.load(open("activeraid.pk1", "rb"))
 welcomemessage = pickle.load(open("welcomemessage.pk1", "rb"))
 writejoinquitlog = pickle.load(open("writejoinquitlog.pk1", "rb"))
-ver = int(302)
+ver = int(303)
 guildd = client.get_guild(617801724345843742)
 warnwords = ["!warn", "?warn"]
 mutewords = ["!mute", "?mute"]
+osbirwords = [" 31 ", " 30+1 ", " 20+11 "]
 xdzawrd = [":xdza:", "<:xdza:767704490555473920>"]
 bannedemojis = ["🤡"]
 tumharfler = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
@@ -249,7 +250,7 @@ async def on_message(message):
         if message.channel == client.get_channel(764880248336154664) and activeraid == [0]: # verify
             disc = message.author.discriminator
             name = message.author.name
-            cont = message.content
+            cont = message.clean_content
             mid = message.author.id
             nou = datetime.now()
             logch = client.get_channel(780207454846844928)
@@ -413,7 +414,8 @@ async def on_message(message):
             await message.channel.send("when you ask to god for help but god said https://media.discordapp.net/attachments/629749813440675872/741600181253963826/Screenshot_20200808_131408_com.discord.jpg")
         if message.content.lower() == 'kurt' or message.content.lower() == 'kürt' or message.content.lower() == 'Kurt' or message.content.lower() == 'Kürt' or message.content.lower() == 'kurd' or message.content.lower() == 'kürd' or message.content.lower() == 'Kurd' or message.content.lower() == 'Kürd':
             await message.channel.send("https://www.youtube.com/watch?v=5xyb8uC92pI&t=56")
-        if message.content.lower() == '31'or message.content.lower() == '30+1' or message.content.lower() == '20+11':
+#        if message.content.lower() == '31'or message.content.lower() == '30+1' or message.content.lower() == '20+11   
+        if any(word in message.content.lower() for word in osbirwords):
             n = random.randint(8,24)
             def rndmz(length):
                 letters = 'ASDASDASDASDASDASDasdasdasdasdasdasdqweqweqweqweqwqweQWEQWEQWEQWEQWEQWEASDASDASDASDASDASDasdasdasdasdasdasdqweqweqweqweqwqweQWEQWEQWEQWEQWEQWEASDASDASDASDASDASDasdasdasdasdasdasdqweqweqweqweqwqweQWEQWEQWEQWEQWEQWE:::::::::::::::::qwerwtyuüıopğüşlkjhgfdsaxzcvbnmöç.1432567890PREWTYUIOPĞÜŞLAFDGHKXMC'
@@ -521,10 +523,14 @@ async def on_message(message):
                 await message.reaction.add(":clown:")
                 print("31")
             else:
-                await message.channel.send("https://cdn.discordapp.com/attachments/742459973556240386/812822961475682314/yoder.mp4")
-                await message.channel.send(f"ananı allahını sikerim senin orospu evladı siktir git {ment}", delete_after=15)
-                await asyncio.sleep(10)
-                await member.ban(reason="banned emoji pcislockedbot", delete_message_days=0)
+                await message.channel.send("https://cdn.discordapp.com/attachments/742459973556240386/838487203196698654/banlandiniz.mp4")
+                await message.channel.send(f"ananı allahını sikerim senin orospu evladı siktir git {ment}")
+                await asyncio.sleep(5)
+                await message.channel.send("son sözlerini söyle")
+                await asyncio.sleep(15)
+                loserdm = await message.author.create_dm()
+                await loserdm.send("pcislocked sunucusundan banlandınız. <:LULW:726449491120619571>\nSebep: banned emoji(clown), pcislockedbot\nitiraz: sa@pcislocked.net")
+                await member.ban(reason="banned emoji(clown), pcislockedbot", delete_message_days=0)
                 await message.channel.send(f"{ment} = banlandı 🕋\n\nsaçma sapan emojiler atmayın.")
         if message.content.lower() == 'göte bak kocaman' or message.content.lower() == 'gote bak kocaman':
             n = random.randint(1,8)
@@ -600,14 +606,25 @@ async def on_message(message):
         if message.content.lower() == 'lgbt':
             await message.channel.send("https://cdn.discordapp.com/attachments/742459973556240386/819350511672360960/image0-13.gif")
         if any(word in message.content.lower() for word in warnwords):
-            await message.channel.send("https://cdn.discordapp.com/attachments/742459973556240386/812816763565506591/VID-20201216-WA0057-1-1.mp4")
+            guildd = client.get_guild(617801724345843742)
+            modrol = discord.utils.get(guildd.roles, id=744936601947209847)
+            if modrol in message.author.roles:
+                await message.channel.send("https://cdn.discordapp.com/attachments/742459973556240386/812816763565506591/VID-20201216-WA0057-1-1.mp4")
+            else:
+                await message.delete()
+                ment = message.author.mention
+                await message.channel.send(f"{ment} senin bunu kullanmaya iznin yok ibnetor.", delete_after=10)
         if any(word in message.content.lower() for word in mutewords):
             # loserdm = await message.author.create_dm()
             # await loserdm.send("pcislocked sunucusunda susturuldunuz. <:LULW:726449491120619571>\nhttps://cdn.discordapp.com/attachments/742459973556240386/812816548590256148/video0.mp4")
             guildd = client.get_guild(617801724345843742)
             modrol = discord.utils.get(guildd.roles, id=744936601947209847)
             if modrol in message.author.roles:
-                await message.channel.send("https://cdn.discordapp.com/attachments/742459973556240386/812816548590256148/video0.mp4")
+                n = random.randint(1,2)
+                if n == 1:
+                    await message.channel.send("https://cdn.discordapp.com/attachments/742459973556240386/812816548590256148/video0.mp4")
+                if n == 2:
+                    await message.channel.send("https://cdn.discordapp.com/attachments/742459973556240386/838489419258134538/0e5jPPnm4V8.mp4.mp4.mp4")
                 await asyncio.sleep(2)
                 guildd = client.get_guild(617801724345843742)
                 mapushane = client.get_channel(825810757903712306)
@@ -615,7 +632,11 @@ async def on_message(message):
                 await mapushane.set_permissions(target=mutedrol, read_messages=True,
                                                                  send_messages=True)
             else:
-                await message.channel.send("senin bunu kullanmaya iznin yok.", delete_after=10)
+                await message.delete()
+                ment = message.author.mention
+                await message.channel.send(f"{ment} senin bunu kullanmaya iznin yok ibnetor. ama permleri fixledim sağol", delete_after=10)
+                await mapushane.set_permissions(target=mutedrol, read_messages=True,
+                                                                 send_messages=True)
         # if message.content.lower() == 'mutefix':
             # guildd = client.get_guild(617801724345843742)
             # mapushane = client.get_channel(825810757903712306)
